@@ -26,7 +26,12 @@ exports.getHealthProfessionalById = async (req, res, next) => {
 // Créer un professionnel de santé
 exports.createHealthProfessional = async (req, res, next) => {
   try {
-    const healthProfessional = await HealthProfessional.create(req.body)
+    // Vérifiez si l'utilisateur existe déjà
+    const existingHealthProfessional = await HealthProfessional.findOne({ where: { email: req.body.email } });
+    if (existingHealthProfessional) {
+      return res.status(400).json({ error: 'Une erreur est survenue.' });
+    }
+    const healthProfessional = await HealthProfessional.create(req.body) 
     res.status(201).json(healthProfessional)
   } catch (error) {
     res.status(500).json({ error: error.message })
