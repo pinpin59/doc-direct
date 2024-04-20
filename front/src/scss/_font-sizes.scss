@@ -1,0 +1,20 @@
+// Utilisation des variables pour définir les tailles de police
+.text-small {
+    font-size: $font-size-small;
+}
+
+.text-base {
+    font-size: $font-size-base;
+}
+
+.text-medium {
+    font-size: $font-size-medium;
+}
+
+.text-large {
+    font-size: $font-size-large;
+}
+
+.text-xlarge {
+    font-size: $font-size-xlarge;
+}
