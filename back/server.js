@@ -20,7 +20,7 @@ const startServer = port => {
             )
             startServer(parseInt(port) + 1)
           } else {
-            console.error(err)
+            console.error(err) 
             process.exit(1)
           }
         })

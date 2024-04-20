@@ -21,11 +21,11 @@ const HealthProfessional = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false
     },
-    lastName: {
+    lastname: {
       type: DataTypes.STRING,
       field: 'lastname'
     },
-    firstName: {
+    firstname: {
       type: DataTypes.STRING,
       field: 'firstname'
     },
@@ -34,6 +34,10 @@ const HealthProfessional = sequelize.define(
       allowNull: false
     },
     adress:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    profession: {
       type: DataTypes.STRING,
       allowNull: false
     },

@@ -6,11 +6,12 @@ const HealthProfessional = require('../models/healthProfessionalModel')
 exports.loginUser = async (req, res) => {
     const { email, password } = req.body
     const user = await User.findOne({ where: { email } })
+    console.log(user);
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const SECRET_KEY = process.env.JWT_SECRET
       const token = jwt.sign(
-        { id: user.id, email: user.email, bakeryName: user.bakeryName },
+        { id: user.id, email: user.email, lastname: user.lastname, firstname: user.firstname, city: user.city, adress: user.adress},
         SECRET_KEY,
         { expiresIn: '24h' }
       )
@@ -29,13 +30,13 @@ exports.registerUser = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ error: 'Une erreur est survenue.' });
     }
-    
+
     const hashedPassword = await bcrypt.hash(password, 10)
     const user = await User.create({
       email,
       password: hashedPassword,
-      lastName : lastname,
-      firstName : firstname,
+      lastname : lastname,
+      firstname : firstname,
       city,
       adress
     })
@@ -49,7 +50,7 @@ exports.loginHealthProfessional = async (req, res) => {
     if (healthProfessional && (await bcrypt.compare(password, healthProfessional.password))) {
       const SECRET_KEY = process.env.JWT_SECRET
       const token = jwt.sign(
-        { id: healthProfessional.id, email: healthProfessional.email, lastName: healthProfessional.lastName, firstName: healthProfessional.firstName, city: healthProfessional.city, adress: healthProfessional.adress, status: healthProfessional.status },
+        { id: healthProfessional.id, email: healthProfessional.email, lastname: healthProfessional.lastName, firstname: healthProfessional.firstName, city: healthProfessional.city, adress: healthProfessional.adress,profession :healthProfessional.profession, status: healthProfessional.status },
         SECRET_KEY,
         { expiresIn: '24h' }
       )
@@ -62,7 +63,7 @@ exports.loginHealthProfessional = async (req, res) => {
 }
 
 exports.registerHealthProfessional = async (req, res) => {
-    const { email, password, lastname, firstname, city, adress, status } = req.body
+    const { email, password, lastname, firstname, city, adress,profession, status } = req.body
     // Vérifiez si l'utilisateur existe déjà
     const existingHealthProfessional = await HealthProfessional.findOne({ where: { email: email } });
 
@@ -74,9 +75,10 @@ exports.registerHealthProfessional = async (req, res) => {
     const healthProfessional = await HealthProfessional.create({
       email,
       password: hashedPassword,
-      lastName : lastname,
-      firstName : firstname,
+      lastname : lastname,
+      firstname : firstname,
       city,
+      profession,
       adress,
       status
     })

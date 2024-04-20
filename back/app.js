@@ -10,6 +10,7 @@ const app = express()
 const authRoutes = require('./routes/authRoutes')
 const healthProfessionalsRoutes = require('./routes/healthProfessionalRoutes')
 const usersRoutes = require('./routes/userRoutes')
+const appointmentRoutes = require('./routes/appointmentRoutes')
 
 // Middlewares
 app.use(bodyParser.json())
@@ -21,6 +22,7 @@ app.use(helmet())
 app.use('/api', authRoutes)
 app.use('/api/users', usersRoutes)
 app.use('/api/health-professionals', healthProfessionalsRoutes)
+app.use('/api/appointments', appointmentRoutes)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 module.exports = app 
