@@ -5,7 +5,8 @@ const usersData = [
       lastname : 'Doe',
       firstname : 'Bob',
       city: 'Lille',
-      adress : '12 rue de la paix',      
+      adress : '12 rue de la paix',
+      role : 'ROLE_ADMIN'
     },
     {
       email: 'kevin@docdirect.com',
@@ -14,6 +15,7 @@ const usersData = [
       firstname : 'Kevin',
       city: 'Lyon',
       adress : '12 rue de la paix',
+      role : 'ROLE_USER'
     },
   ]
   
