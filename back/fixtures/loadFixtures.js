@@ -18,7 +18,8 @@ async function loadUsers () {
       lastname: user.lastname,
       firstname: user.firstname,
       city: user.city,
-      adress: user.adress
+      adress: user.adress,
+      role: user.role
     })
   }
 }

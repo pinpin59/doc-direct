@@ -1,16 +1,18 @@
 const express = require('express')
 const router = express.Router()
 const appointmentController = require('../controllers/appointmentController')
+const auth = require('../middlewares/auth')
+const admin = require('../middlewares/admin')
 
-router.get('/', appointmentController.getAllAppointments)
-router.get('/:id', appointmentController.getAppointmentById)
-router.post('/', appointmentController.createAppointment)
-router.put('/:id', appointmentController.updateAppointmentById)
-router.delete('/:id', appointmentController.deleteAppointmentById)
-router.get('/user/:userId', appointmentController.getAllAppointmentByUserId)
-router.get('/health-professional/:healthProfessionalId', appointmentController.getAllAppointmentByHealthProfessionalId)
-router.get('/health-professional-count/:healthProfessionalId', appointmentController.getAllAppointmentCountByHealthProfessionalId)
-router.get('/user-count/:userId', appointmentController.getAllAppointmentCountByUserId)
+router.get('/', auth, admin, appointmentController.getAllAppointments)
+router.get('/:id', auth, appointmentController.getAppointmentById)
+router.post('/',auth, appointmentController.createAppointment)
+router.put('/:id',auth, appointmentController.updateAppointmentById)
+router.delete('/:id',auth, appointmentController.deleteAppointmentById)
+router.get('/user/:userId',auth, appointmentController.getAllAppointmentByUserId)
+router.get('/health-professional/:healthProfessionalId',auth, appointmentController.getAllAppointmentByHealthProfessionalId)
+router.get('/health-professional-count/:healthProfessionalId',auth, appointmentController.getAllAppointmentCountByHealthProfessionalId)
+router.get('/user-count/:userId',auth, appointmentController.getAllAppointmentCountByUserId)
 
 
 
