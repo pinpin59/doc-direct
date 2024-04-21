@@ -1,0 +1,40 @@
+$white: #fff;
+$black: #000;
+$gray: #f8f9fa;
+$lightGray: #f1f3f5;
+$darkGray: #343a40;
+$red: #dc3545;
+$blue: #007bff;
+$green: #28a745;
+$yellow: #ffc107;
+$orange: #fd7e14;
+$purple: #6f42c1;
+$teal: #20c997;
+$indigo: #6610f2;
+$primary: $blue;
+$secondary: $gray;
+$success: $green;
+$info: $teal;
+$warning: $yellow;
+$danger: $red;
+$light: $lightGray;
+$dark: $darkGray;
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark
+);
+$margin-values: 0, 0.25rem, 0.5rem, 1rem, 1.5rem, 2rem, 3rem;
+
+
+// Définition des tailles de police en rem
+$font-size-small: 0.875rem; // 14px
+$font-size-base: 1rem; // 16px
+$font-size-medium: 1.125rem; // 18px
+$font-size-large: 1.25rem; // 20px
+$font-size-xlarge: 1.5rem; // 24px
