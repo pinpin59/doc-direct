@@ -1,0 +1,20 @@
+<nav aria-label="Navigation principale">
+    <button id="hamburger-icon" class="btn bg-none" [ngClass]="{iconexpanded: isExpanded}" (click)="toggleNavbar()" [attr.aria-expanded]="isExpanded ? 'true' : 'false'" aria-controls="mobile-menu" role="button" aria-label="Ouvrir le menu">
+        <fa-icon [icon]="faBars" size="1x" class="text-white"></fa-icon>
+    </button>
+
+    <ul id="navbar-content" class="navbar-content">
+        <li><a href="/home" >Accueil</a></li>
+        <li><a href="/home" >navbar-content</a></li>
+        <li><a href="/login">Se connecter</a></li>
+        <li><a href="/signup">Vous êtes praticien ?</a></li>
+    </ul>
+    <ul id="mobile-menu" class="mobile-menu bg-gradient" [ngClass]="{open: isExpanded}">
+        <div class="d-flex justify-content-end w-100 p-2 outline-light-gray">        
+            <button class="btn bg-none" (click)="toggleNavbar()"><fa-icon [icon]="faBars" size="1x" class="text-white" ></fa-icon></button>
+        </div>
+        <li><a href="/home" >Accueil</a></li>
+        <li><a href="/login" >Se connecter</a></li>
+        <li><a href="/signup" >Vous êtes praticien ?</a></li>
+    </ul>
+</nav>

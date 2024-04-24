@@ -1,0 +1,108 @@
+/* Arrière-plan blanc */
+.bg-white {
+    background-color: $white;
+}
+
+/* Arrière-plan noir */
+.bg-black {
+    background-color: $black;
+}
+
+/* Arrière-plan gris */
+.bg-gray {
+    background-color: $gray;
+}
+
+/* Arrière-plan gris clair */
+.bg-light-gray {
+    background-color: $lightGray;
+}
+
+/* Arrière-plan gris foncé */
+.bg-dark-gray {
+    background-color: $darkGray;
+}
+
+/* Arrière-plan rouge */
+.bg-red {
+    background-color: $red;
+}
+
+/* Arrière-plan bleu */
+.bg-blue {
+    background-color: $blue;
+}
+
+/* Arrière-plan vert */
+.bg-green {
+    background-color: $green;
+}
+
+/* Arrière-plan jaune */
+.bg-yellow {
+    background-color: $yellow;
+}
+
+/* Arrière-plan orange */
+.bg-orange {
+    background-color: $orange;
+}
+
+/* Arrière-plan violet */
+.bg-purple {
+    background-color: $purple;
+}
+
+/* Arrière-plan vert d'eau (teal) */
+.bg-teal {
+    background-color: $teal;
+}
+
+/* Arrière-plan indigo */
+.bg-indigo {
+    background-color: $indigo;
+}
+
+/* Arrière-plan bleu primaire */
+.bg-primary {
+    background-color: $primary;
+}
+
+/* Arrière-plan gris secondaire */
+.bg-secondary {
+    background-color: $secondary;
+}
+
+/* Arrière-plan vert succès */
+.bg-success {
+    background-color: $success;
+}
+
+/* Arrière-plan vert d'eau info */
+.bg-info {
+    background-color: $info;
+}
+
+/* Arrière-plan jaune avertissement */
+.bg-warning {
+    background-color: $warning;
+}
+
+/* Arrière-plan rouge danger */
+.bg-danger {
+    background-color: $danger;
+}
+
+/* Arrière-plan gris clair */
+.bg-light {
+    background-color: $light;
+}
+
+/* Arrière-plan gris foncé */
+.bg-dark {
+    background-color: $dark;
+}
+
+.bg-none{
+    background-color: transparent;
+}

@@ -1,21 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'variables';
-@import 'utilities';
 @import 'font-sizes';
+@import 'utilities';
+@import 'forms';
+@import 'buttons';
+@import 'backgrounds';
+@import 'colors';
 
 *, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-size: 1rem;
-  color: $black;
-}
-p {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Arial', sans-serif;
+  font-family: $font-family-primary;
   font-weight: 700;
+}
+
+p,li, a {
+  font-family: $font-family-secondary;
+  font-size: 1rem;
 }
