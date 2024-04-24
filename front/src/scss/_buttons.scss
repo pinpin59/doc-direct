@@ -1,0 +1,99 @@
+.btn{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s;
+    &:hover{
+        opacity: 0.8;
+    }
+}
+
+
+/* Classes de boutons de couleur */
+.btn-white {
+    background-color: $white;
+}
+
+.btn-black {
+    background-color: $black;
+}
+
+.btn-gray {
+    background-color: $gray;
+}
+
+.btn-light-gray {
+    background-color: $lightGray;
+}
+
+.btn-dark-gray {
+    background-color: $darkGray;
+}
+
+.btn-red {
+    background-color: $red;
+}
+
+.btn-blue {
+    background-color: $blue;
+}
+
+.btn-green {
+    background-color: $green;
+}
+
+.btn-yellow {
+    background-color: $yellow;
+}
+
+.btn-orange {
+    background-color: $orange;
+}
+
+.btn-purple {
+    background-color: $purple;
+}
+
+.btn-teal {
+    background-color: $teal;
+}
+
+.btn-indigo {
+    background-color: $indigo;
+}
+
+/* Classes de boutons de type */
+.btn-primary {
+    background-color: $primary;
+}
+
+.btn-secondary {
+    background-color: $secondary;
+}
+
+.btn-success {
+    background-color: $success;
+}
+
+.btn-info {
+    background-color: $info;
+}
+
+.btn-warning {
+    background-color: $warning;
+}
+
+.btn-danger {
+    background-color: $danger;
+}
+
+.btn-light {
+    background-color: $light;
+    color: $dark;
+}
+
+.btn-dark {
+    background-color: $dark;
+}

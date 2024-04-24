@@ -1,5 +1,5 @@
 .bg-gradient{
-    background: linear-gradient(90deg, rgba(78,203,177,1) 0%, rgba(0,212,255,1) 100%);
+    background: #3986e4;
 }
 
 .d-flex{
@@ -12,6 +12,18 @@
 
 .justify-content-center{
     justify-content: center;
+}
+
+.justify-content-between{
+    justify-content: space-between;
+}
+
+.justify-content-start{
+    justify-content: flex-start;
+}
+
+.justify-content-end{
+    justify-content: flex-end;
 }
 
 .flex-column{
@@ -31,9 +43,6 @@
     margin-top: auto;
 }
 
-.w-100{
-    width: 100%;
-}
 
 .h-100{
     height: 100%;
@@ -67,7 +76,24 @@
     text-transform: capitalize;
 }
 
+.text-decoration-none{
+    text-decoration: none;
+}
 
+.outline-light-gray{
+    outline: 1px solid $lightGray;
+}
+
+.border-bottom-ligh-gray{
+    border-bottom: 1px solid $lightGray;
+}
+
+// Boucle pour créer les classes de largeur
+@each $width in $width-steps {
+    .w-#{$width}{
+        width: #{$width} + '%';
+    }
+}
 @for $i from 0 through length($margin-values) - 1 {
     $margin-value: nth($margin-values, $i + 1);
 
@@ -79,11 +105,11 @@
         margin-top: $margin-value;
     }
 
-    .ml-#{$i} {
+    .ms-#{$i} {
         margin-left: $margin-value;
     }
 
-    .mr-#{$i} {
+    .me-#{$i} {
         margin-right: $margin-value;
     }
 }
@@ -103,11 +129,21 @@
         padding-top: $margin-value;
     }
 
-    .pl-#{$i} {
+    .ps-#{$i} {
         padding-left: $margin-value;
     }
 
-    .pr-#{$i} {
+    .pe-#{$i} {
         padding-right: $margin-value;
+    }
+
+    .px-#{$i} {
+        padding-left: $margin-value;
+        padding-right: $margin-value;
+    }
+
+    .py-#{$i} {
+        padding-top: $margin-value;
+        padding-bottom: $margin-value;
     }
 }
