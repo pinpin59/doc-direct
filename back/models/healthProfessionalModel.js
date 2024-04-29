@@ -19,15 +19,17 @@ const HealthProfessional = sequelize.define(
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false 
     },
     lastname: {
       type: DataTypes.STRING,
-      field: 'lastname'
+      field: 'lastname',
+      allowNull: false
     },
     firstname: {
       type: DataTypes.STRING,
-      field: 'firstname'
+      field: 'firstname',
+      allowNull: false
     },
     city: {
       type: DataTypes.STRING,
