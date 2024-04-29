@@ -23,10 +23,12 @@ const User = sequelize.define(
     },
     lastname: {
       type: DataTypes.STRING,
+      allowNull: false,
       field: 'lastname'
     },
     firstname: {
       type: DataTypes.STRING,
+      allowNull: false,
       field: 'firstname'
     },
     city: {
