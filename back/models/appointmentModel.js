@@ -22,7 +22,7 @@ const Appointment = sequelize.define(
       allowNull: false
     },
     appointmentDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       field: 'appointment_date',
       allowNull: false
     },

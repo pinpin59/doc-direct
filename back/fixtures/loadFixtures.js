@@ -4,10 +4,12 @@ const { sequelize } = require('../services/connectDb')
 const HealthProfessional = require('../models/healthProfessionalModel')
 const User = require('../models/userModel')
 const Appointment = require('../models/appointmentModel')
+const Avaibility = require('../models/availabilityModel')
 // Data
 const healthProfessionalsData = require('./data/healthProfessionalsData')
 const usersData = require('./data/usersData')
 const appointmentsData = require('./data/appointmentsData')
+const avaibilityData = require('./data/availabilityData')
 
 async function loadUsers () {
   for (const user of usersData) {
@@ -55,12 +57,27 @@ async function loadAppointments () {
   }
 }
 
+async function loadAvaibilities(){
+  for(const avaibility of avaibilityData){
+    await Avaibility.create({
+      
+      day: avaibility.day,
+      startTime: avaibility.startTime,
+      endTime: avaibility.endTime,
+      isAvailable: avaibility.isAvailable,
+      healthProfessionalId: avaibility.healthProfessionalId
+    })
+  }
+
+}
+
 // Charge les fixtures dans la base de données
 async function loadFixtures () {
   try {
     await sequelize.sync({ force: true })
     await loadUsers()
     await loadHealthProfessionals()
+    await loadAvaibilities()
     await loadAppointments()
     console.log('All fixtures loaded successfully')
   } catch (error) {
