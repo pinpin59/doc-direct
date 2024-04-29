@@ -1,0 +1,19 @@
+<div class="search-health-professionals ">
+    <!-- Barre de recherche -->
+    <div class="search-bar" style="height: 100px; background:blue">
+        <input type="search"
+               id="search-input"
+               name="search"
+               placeholder="Rechercher des professionnels de santé..."
+               aria-label="Rechercher des professionnels de santé" />
+    </div>
+
+    <!-- Liste de cartes -->
+        <section class="card-container mt-5" *ngIf="healthProfessionals.length > 0">
+            <ng-container *ngFor="let healthProfessional of healthProfessionals">
+                <app-card-health-professional [healthProfessional]="healthProfessional" style="display: contents;"></app-card-health-professional>
+            </ng-container>
+            
+            
+        </section>
+</div>

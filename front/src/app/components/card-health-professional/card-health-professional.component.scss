@@ -1,0 +1,66 @@
+/* Carte de base */
+.card {
+    margin-top: 2rem;
+    border: 1px solid #ccc; /* Bordure de couleur grise */
+    border-radius: 8px; /* Coins arrondis */
+    width: 90%; /* La carte prend 100% de la largeur de son conteneur */
+    max-width: 700px; /* Largeur maximale de la carte */
+    min-width: 100px; /* Largeur minimale de la carte */
+    overflow: hidden; /* Empêche le contenu de déborder */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre */
+    
+}
+
+/* En-tête de la carte */
+.card-header {
+    background-color: #f5f5f5; /* Couleur de fond */
+    padding: 12px 16px; /* Espacement interne */
+    border-bottom: 1px solid #ccc; /* Bordure inférieure */
+    font-weight: bold; /* Texte en gras */
+}
+
+/* Corps de la carte */
+.card-body {
+    padding: 16px; /* Espacement interne */
+    
+}
+
+.card-body p{
+    margin-bottom: 1rem;
+}
+
+/* Pied de page de la carte */
+.card-footer {
+    background-color: #f5f5f5; /* Couleur de fond */
+    padding: 12px 16px; /* Espacement interne */
+    border-top: 1px solid #ccc; /* Bordure supérieure */
+    display: flex; /* Utilisation de flexbox */
+    justify-content: flex-end; /* Alignement à droite */
+}
+
+/* Titre de la carte */
+.card-title {
+    font-size: 1.25rem; /* Taille de la police */
+    margin: 0; /* Aucun espace autour */
+}
+
+/* Description de la carte */
+.card-description {
+    font-size: 1rem; /* Taille de la police */
+    color: #666; /* Couleur du texte */
+}
+
+/* Bouton dans le pied de page */
+.card-button {
+    padding: 8px 16px; /* Espacement interne */
+    background-color: #007bff; /* Couleur de fond (bleu) */
+    color: white; /* Couleur du texte */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Coins arrondis */
+    cursor: pointer; /* Curseur en forme de main */
+}
+
+/* Effet de survol du bouton */
+.card-button:hover {
+    background-color: #0056b3; /* Couleur de fond plus foncée */
+}
