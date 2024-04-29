@@ -1,0 +1,33 @@
+<article class="card" [attr.aria-labelledby]="'card-title-' + healthProfessional.id">
+    <header class="card-header">
+        <h2 id="card-title-{{healthProfessional.id}}" class="card-title">
+            {{healthProfessional.lastname}} {{healthProfessional.firstname}}
+        </h2>
+    </header>
+    <div class="card-body">
+        <p><strong>Profession :</strong> {{healthProfessional.profession}}</p>
+        <p><strong>Ville :</strong> {{healthProfessional.city}}</p>
+        <p><strong>Adresse :</strong> {{healthProfessional.adress}}</p>
+        <div class="d-flex">
+        <ng-container *ngFor="let dayWithDate of daysOfWeekWithDates" >
+                <div>
+                    <h3>{{ dayWithDate.day }} {{ dayWithDate.date | date: 'dd/MM' }}</h3>
+                    <table>
+                       
+                        <tbody>
+                            <tr *ngFor="let slot of availabilityByDay[dayWithDate.day]">
+                                <td (click)="test(slot)">{{ slot.startTime }}</td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>            
+        </ng-container>
+        </div>
+
+    </div>
+    <footer class="card-footer">
+        <button class="btn btn-primary">Prendre rendez-vous</button>
+        <!-- Ajoutez des actions ou des liens si nécessaire -->
+    </footer>
+</article>

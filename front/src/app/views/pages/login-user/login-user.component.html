@@ -1,5 +1,5 @@
-<form [formGroup]="formLoginUser" (ngSubmit)="onSubmit()" class="login-form mx-auto" aria-label="Formulaire de connexion" >
-    <fieldset class=" fieldset-form-login">
+<form [formGroup]="formLoginUser" (ngSubmit)="onSubmit()" class="login-form mx-auto p-5" aria-label="Formulaire de connexion" >
+    <fieldset class="fieldset-form-login">
         <legend>Connexion</legend>
 
         <!-- Champ pour l'adresse e-mail -->
@@ -16,8 +16,8 @@
 
         <!-- Bouton de soumission -->
         <div>
-            <button type="submit" class="btn btn-primary mt-4">Se connecter</button>
-            <span class="ms-3"><a href="" class="text-gray">Vous êtes praticien ?</a></span>
+            <app-button color="primary" class="mt-4">Se connecter</app-button>
+            <span class="ms-3"><a [routerLink]="['/login-health-professional']"  class="text-gray">Vous êtes praticien ?</a></span>
         </div>
     </fieldset>
 </form>

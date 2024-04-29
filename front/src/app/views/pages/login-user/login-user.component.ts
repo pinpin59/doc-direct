@@ -3,19 +3,22 @@ import { AuthService } from '../../../../../services/auth/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { first } from 'rxjs';
 import { SessionQuery } from '../../../session/session.query';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { SessionStore } from '../../../session/session.store';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  imports: [ReactiveFormsModule,ButtonComponent, RouterModule],
+  templateUrl: './login-user.component.html',
+  styleUrl: './login-user.component.scss'
 })
-export class LoginComponent implements OnInit {
+export class LoginUserComponent implements OnInit {
 
   formLoginUser :FormGroup;
 
-  constructor(private authService : AuthService, private fb: FormBuilder, private sessionQuery :SessionQuery) {
+  constructor(private authService : AuthService, private fb: FormBuilder, private sessionQuery :SessionQuery, private sessionStore:SessionStore, private router : Router) {
     this.formLoginUser = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -32,6 +35,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  
   async onSubmit() {
     // Vérifiez si le formulaire est valide
     if (this.formLoginUser.valid) {
@@ -42,10 +46,10 @@ export class LoginComponent implements OnInit {
             await this.login(email, password);
 
             // Vérifiez si les informations de l'utilisateur sont présentes dans le store
-            const userInfo = await this.sessionQuery.selectToken().pipe(first()).toPromise();
+            const userInfo = this.authService.isAccessUserTokenValid();
             
             if (userInfo) {
-              console.log('Utilisateur connecté:', userInfo);
+              this.router.navigate(['/home']);
                 // Si les informations de l'utilisateur sont correctes, redirigez vers la nouvelle page
             } else {
                 console.error('Les informations de l\'utilisateur ne sont pas présentes dans le store.');
@@ -58,5 +62,6 @@ export class LoginComponent implements OnInit {
         console.log('Formulaire invalide');
     }
   }
+
 }
  

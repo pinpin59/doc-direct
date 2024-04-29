@@ -1,9 +1,11 @@
 export interface SessionState {
-  token: string | null;
+  userToken: string | null;
+  healthProfessionalToken: string | null;
 }
 
 export function createInitialState(): SessionState {
   return {
-    token: null,
+    userToken: null,
+    healthProfessionalToken: null
   };
 }

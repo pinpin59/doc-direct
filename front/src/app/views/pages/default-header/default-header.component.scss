@@ -79,6 +79,7 @@ ul li:hover {
     }
     .navbar-content{
         display: flex;
+        justify-content: space-between;
     }
     .open{
         display: none;

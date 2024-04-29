@@ -10,8 +10,21 @@ export class SessionQuery extends Query<SessionState> {
     super(store);
   }
 
-  selectToken() {
-    return this.select(state => state.token);
+  selectUserToken() {
+    return this.select(state => state.userToken);
+  }
+
+  selectHealtProfessionalToken() {
+    return this.select(state => state.healthProfessionalToken);
+  }
+
+  selectTokens(){
+    return this.select(state => {
+      return {
+        userToken: state.userToken,
+        healthProfessionalToken: state.healthProfessionalToken
+      }
+    });
   }
 
 }
