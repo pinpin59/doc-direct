@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 
-export class HealthProfessionalService {
+export class AvailabilityService {
 
     private apiUrl = `${environment.apiUrl}`;
 
@@ -20,20 +20,11 @@ export class HealthProfessionalService {
         if (userToken) {
         headers = headers.set('Authorization', `Bearer ${userToken}`);
         }
-        console.log('Headers:', headers);
-        
         return headers;
     }
-
-  // Get all health professionals
-    getHealthProfessionals(): Observable<any> {
-        return this.http.get(`${this.apiUrl}/health-professionals`, { headers: this.getHeaders() });
-    }
-
-    // Get health professional by id
-    getHealthProfessionalById(id: number): Observable<any> {
-        return this.http.get(`${this.apiUrl}/health-professionals/${id}`, { headers: this.getHeaders() });
-    }
     
+    getAvailabilityByHealthProfessionalId(healthProfessionalId: number) {
+        return this.http.get(`${this.apiUrl}/availability/health-professional/${healthProfessionalId}`, { headers: this.getHeaders() });
+    }
   
 }

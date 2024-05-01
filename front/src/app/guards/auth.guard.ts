@@ -6,6 +6,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     if(inject(AuthService).getHealthProfessionalToken() || inject(AuthService).getUserToken()){
         return true;
     }else{
+        
         return inject(Router).parseUrl('/login-user');
     }
 };

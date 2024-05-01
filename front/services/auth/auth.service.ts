@@ -55,7 +55,7 @@ export class AuthService {
   }
 
   // Get the user token from the store
-  getUserToken(): string | null {
+  getUserToken(): string | null {    
     return this.sessionQuery.getValue().userToken;
   }
 

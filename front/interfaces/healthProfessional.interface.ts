@@ -10,6 +10,6 @@ export interface HealthProfessional {
     adress: string;
     profession: string;
     status: HealthProfessionalStatus;
-    created_at?: Date;
-    updated_at?: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

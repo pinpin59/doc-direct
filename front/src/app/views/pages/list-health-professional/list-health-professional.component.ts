@@ -3,6 +3,8 @@ import { HealthProfessionalService } from '../../../../../services/health-profes
 import { HealthProfessional } from '../../../../../interfaces/healthProfessional.interface';
 import { CommonModule } from '@angular/common';
 import { CardHealthProfessionalComponent } from '../../../components/card-health-professional/card-health-professional.component';
+import { AvailabilityService } from '../../../../../services/availability/availability.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-list-health-professional',
@@ -16,36 +18,19 @@ export class ListHealthProfessionalComponent implements OnInit{
   healthProfessionals: HealthProfessional[] = [];
   daysOfWeek: string[] = [];
 
-  constructor(private healthProfessionalService : HealthProfessionalService) { }
+  constructor(private healthProfessionalService : HealthProfessionalService, private avaibilityService : AvailabilityService) { }
 
   ngOnInit(): void {
     this.getHealthProfessionals();
-    this.getDaysOfWeekFromToday();
   }
 
   getHealthProfessionals(){
     this.healthProfessionalService.getHealthProfessionals().subscribe((data) => {
+      console.log(data);
+      
       this.healthProfessionals = data;
     });
   }
 
-  // Calcule les jours de la semaine à partir du jour actuel
-  getDaysOfWeekFromToday(): void {
-    const today = new Date();
-    const daysOfWeek = [
-        'Dimanche',
-        'Lundi',
-        'Mardi',
-        'Mercredi',
-        'Jeudi',
-        'Vendredi',
-        'Samedi'
-    ];
-
-    // Commencez par le jour actuel et obtenez les jours suivants
-    for (let i = 0; i < 7; i++) {
-        const dayIndex = (today.getDay() + i) % 7;
-        this.daysOfWeek.push(daysOfWeek[dayIndex]);
-    }
-}
+ 
 } 

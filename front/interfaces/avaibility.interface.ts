@@ -1,16 +1,14 @@
 export interface Avaibility {
     id: number;
-    start: string;
-    end: string;
-    status: string;
+    healthProfessionalId: number;
+    dayOfWeek: string;
+    startTime: string;
     createdAt: string;
     updatedAt: string;
-    healthProfessionalId: number;
+    dateOfWeek?: Date;
 }
 
 export interface TimeSlot {
     day: string;
     startTime: string;
-    endTime: string;
-    isAvailable: boolean;
 }
