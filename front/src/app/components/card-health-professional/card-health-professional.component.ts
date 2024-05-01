@@ -5,9 +5,10 @@ import { Avaibility, TimeSlot } from '../../../../interfaces/avaibility.interfac
 import { AvailabilityService } from '../../../../services/availability/availability.service';
 import { Appointment } from '../../../../interfaces/appointment.interface';
 import { Router } from '@angular/router';
-import { DateFormatterPipe } from "../../pipes/date-formatter.pipe";
 import { SharedModule } from '../../shared/shared.module';
 import { SharedService } from '../../../../services/shared.service';
+import { User } from '../../../../interfaces/user.interface';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
     selector: 'app-card-health-professional',
@@ -20,21 +21,25 @@ export class CardHealthProfessionalComponent implements OnInit{
   
   @Input() healthProfessional!: HealthProfessional
   availabilities: Avaibility[] = [];
+  currentUser?: User;
   selectedAvailability?: Avaibility; // Ou définir un type plus précis si nécessaire
   groupedAvailabilities: any = [];
 
-  constructor(private availabilityService : AvailabilityService , private router : Router, private sharedService: SharedService) { }
+  constructor(private availabilityService : AvailabilityService , private router : Router, private sharedService: SharedService, private authService : AuthService) { }
   
-  ngOnInit(): void {    
+  ngOnInit(): void {
+    this.currentUser = this.authService.getUserInfoFromToken() as User;
+    console.log(this.currentUser);
+    
     this.getAvaibilityByHealthProfessionalId()
   }
 
   onSelectAvailability(availability: Avaibility):void {
     this.selectedAvailability = availability;
-    if(this.selectedAvailability.dateOfWeek && this.selectedAvailability){
+    if(this.selectedAvailability.dateOfWeek && this.selectedAvailability && this.currentUser){
       const appointment : Appointment = {
         healthProfessionalId: this.healthProfessional.id,
-        userId: 1,
+        userId: this.currentUser.id,
         appointmentAdress: this.healthProfessional.adress,
         appointmentCity : this.healthProfessional.city,
         appointmentTime: this.selectedAvailability.startTime,
