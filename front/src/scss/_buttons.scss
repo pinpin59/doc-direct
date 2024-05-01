@@ -10,6 +10,15 @@
     }
 }
 
+.btn-md {
+    padding: 8px 16px; /* Ajuste le padding pour une taille moyenne */
+    font-size: 14px; /* Ajuste la taille de la police pour une taille moyenne */
+}
+
+.btn-sm {
+    padding: 5px 10px; /* Réduit le padding pour créer un bouton plus petit */
+    font-size: 13px; /* Réduit la taille de la police pour correspondre à la taille du bouton */
+}
 
 /* Classes de boutons de couleur */
 .btn-white {

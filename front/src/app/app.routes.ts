@@ -9,5 +9,6 @@ export const routes: Routes = [
     {title:'Inscription utilisateur', path: 'registration-user', loadComponent: () => import('./views/pages/registration-user/registration-user.component').then(c => c.RegistrationUserComponent) },
     {title:'Connexion professionnel de santé', path: 'login-health-professional', loadComponent: () => import('./views/pages/login-health-professional/login-health-professional.component').then(c => c.LoginHealthProfessionalComponent) },
     {title:'Accueil', path: 'home', loadComponent: () => import('./views/pages/home/home.component').then(c => c.HomeComponent) },
-    {title:'Liste des professionnels de santé', path: 'list-health-professional', loadComponent: () => import('./views/pages/list-health-professional/list-health-professional.component').then(c => c.ListHealthProfessionalComponent) },
+    {title:'Liste des professionnels de santé', canActivate:[authGuard] ,path: 'list-health-professional', loadComponent: () => import('./views/pages/list-health-professional/list-health-professional.component').then(c => c.ListHealthProfessionalComponent) },
+    {title: 'Confirmation rendez-vous', canActivate:[authUserGuard], path: 'confirmation-appointment', loadComponent: () => import('./views/pages/list-health-professional/list-health-professional-details/list-health-professional-details.component').then(c => c.ListHealthProfessionalDetailsComponent) },
 ];
