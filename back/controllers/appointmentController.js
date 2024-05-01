@@ -23,6 +23,11 @@ exports.getAppointmentById = async (req, res) => {
 
 exports.createAppointment = async (req, res) => {
   try {
+    //Verifier si le rendez-vous existe déjà
+    const existingAppointment = await Appointment.findOne({ where: { userId: req.body.userId, healthProfessionalId: req.body.healthProfessionalId, appointmentDate: req.body.appointmentDate, appointmentTime: req.body.appointmentTime } });
+    if (existingAppointment) {
+      return res.status(400).json({ error: 'Appointment already exists' });
+    }
     const appointment = await Appointment.create(req.body)
     res.status(201).json(appointment)
   } catch (error) {
