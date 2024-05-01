@@ -36,6 +36,11 @@ const Appointment = sequelize.define(
       field: 'appointment_adress',
       allowNull: false
     },
+    appointmentCity: {
+      type: DataTypes.STRING,
+      field: 'appointment_city',
+      allowNull: false
+    },
     comment : {
       type: DataTypes.STRING,
       allowNull: true
@@ -46,6 +51,7 @@ const Appointment = sequelize.define(
     timestamps: true, // turns off createdAt and updatedAt
     createdAt: 'created_at',
     updatedAt: 'updated_at',
+    underscored: true // Permet la conversion automatique des noms de champs entre snake case et camel case
   }
 
 )

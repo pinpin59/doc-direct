@@ -54,6 +54,8 @@ const HealthProfessional = sequelize.define(
     timestamps: true, // turns off createdAt and updatedAt
     createdAt: 'created_at',
     updatedAt: 'updated_at',
+    underscored: true // Permet la conversion automatique des noms de champs entre snake case et camel case
+
   }
 )
 

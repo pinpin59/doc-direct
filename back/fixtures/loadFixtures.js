@@ -52,6 +52,7 @@ async function loadAppointments () {
       appointmentDate: appointment.appointmentDate,
       appointmentTime: appointment.appointmentTime,
       appointmentAdress: appointment.appointmentAdress,
+      appointmentCity: appointment.appointmentCity,
       comment: appointment.comment
     })
   }
@@ -63,8 +64,6 @@ async function loadAvaibilities(){
       
       day: avaibility.day,
       startTime: avaibility.startTime,
-      endTime: avaibility.endTime,
-      isAvailable: avaibility.isAvailable,
       healthProfessionalId: avaibility.healthProfessionalId
     })
   }

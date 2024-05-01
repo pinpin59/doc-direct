@@ -1,44 +1,69 @@
 const { QueryTypes } = require('sequelize');
 const {sequelize} = require('./connectDb'); // Votre configuration de base de données
+const _ = require('lodash');
 
 async function getAvailabilityForHealthProfessional(healthProfessionalId) {
     const query = `
-        SELECT a.id, a.health_professional_id, a.day_of_week, a.start_time, a.end_time, a.is_available,
-            DATE_ADD(CURRENT_DATE, INTERVAL CASE a.day_of_week
-                WHEN 'Dimanche' THEN 6 - WEEKDAY(CURRENT_DATE)
-                WHEN 'Lundi' THEN -WEEKDAY(CURRENT_DATE)
-                WHEN 'Mardi' THEN 1 - WEEKDAY(CURRENT_DATE)
-                WHEN 'Mercredi' THEN 2 - WEEKDAY(CURRENT_DATE)
-                WHEN 'Jeudi' THEN 3 - WEEKDAY(CURRENT_DATE)
-                WHEN 'Vendredi' THEN 4 - WEEKDAY(CURRENT_DATE)
-                WHEN 'Samedi' THEN 5 - WEEKDAY(CURRENT_DATE)
-            END DAY) AS date_of_week
-        FROM availability a
-        WHERE a.health_professional_id = ?
-            AND NOT EXISTS (
-                SELECT 1
-                FROM appointment ap
-                WHERE ap.health_professional_id = a.health_professional_id
-                    AND DATE(ap.appointment_date) = DATE_ADD(CURRENT_DATE, INTERVAL CASE a.day_of_week
-                        WHEN 'Dimanche' THEN 6 - WEEKDAY(CURRENT_DATE)
-                        WHEN 'Lundi' THEN -WEEKDAY(CURRENT_DATE)
-                        WHEN 'Mardi' THEN 1 - WEEKDAY(CURRENT_DATE)
-                        WHEN 'Mercredi' THEN 2 - WEEKDAY(CURRENT_DATE)
-                        WHEN 'Jeudi' THEN 3 - WEEKDAY(CURRENT_DATE)
-                        WHEN 'Vendredi' THEN 4 - WEEKDAY(CURRENT_DATE)
-                        WHEN 'Samedi' THEN 5 - WEEKDAY(CURRENT_DATE)
-                    END DAY)
-                    AND ap.appointment_time = a.start_time
-            )
-        ORDER BY date_of_week ASC, a.start_time ASC;
+                    SELECT
+                    av.id,
+                    av.health_professional_id,
+                    av.day_of_week,
+                    av.start_time,
+                    DATE_ADD(CURDATE(), INTERVAL n DAY) AS date_of_week
+                FROM
+                    availability av
+                JOIN (
+                    -- Générer les jours de la semaine pour les 6 prochains jours à partir de la date actuelle
+                    SELECT
+                        n,
+                        -- Traduit le jour de la semaine en français
+                        CASE DAYNAME(DATE_ADD(CURDATE(), INTERVAL n DAY))
+                            WHEN 'Sunday' THEN 'Dimanche'
+                            WHEN 'Monday' THEN 'Lundi'
+                            WHEN 'Tuesday' THEN 'Mardi'
+                            WHEN 'Wednesday' THEN 'Mercredi'
+                            WHEN 'Thursday' THEN 'Jeudi'
+                            WHEN 'Friday' THEN 'Vendredi'
+                            WHEN 'Saturday' THEN 'Samedi'
+                        END AS day_of_week
+                    FROM
+                        (SELECT 0 AS n
+                        UNION ALL SELECT 1
+                        UNION ALL SELECT 2
+                        UNION ALL SELECT 3
+                        UNION ALL SELECT 4
+                        UNION ALL SELECT 5
+                        UNION ALL SELECT 6) AS days
+                ) days
+                ON
+                    av.day_of_week = days.day_of_week
+                WHERE
+                    av.health_professional_id = ? -- Remplacez le ? par l'ID du professionnel de santé souhaité
+                    AND NOT EXISTS (
+                        SELECT
+                            1
+                        FROM
+                            appointment ap
+                        WHERE
+                            ap.health_professional_id = av.health_professional_id
+                            AND ap.appointment_date = DATE_ADD(CURDATE(), INTERVAL days.n DAY)
+                            AND ap.appointment_time = av.start_time
+                    )
+                ORDER BY
+                    date_of_week ASC,
+                    av.start_time ASC;
+
     `;
-    console.log(healthProfessionalId);
     const disponibilites = await sequelize.query(query, {
         replacements: [healthProfessionalId],
         type: QueryTypes.SELECT,
     });
-    console.log(disponibilites);
-    return disponibilites;
+    // Conversion en camel case des résultats
+    const camelCaseDisponibilites = disponibilites.map(disponibilite => {
+        return _.mapKeys(disponibilite, (value, key) => _.camelCase(key));
+    });
+
+    return camelCaseDisponibilites;
 }
 
 module.exports = {

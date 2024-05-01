@@ -1,14 +1,19 @@
 const HealthProfessional = require('../models/healthProfessionalModel')
+const _ = require('lodash');
 
 // Récupérer tous les professionnels de santé
 exports.getAllHealthProfessionals = async (req, res, next) => {
   try {
-    const healthProfessionals = await HealthProfessional.findAll()
-    res.json(healthProfessionals)
+      const healthProfessionals = await HealthProfessional.findAll();
+      // Converti les données en camel case
+      const camelCaseHealthProfessionals = healthProfessionals.map(healthProfessional => 
+          _.mapKeys(healthProfessional.dataValues, (value, key) => _.camelCase(key))
+      );
+      res.json(camelCaseHealthProfessionals);
   } catch (error) {
-    res.status(500).json({ error: error.message })
+      res.status(500).json({ error: error.message });
   }
-}
+};
 
 // Récupérer un professionnel de santé par son id
 exports.getHealthProfessionalById = async (req, res, next) => {
@@ -17,7 +22,8 @@ exports.getHealthProfessionalById = async (req, res, next) => {
     if (!healthProfessional) {
       return res.status(404).json({ error: 'Health professional not found' })
     }
-    res.json(healthProfessional)
+    const camelCaseHealthProfessional = _.mapKeys(healthProfessional.dataValues, (value, key) => _.camelCase(key));
+    res.json(camelCaseHealthProfessional)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
@@ -32,7 +38,8 @@ exports.createHealthProfessional = async (req, res, next) => {
       return res.status(400).json({ error: 'Une erreur est survenue.' });
     }
     const healthProfessional = await HealthProfessional.create(req.body) 
-    res.status(201).json(healthProfessional)
+    const camelCaseHealthProfessional = _.mapKeys(healthProfessional.dataValues, (value, key) => _.camelCase(key));
+    res.status(201).json(camelCaseHealthProfessional)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

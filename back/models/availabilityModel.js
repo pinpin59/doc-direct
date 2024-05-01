@@ -27,18 +27,7 @@ const Availability = sequelize.define('Availability', {
         type: DataTypes.TIME,
         allowNull: false,
         field: 'start_time',
-    },
-    endTime: {
-        type: DataTypes.TIME,
-        allowNull: false,
-        field: 'end_time',
-    },
-    isAvailable: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
-        allowNull: false,
-        field: 'is_available',
-    },
+    }
 }, {
     tableName: 'availability',
     timestamps: true,
