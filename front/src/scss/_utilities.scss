@@ -88,6 +88,28 @@
     border-bottom: 1px solid $lightGray;
 }
 
+.rounded{
+    border-radius: 5px;
+}
+
+.textarea-style {
+    width: 100%;
+    height: 150px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: none;
+    font-size: 14px;
+    line-height: 1.5;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+ 
+.textarea-style:focus { 
+    border-color: #007bff;
+    outline: none;
+}
 // Boucle pour créer les classes de largeur
 @each $width in $width-steps {
     .w-#{$width}{

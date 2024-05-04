@@ -7,19 +7,26 @@
 @import 'backgrounds';
 @import 'colors';
 
+
+
 *, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-size: 1rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: $font-family-primary;
-  font-weight: 700;
+h1, h2, h3, h4, h5, h6, legend {
+  font-family: 'Rubik-light', sans-serif;
 }
 
-p,li, a {
-  font-family: $font-family-secondary;
+p,li, a,button,span {
+  font-family: 'Karla-light', sans-serif;
   font-size: 1rem;
 }
+fieldset{
+  border-color: transparent;
+}
+label{
+  font-family: 'Rubik-regular', sans-serif;
+}
+

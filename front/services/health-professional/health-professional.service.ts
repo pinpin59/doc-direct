@@ -16,6 +16,8 @@ export class HealthProfessionalService {
 
     private getHeaders(): HttpHeaders {
         const userToken = this.sessionQuery.getValue().userToken;
+        console.log('UserToken:', userToken);
+        
         let headers = new HttpHeaders();
         if (userToken) {
         headers = headers.set('Authorization', `Bearer ${userToken}`);

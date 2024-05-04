@@ -11,4 +11,5 @@ export const routes: Routes = [
     {title:'Accueil', path: 'home', loadComponent: () => import('./views/pages/home/home.component').then(c => c.HomeComponent) },
     {title:'Liste des professionnels de santé', canActivate:[authGuard] ,path: 'list-health-professional', loadComponent: () => import('./views/pages/list-health-professional/list-health-professional.component').then(c => c.ListHealthProfessionalComponent) },
     {title: 'Confirmation rendez-vous', canActivate:[authUserGuard], path: 'confirmation-appointment', loadComponent: () => import('./views/pages/list-health-professional/list-health-professional-details/list-health-professional-details.component').then(c => c.ListHealthProfessionalDetailsComponent) },
+    {title :'Mes rendez-vous', canActivate:[authGuard], path: 'appointments', loadComponent: () => import('./views/pages/list-appointment/list-appointment.component').then(c => c.ListAppointmentComponent) },
 ];

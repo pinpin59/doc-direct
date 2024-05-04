@@ -28,9 +28,7 @@ export class CardHealthProfessionalComponent implements OnInit{
   constructor(private availabilityService : AvailabilityService , private router : Router, private sharedService: SharedService, private authService : AuthService) { }
   
   ngOnInit(): void {
-    this.currentUser = this.authService.getUserInfoFromToken() as User;
-    console.log(this.currentUser);
-    
+    this.currentUser = this.authService.getUserInfoFromToken() as User;    
     this.getAvaibilityByHealthProfessionalId()
   }
 
@@ -39,22 +37,16 @@ export class CardHealthProfessionalComponent implements OnInit{
     if(this.selectedAvailability.dateOfWeek && this.selectedAvailability && this.currentUser){
       const appointment : Appointment = {
         healthProfessionalId: this.healthProfessional.id,
-        userId: this.currentUser.id,
+        userId: this.currentUser?.id ?? 0,
         appointmentAdress: this.healthProfessional.adress,
         appointmentCity : this.healthProfessional.city,
         appointmentTime: this.selectedAvailability.startTime,
         appointmentDate: this.selectedAvailability.dateOfWeek,
       }
-      //this.sharedService.setData(appointment);
       const appointmentJson = JSON.stringify(appointment);
-        // Stocker l'objet appointment en localStorage
-        sessionStorage.setItem('currentAppointment', appointmentJson);
-        // Naviguer vers la page de confirmation
+      sessionStorage.setItem('currentAppointment', appointmentJson);
       this.router.navigate(['/confirmation-appointment']);
     }
-    
-    
-    //this.navigateToConfirmationAppointment(appointment);    
   }
 
   async getAvaibilityByHealthProfessionalId(){

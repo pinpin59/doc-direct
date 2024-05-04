@@ -1,1 +1,49 @@
-<p>registation-user works!</p>
+<form id="signupForm" [formGroup]="registrationForm" class="registration-form mx-auto pt-5 bg-white" aria-labelledby="signupFormTitle">
+    <!-- Titre du formulaire -->
+    <h2 id="signupFormTitle" class="form-title">Formulaire d'inscription</h2>
+    <div class="form-group-global">
+        <div class="fieldset-group">
+            <!-- Champ pour l'email -->
+            <fieldset class="form-group">
+                <legend>Informations sur l'email</legend>
+                <label for="email" class="form-label">Email <span aria-required="true">*</span>:</label>
+                <input type="email" id="email" name="email" formControlName="email" required aria-required="true" placeholder="Entrez votre email" aria-describedby="emailHelp" class="form-control">
+                    
+                <label for="password" class="form-label">Mot de passe <span aria-required="true">*</span>:</label>
+                <input type="password" id="password" name="password" formControlName="password" required aria-required="true" placeholder="Entrez votre mot de passe" class="form-control">
+
+                <label for="password" class="form-label">Confirmation du mot de passe<span aria-required="true">*</span>:</label>
+                <input type="password" id="password" name="passwordConfirm" formControlName="passwordConfirm" required aria-required="true" placeholder="Confirmez votre mot de passe" class="form-control">
+            </fieldset>
+    
+
+        </div>
+        <div class="fieldset-group">
+            <!-- Champ pour les informations personnelles (nom, prénom, ville, adresse) -->
+            <fieldset class="form-group">
+                <legend>Informations personnelles</legend>
+    
+                <!-- Champ pour le nom de famille -->
+                <label for="lastname" class="form-label">Nom de famille <span aria-required="true">*</span>:</label>
+                <input type="text" id="lastname" name="lastname" formControlName="lastname" required aria-required="true" placeholder="Entrez votre nom de famille" class="form-control">
+    
+                <!-- Champ pour le prénom -->
+                <label for="firstname" class="form-label">Prénom <span aria-required="true">*</span>:</label>
+                <input type="text" id="firstname" name="firstname" formControlName="firstname" required aria-required="true" placeholder="Entrez votre prénom" class="form-control">
+    
+                <!-- Champ pour la ville -->
+                <label for="city" class="form-label">Ville <span aria-required="true">*</span>:</label>
+                <input type="text" id="city" name="city" formControlName="city" required aria-required="true" placeholder="Entrez votre ville" class="form-control">
+    
+                <!-- Champ pour l'adresse -->
+                <label for="address" class="form-label">Adresse <span aria-required="true">*</span>:</label>
+                <input type="text" id="address" name="address" formControlName="address" required aria-required="true" placeholder="Entrez votre adresse" class="form-control">
+            </fieldset>
+        </div>
+    </div>
+    <ng-container *ngIf="errorMsg" class="mt-4 mb-4">
+        <app-alert message={{errorMsg}}></app-alert>
+    </ng-container>
+    <!-- Bouton pour soumettre le formulaire -->
+    <button type="submit" (click)="onSubmitRegistration()" class="btn btn-primary mt-3">S'inscrire</button>
+</form>

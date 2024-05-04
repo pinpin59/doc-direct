@@ -5,6 +5,7 @@ import { SessionQuery } from '../../src/app/session/session.query';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { SessionStore } from '../../src/app/session/session.store';
 import {jwtDecode} from 'jwt-decode';
+import { User } from '../../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,10 @@ export class AuthService {
     );
   }
 
+  registerUser(user:User): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register-user`, user);
+  }
+
   LoginHealtProfessionalComponent(email: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login-health-professional`, { email, password }).pipe(
         tap((response:any) => {
@@ -49,10 +54,6 @@ export class AuthService {
     );
   }
 
-
-  registerUser(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register-user`, { username, password });
-  }
 
   // Get the user token from the store
   getUserToken(): string | null {    

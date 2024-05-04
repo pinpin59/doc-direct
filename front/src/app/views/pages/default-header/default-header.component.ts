@@ -56,5 +56,10 @@ export class DefaultHeaderComponent implements OnInit {
     sessionStorage.clear();
     this.router.navigate(['/login-user']);
   }
+
+  ngOnDestroy(): void {
+    this.sessionStore.reset();
+  }
+
 }
  

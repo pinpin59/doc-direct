@@ -10,10 +10,11 @@
         <div class="d-flex align-items-center">
             <li><a [routerLink]="['/home']">Accueil</a></li>
             <li *ngIf="isUser()"><a [routerLink]="['/list-health-professional']" >Prendre rendez-vous</a></li>
-            <li *ngIf="isHealthProfessional()"><a [routerLink]="['/home']">Consulter mes rendez-vous</a></li>
+            <li *ngIf="isUser() || isHealthProfessional()"><a [routerLink]="['/appointments']">Mes rendez-vous</a></li>
+            <li *ngIf="!isUser() && !isHealthProfessional()"><a [routerLink]="['/registration-user']">Créer un compte</a></li>
             <li *ngIf="!isUser() && !isHealthProfessional()"><a [routerLink]="['/login-user']">Se connecter</a></li>
             <li *ngIf="!isUser() && !isHealthProfessional()"><a [routerLink]="['/signup']">Vous êtes praticien ?</a></li>
-            <li *ngIf="isUser() || isHealthProfessional()"><a (click)="logout()">Logout ?</a></li>
+            <li *ngIf="isUser() || isHealthProfessional()"><a (click)="logout()">Déconnexion</a></li>
         </div>
     </ul>
     <ul id="mobile-menu" class="mobile-menu bg-gradient" [ngClass]="{open: isExpanded}">
@@ -22,10 +23,11 @@
             <button class="btn bg-none" (click)="toggleNavbar()"><fa-icon [icon]="faBars" size="1x" class="text-white" ></fa-icon></button>
         </div>
         <li><a [routerLink]="['/home']">Accueil</a></li>
-        <li *ngIf="isUser()"><a [routerLink]="['/home']">Prendre rendez-vous</a></li>
-        <li *ngIf="isHealthProfessional()"><a [routerLink]="['/home']">Consulter mes rendez-vous</a></li>
+        <li *ngIf="isUser()"><a [routerLink]="['/list-health-professional']">Prendre rendez-vous</a></li>
+        <li *ngIf="isUser() || isHealthProfessional()"><a [routerLink]="['/appointments']">Mes rendez-vous</a></li>
+        <li *ngIf="!isUser() && !isHealthProfessional()"><a [routerLink]="['/registration-user']">Créer un compte</a></li>
         <li *ngIf="!isUser() && !isHealthProfessional()"><a [routerLink]="['/login-user']">Se connecter</a></li>
         <li *ngIf="!isUser() && !isHealthProfessional()"><a [routerLink]="['/signup']">Vous êtes praticien ?</a></li>
-        <li *ngIf="isUser() || isHealthProfessional()"><a (click)="logout()">Logout ?</a></li>
+        <li *ngIf="isUser() || isHealthProfessional()"><a (click)="logout()">Déconnexion</a></li>
     </ul>
 </nav>
