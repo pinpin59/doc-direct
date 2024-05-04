@@ -31,7 +31,7 @@ const Appointment = sequelize.define(
       field: 'appointment_time',
       allowNull: false
     },
-    appointmentAdress: {
+    appointmentAddress: {
       type: DataTypes.STRING,
       field: 'appointment_adress',
       allowNull: false

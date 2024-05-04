@@ -35,12 +35,12 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false
     },
-    adress:{
+    address:{
       type: DataTypes.STRING,
       allowNull: false
     },
     role: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('ROLE_ADMIN', 'ROLE_USER'),
       allowNull: false
     }
   },
