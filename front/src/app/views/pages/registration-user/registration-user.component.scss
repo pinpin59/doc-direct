@@ -1,0 +1,67 @@
+/* Style général du formulaire */
+@import '../../../../scss/variables';
+.registration-form {
+    width: 90%;
+    max-width: 700px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style du titre du formulaire */
+.form-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+
+/* Style des groupes de champs */
+.form-group {
+    margin-top: 15px;
+    padding: 10px;
+    border-color: transparent;
+
+}
+
+/* Style des étiquettes */
+.form-label {
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: $gray;
+
+}
+
+/* Style des champs */
+.form-control {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Style du texte d'aide */
+.form-text {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+
+
+@media screen and (min-width: 768px) {
+    .form-group-global{
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .fieldset-group{
+        margin: 0 auto;
+        width: 90%;
+        gap: 1rem;
+    }
+}

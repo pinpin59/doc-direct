@@ -4,7 +4,6 @@
     label{
         display: block;
         margin-bottom: 0.5rem;
-        font-family: $font-family-primary;
     }
     input{
         width: 100%;
@@ -17,6 +16,6 @@
         border: 1px solid $black;
         border-radius: 0.25rem;
         transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        font-family: $font-family-secondary;
+        font-family: 'Karla', sans-serif;   
     }
 }

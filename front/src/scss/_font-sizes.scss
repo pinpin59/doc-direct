@@ -18,3 +18,29 @@
 .text-xlarge {
     font-size: $font-size-xlarge;
 }
+
+@font-face {
+    font-family: 'Rubik-light';
+    src: url('../assets/fonts/Rubik/static/Rubik-Light.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+  
+@font-face {
+    font-family: 'Rubik-regular';
+    src: url('../assets/fonts/Rubik/static/Rubik-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Karla-light';
+    src: url('../assets/fonts/Karla/static/Karla-Light.ttf') format('truetype');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Karla-regular';
+    src: url('../assets/fonts/Karla/static/Karla-Regular.ttf') format('truetype');
+    font-style: normal;
+}

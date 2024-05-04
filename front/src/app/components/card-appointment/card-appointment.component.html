@@ -1,0 +1,20 @@
+<section class="appointment-card" aria-labelledby="appointment-title">
+    <header class="appointment-card-header">
+        <h2 id="appointment-title">Détails du rendez-vous</h2>
+    </header>
+    <article class="appointment-card-content">
+        <ul class="appointment-details-list">
+            <li *ngIf="isUser"><strong>Praticien :{{healthProfessional?.lastname}} {{healthProfessional?.firstname}}</strong></li>
+            <li><strong>Date :{{appointment?.appointmentDate}}</strong></li>
+            <li><strong>Heure : {{appointment?.appointmentTime}}</strong></li>
+            <li><strong>Adresse :{{appointment?.appointmentAdress}}, {{appointment?.appointmentCity}}</strong></li>
+        </ul>
+        <section *ngIf="appointment?.comment" class="comment-section mt-3">
+            <h3>Commentaire :</h3>
+            <textarea class="textarea-style mt-2" disabled>{{appointment?.comment}}</textarea>
+        </section>
+    </article>
+    <footer class="appointment-card-footer">
+        <button class="btn btn-danger">Annuler</button>
+    </footer>
+</section>
