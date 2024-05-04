@@ -5,7 +5,7 @@ const usersData = [
       lastname : 'Doe',
       firstname : 'Bob',
       city: 'Lille',
-      adress : '12 rue de la paix',
+      address : '12 rue de la paix',
       role : 'ROLE_ADMIN'
     },
     {
@@ -14,7 +14,7 @@ const usersData = [
       lastname : 'Doe',
       firstname : 'Kevin',
       city: 'Lyon',
-      adress : '12 rue de la paix',
+      address : '12 rue de la paix',
       role : 'ROLE_USER'
     },
   ]

@@ -1,4 +1,6 @@
 const Appointment = require('../models/appointmentModel')
+const AppointmentService = require('../services/appointmentService')
+const HealthProfessional = require('../models/healthProfessionalModel')
 
 exports.getAllAppointments = async (req, res) => {
   try {
@@ -63,7 +65,7 @@ exports.deleteAppointmentById = async (req, res) => {
 
 exports.getAllAppointmentByUserId = async (req, res) => {
   try {
-    const appointments = await Appointment.findAll({ where: { userId: req.params.userId } })
+    const appointments = await AppointmentService.getCurrentAppointmentsByUserId(req.params.userId)
     res.json(appointments)
   } catch (error) {
     res.status(500).json({ error: error.message })
@@ -72,7 +74,13 @@ exports.getAllAppointmentByUserId = async (req, res) => {
 
 exports.getAllAppointmentByHealthProfessionalId = async (req, res) => {
   try {
-    const appointments = await Appointment.findAll({ where: { healthProfessionalId: req.params.healthProfessionalId } })
+    console.log(req.params);
+    //Verifie si l'id du professionnel de santé existe
+    const healthProfessional = await HealthProfessional.findByPk(req.params.healthProfessionalId)
+    if (!healthProfessional) {
+      return res.status(404).json({ error: 'Health professional not found' })
+    }
+    const appointments = await AppointmentService.getCurrentAppointmentsByHealthProfessionalId(req.params.healthProfessionalId)
     res.json(appointments)
   } catch (error) {
     res.status(500).json({ error: error.message })

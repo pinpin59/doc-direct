@@ -20,7 +20,7 @@ async function loadUsers () {
       lastname: user.lastname,
       firstname: user.firstname,
       city: user.city,
-      adress: user.adress,
+      address: user.address,
       role: user.role
     })
   }
@@ -37,7 +37,7 @@ async function loadHealthProfessionals () {
       firstname: healthProfessional.firstname,
       city: healthProfessional.city,
       profession: healthProfessional.profession,
-      adress: healthProfessional.adress,
+      address: healthProfessional.address,
       status: healthProfessional.status
     })
   }
@@ -51,7 +51,7 @@ async function loadAppointments () {
       healthProfessionalId: appointment.healthProfessionalId,
       appointmentDate: appointment.appointmentDate,
       appointmentTime: appointment.appointmentTime,
-      appointmentAdress: appointment.appointmentAdress,
+      appointmentAddress: appointment.appointmentAddress,
       appointmentCity: appointment.appointmentCity,
       comment: appointment.comment
     })
@@ -78,7 +78,6 @@ async function loadFixtures () {
     await loadHealthProfessionals()
     await loadAvaibilities()
     await loadAppointments()
-    console.log('All fixtures loaded successfully')
   } catch (error) {
     console.error('Failed to load fixtures:', error)
   } finally {

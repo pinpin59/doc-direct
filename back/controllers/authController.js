@@ -11,9 +11,9 @@ exports.loginUser = async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
       const SECRET_KEY = process.env.JWT_SECRET
       const token = jwt.sign(
-        { id: user.id, email: user.email, lastname: user.lastname, firstname: user.firstname, city: user.city, adress: user.adress, role: user.role},
+        { id: user.id, email: user.email, lastname: user.lastname, firstname: user.firstname, city: user.city, address: user.address, role: user.role},
         SECRET_KEY,
-        { expiresIn: '24h' }
+        { expiresIn: '1h' }
       )
       res.json({ token })
     } else if (!user) {
@@ -24,7 +24,7 @@ exports.loginUser = async (req, res) => {
 }
 
 exports.registerUser = async (req, res) => {
-    const { email, password, lastname, firstname, city, adress  } = req.body
+    const { email, password, lastname, firstname, city, address, role  } = req.body
     // Vérifiez si l'utilisateur existe déjà
     const existingUser = await User.findOne({ where: { email: email } });
     if (existingUser) {
@@ -38,7 +38,8 @@ exports.registerUser = async (req, res) => {
       lastname : lastname,
       firstname : firstname,
       city,
-      adress
+      address,
+      role
     })
     res.status(201).json(user)
 } 
@@ -50,9 +51,9 @@ exports.loginHealthProfessional = async (req, res) => {
     if (healthProfessional && (await bcrypt.compare(password, healthProfessional.password))) {
       const SECRET_KEY = process.env.JWT_SECRET
       const token = jwt.sign(
-        { id: healthProfessional.id, email: healthProfessional.email, lastname: healthProfessional.lastName, firstname: healthProfessional.firstName, city: healthProfessional.city, adress: healthProfessional.adress,profession :healthProfessional.profession, status: healthProfessional.status },
+        { id: healthProfessional.id, email: healthProfessional.email, lastname: healthProfessional.lastName, firstname: healthProfessional.firstName, city: healthProfessional.city, address: healthProfessional.address,profession :healthProfessional.profession, status: healthProfessional.status },
         SECRET_KEY,
-        { expiresIn: '24h' }
+        { expiresIn: '1h' }
       )
       res.json({ token })
     } else if (!healthProfessional) {
@@ -63,7 +64,7 @@ exports.loginHealthProfessional = async (req, res) => {
 }
 
 exports.registerHealthProfessional = async (req, res) => {
-    const { email, password, lastname, firstname, city, adress,profession, status } = req.body
+    const { email, password, lastname, firstname, city, address,profession, status } = req.body
     // Vérifiez si l'utilisateur existe déjà
     const existingHealthProfessional = await HealthProfessional.findOne({ where: { email: email } });
 
@@ -79,7 +80,7 @@ exports.registerHealthProfessional = async (req, res) => {
       firstname : firstname,
       city,
       profession,
-      adress,
+      address,
       status
     })
     res.status(201).json(healthProfessional)

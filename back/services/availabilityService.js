@@ -38,7 +38,7 @@ async function getAvailabilityForHealthProfessional(healthProfessionalId) {
                 ON
                     av.day_of_week = days.day_of_week
                 WHERE
-                    av.health_professional_id = ? -- Remplacez le ? par l'ID du professionnel de santé souhaité
+                    av.health_professional_id = ?
                     AND NOT EXISTS (
                         SELECT
                             1
@@ -65,6 +65,7 @@ async function getAvailabilityForHealthProfessional(healthProfessionalId) {
 
     return camelCaseDisponibilites;
 }
+
 
 module.exports = {
     getAvailabilityForHealthProfessional,
