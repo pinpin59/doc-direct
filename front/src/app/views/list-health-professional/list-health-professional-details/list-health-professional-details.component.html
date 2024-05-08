@@ -1,0 +1,25 @@
+<section class="appointment-card" aria-labelledby="appointment-details-title">
+    <!-- En-tête du rendez-vous -->
+    <h2 id="appointment-details-title">Détails du rendez-vous</h2>
+
+    <!-- Contenu principal du rendez-vous -->
+    <article *ngIf="currentAppointment && currentHealthProfessional">
+        <header>
+            <h3>Informations sur le rendez-vous</h3>
+        </header>
+        <p><strong>Praticien :</strong> {{currentHealthProfessional.firstname}} {{currentHealthProfessional.lastname}}</p>
+        <p><strong>Date :</strong> {{ currentAppointment.appointmentDate | date:'fullDate' }}</p>
+        <p><strong>Heure :</strong> {{ currentAppointment.appointmentTime }}</p>
+        <p><strong>Adresse :</strong> {{ currentAppointment.appointmentAddress }}, {{currentAppointment.appointmentCity}}</p>
+          <!-- Champs de texte pour laisser un commentaire -->
+        <section>
+            <h3>Ajouter un commentaire</h3>
+            <label for="comment" class="sr-only">Commentaire</label>
+            <textarea id="comment" class="textarea-style" [(ngModel)]="comment" rows="4" cols="50" aria-label="Commentaire"></textarea>
+        </section>
+        <footer>
+            <button class="btn btn-danger btn-md" (click)="cancelAppointment()" >Annuler le rendez-vous</button>
+            <button class="btn btn-primary btn-md" (click)="createAppointment()" >Valider</button>
+        </footer>
+    </article>
+</section>

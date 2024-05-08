@@ -1,5 +1,5 @@
 export enum HealthProfessionalStatus {
-    Verified = 'verified',
-    Pending = 'pending',
-    Rejected = 'rejected'
+    VERIFIED = 'verified',
+    PENDING = 'pending',
+    REJECTED = 'rejected'
 }

@@ -1,0 +1,106 @@
+.navbar-content {
+    display: none;
+}
+
+.text-logo{
+    display: none;
+}
+
+ul {
+    list-style: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+  
+ul a {
+    color: white;
+    text-decoration: none;
+    &:hover{
+        color: #f1f1f1;
+    }
+    font-size: 19px;
+    font-weight: bold;
+}
+  
+ul li {
+    padding: 5px;
+}
+  
+ul li:hover {
+    transition: 0.3s;
+}
+  
+
+  
+#hamburger-icon {
+    margin: auto 0;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.5s ease; 
+}
+  
+#hamburger-icon div {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+    position: fixed;
+    top: 10px; 
+    left: 10px; 
+    z-index: 100; 
+}
+
+  #mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -251px; 
+    height: 100vh;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.38);
+    width: 250px;
+    transition: left 0.5s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Panneau latéral ouvert : place le panneau à l'écran */
+#mobile-menu.open {
+    left: 0; /* Affiche le panneau latéral */
+}
+  
+#mobile-menu li {
+    border-bottom: 1px solid rgb(195, 195, 195);
+    width: 80%;
+    padding: 20px 0px ;
+    text-align: center;
+}
+  
+// Au dessus de 768px, on affiche la navbar
+@media only screen and (min-width: 768px){
+    .nav-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .text-logo{
+        display: block;
+    }
+
+    #mobile-menu{
+        display: none;
+    }
+    .navbar-content{
+        display: flex;
+        justify-content: space-between;
+    }
+    .open{
+        display: none;
+    }
+    #hamburger-icon{
+        display: none;
+    }
+    ul{
+        justify-content: flex-end;
+    }
+}

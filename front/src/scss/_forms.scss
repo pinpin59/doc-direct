@@ -13,9 +13,18 @@
         color: $black;
         background-color: $white;
         background-clip: padding-box;
-        border: 1px solid $black;
         border-radius: 0.25rem;
         transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         font-family: 'Karla', sans-serif;   
     }
+}
+
+/* Style des champs */
+.form-control {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }

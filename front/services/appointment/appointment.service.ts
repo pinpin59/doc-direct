@@ -43,6 +43,8 @@ export class AppointmentService {
     return this.http.post(`${this.apiUrl}/appointments`,appointment, { headers: this.getHeaders() });
   }
 
-
+  deleteAppointmentById(appointmentId: number) {
+    return this.http.delete(`${this.apiUrl}/appointments/${appointmentId}`, { headers: this.getHeaders() });
+  }
  
 }

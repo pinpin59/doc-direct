@@ -1,0 +1,15 @@
+<button type="button" (click)="openModal()">Ouvrir la modal</button>
+
+<dialog #modal aria-modal="true" aria-labelledby="modalLabel" class="custom-modal">
+    <div class="modal-header">
+        <h2 id="modalLabel">Titre de la modal</h2>
+        <button class="close-button" (click)="closeModal()" aria-label="Fermer">&times;</button>
+    </div>
+    <div class="modal-body">
+        <p>Contenu de la modal...</p>
+    </div>
+    <div class="modal-footer">
+        <app-button color="danger" class="btn-md">Annuler</app-button>
+        <app-button  class="btn-md ms-3">Confirmer</app-button>
+    </div>
+</dialog>

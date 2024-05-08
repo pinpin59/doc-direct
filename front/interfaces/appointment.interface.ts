@@ -5,7 +5,7 @@ export interface Appointment {
     appointmentDate: Date;
     appointmentTime: string;
     appointmentCity: string;
-    appointmentAdress: string;
+    appointmentAddress: string;
     comment?: string;
     createdAt?: Date;
     updatedAt?: Date;

@@ -7,7 +7,7 @@ export interface HealthProfessional {
     lastname: string;
     firstname: string;
     city: string;
-    adress: string;
+    address: string;
     profession: string;
     status: HealthProfessionalStatus;
     createdAt?: Date;

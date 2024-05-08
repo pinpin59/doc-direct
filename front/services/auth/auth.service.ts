@@ -109,11 +109,22 @@ export class AuthService {
       return false;
     }
 
-    // Check if the token is expired
     const currentTime = Date.now() / 1000; // Convert to seconds
     console.log(decodedToken);
-  
-    return decodedToken.exp > currentTime;
+    console.log(decodedToken.exp > currentTime);
+
+    if(decodedToken.exp > currentTime){
+      return true;
+    }else{      
+      this.sessionStore.update({
+        userToken: null,
+        healthProfessionalToken: null
+      });
+      localStorage.clear();
+      sessionStorage.clear();
+      return false;
+    }
+    
   }
 
   isAccessHealthProfessionalTokenValid(): boolean {

@@ -134,6 +134,16 @@
     .me-#{$i} {
         margin-right: $margin-value;
     }
+
+    .mx-#{$i} {
+        margin-left: $margin-value;
+        margin-right: $margin-value;
+    }
+
+    .my-#{$i} {
+        margin-top: $margin-value;
+        margin-bottom: $margin-value;
+    }
 }
 
 @for $i from 0 through length($margin-values) - 1 {
