@@ -1,0 +1,14 @@
+@import '../../../scss/variables';
+
+
+.fieldset-form-login{
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    legend{
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    
+}

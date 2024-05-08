@@ -6,6 +6,7 @@
 @import 'buttons';
 @import 'backgrounds';
 @import 'colors';
+@import 'modals';
 
 
 
@@ -15,7 +16,7 @@
   box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6, legend {
+h1, h2, h3, h4, h5, h6, legend, label {
   font-family: 'Rubik-light', sans-serif;
 }
 

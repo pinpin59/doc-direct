@@ -3,6 +3,7 @@ import { environment } from '../../environments/environments';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SessionQuery } from '../../src/app/session/session.query';
 import { Observable } from 'rxjs';
+import { HealthProfessional } from '../../interfaces/healthProfessional.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,10 @@ export class HealthProfessionalService {
     // Get health professional by id
     getHealthProfessionalById(id: number): Observable<any> {
         return this.http.get(`${this.apiUrl}/health-professionals/${id}`, { headers: this.getHeaders() });
+    }
+
+    createHealthProfessional(healthProfessional: HealthProfessional): Observable<any> {
+        return this.http.post(`${this.apiUrl}/health-professionals`, healthProfessional, { headers: this.getHeaders() });
     }
     
   

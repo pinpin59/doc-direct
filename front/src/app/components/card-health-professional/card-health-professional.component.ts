@@ -38,7 +38,7 @@ export class CardHealthProfessionalComponent implements OnInit{
       const appointment : Appointment = {
         healthProfessionalId: this.healthProfessional.id,
         userId: this.currentUser?.id ?? 0,
-        appointmentAdress: this.healthProfessional.adress,
+        appointmentAddress: this.healthProfessional.address,
         appointmentCity : this.healthProfessional.city,
         appointmentTime: this.selectedAvailability.startTime,
         appointmentDate: this.selectedAvailability.dateOfWeek,
