@@ -51,7 +51,7 @@ exports.loginHealthProfessional = async (req, res) => {
     if (healthProfessional && (await bcrypt.compare(password, healthProfessional.password))) {
       const SECRET_KEY = process.env.JWT_SECRET
       const token = jwt.sign(
-        { id: healthProfessional.id, email: healthProfessional.email, lastname: healthProfessional.lastName, firstname: healthProfessional.firstName, city: healthProfessional.city, address: healthProfessional.address,profession :healthProfessional.profession, status: healthProfessional.status },
+        { id: healthProfessional.id, email: healthProfessional.email, lastname: healthProfessional.lastName, firstname: healthProfessional.firstName, city: healthProfessional.city, address: healthProfessional.address,profession :healthProfessional.profession, profilePicture: healthProfessional.profilePicture, status: healthProfessional.status },
         SECRET_KEY,
         { expiresIn: '1h' }
       )
