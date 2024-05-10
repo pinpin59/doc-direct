@@ -1,4 +1,6 @@
+const e = require('express')
 const User = require('../models/userModel')
+const { generateToken } = require('../jwtUtils');
 
 // Récupérer tous les utilisateurs
 exports.getAllUsers = async (req, res, next) => {
@@ -60,3 +62,35 @@ exports.deleteUser = async (req, res, next) => {
     res.status(500).json({ error: error.message })
   }
 }
+
+exports.updateProfilePictureUser = async (req, res, next) => {
+  const userId = req.params.id; 
+  try {
+    const user = await User.findByPk(userId)
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' })
+    }
+    user.profilePicture = req.file.filename
+    await user.save();
+
+    // Générer un nouveau jeton JWT après la mise à jour
+    const tokenPayload = {
+        id: user.id,
+        email: user.email,
+        lastname: user.lastname,
+        firstname: user.firstname,
+        city: user.city,
+        address: user.address,
+        profilePicture: user.profilePicture,
+        role: user.role
+    };
+
+    const newToken = generateToken(tokenPayload);
+
+    res.json({token: newToken});
+   
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+

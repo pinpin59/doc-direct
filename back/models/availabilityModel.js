@@ -18,10 +18,10 @@ const Availability = sequelize.define('Availability', {
             key: 'id',
         },
     },
-    day: {
+    dayOfWeek: {
         type: DataTypes.ENUM('Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'),
         allowNull: false,
-        field: 'day_of_week',
+        field: 'day_of_week', 
     },
     startTime: {
         type: DataTypes.TIME,
@@ -32,7 +32,7 @@ const Availability = sequelize.define('Availability', {
     tableName: 'availability',
     timestamps: true,
     createdAt: 'created_at',
-    updatedAt: 'updated_at',
+    updatedAt: 'updated_at'    
 });
 
 // Définir les relations avec HealthProfessional

@@ -4,6 +4,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 const swaggerUi = require('swagger-ui-express')
 const swaggerSpec = require('./swagger')
+const path = require('path');
 const app = express()
 
 // Routes imports
@@ -25,5 +26,6 @@ app.use('/api/health-professionals', healthProfessionalsRoutes)
 app.use('/api/appointments', appointmentRoutes)
 app.use('/api/availability', availabilityRoutes)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 module.exports = app 

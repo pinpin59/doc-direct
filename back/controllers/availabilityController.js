@@ -5,10 +5,7 @@ const _ = require('lodash');
 exports.getAllAvailabilities = async (req, res) => {
     try {
         const availabilities = await Availability.findAll()
-        const camelCaseAvailabilities = availabilities.map(availability =>
-            _.mapKeys(availability.dataValues, (value, key) => _.camelCase(key))
-        );
-        res.json(camelCaseAvailabilities)
+        res.json(availabilities)
     } catch (error) {
         res.status(500).json({ error: error.message })
     }
@@ -17,11 +14,12 @@ exports.getAllAvailabilities = async (req, res) => {
 exports.getAvailabilityById = async (req, res) => {
     try {
         const availability = await Availability.findByPk(req.params.id)
+        console.log(availability);
+     
         if (!availability) {
             return res.status(404).json({ error: 'Availability not found' })
         }
-        const camelCaseAvailability = _.mapKeys(availability.dataValues, (value, key) => _.camelCase(key));
-        res.json(camelCaseAvailability)
+        res.json(availability)
     } catch (error) {
         res.status(500).json({ error: error.message })
     }
@@ -44,6 +42,7 @@ exports.getAvailabilityByHealthProfessionalId = async (req, res) => {
 exports.createAvailability = async (req, res) => {
     try {
         const availability = await Availability.create(req.body)
+
         res.status(201).json(availability)
     } catch (error) {
         res.status(500).json({ error: error.message })
@@ -57,6 +56,7 @@ exports.updateAvailabilityById = async (req, res) => {
             return res.status(404).json({ error: 'Availability not found' })
         }
         await availability.update(req.body)
+
         res.json(availability)
     } catch (error) {
         res.status(500).json({ error: error.message })
@@ -66,6 +66,7 @@ exports.updateAvailabilityById = async (req, res) => {
 exports.deleteAvailabilityById = async (req, res) => {
     try {
         const availability = await Availability.findByPk(req.params.id)
+    
         if (!availability) {
             return res.status(404).json({ error: 'Availability not found' })
         }
