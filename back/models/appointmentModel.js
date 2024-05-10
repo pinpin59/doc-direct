@@ -33,7 +33,7 @@ const Appointment = sequelize.define(
     },
     appointmentAddress: {
       type: DataTypes.STRING,
-      field: 'appointment_adress',
+      field: 'appointment_address',
       allowNull: false
     },
     appointmentCity: {

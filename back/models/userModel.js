@@ -15,7 +15,7 @@ const User = sequelize.define(
       unique: true,
       validate: {
         isEmail: true
-      }
+      } 
     },
     password: {
       type: DataTypes.STRING,
@@ -38,6 +38,11 @@ const User = sequelize.define(
     address:{
       type: DataTypes.STRING,
       allowNull: false
+    },
+    profilePicture:{
+      type: DataTypes.STRING,
+      allowNull: true,
+      field: 'profile_picture'
     },
     role: {
       type: DataTypes.ENUM('ROLE_ADMIN', 'ROLE_USER'),

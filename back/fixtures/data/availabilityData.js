@@ -2,224 +2,224 @@
 const availabilityData = [
     // Disponibilités pour le lundi
     {
-        day: 'Lundi',
+        dayOfWeek: 'Lundi',
         startTime: '09:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Lundi',
+        dayOfWeek: 'Lundi',
         startTime: '10:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Lundi',
+        dayOfWeek: 'Lundi',
         startTime: '11:00',
         healthProfessionalId: 1
     },
     // Disponibilités pour le mardi
     {
-        day: 'Mardi',
+        dayOfWeek: 'Mardi',
         startTime: '09:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Mardi',
+        dayOfWeek: 'Mardi',
         startTime: '10:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Mardi',
+        dayOfWeek: 'Mardi',
         startTime: '11:00',
         healthProfessionalId: 1
     },
     // Disponibilités pour le mercredi
     {
-        day: 'Mercredi',
+        dayOfWeek: 'Mercredi',
         startTime: '09:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Mercredi',
+        dayOfWeek: 'Mercredi',
         startTime: '10:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Mercredi',
+        dayOfWeek: 'Mercredi',
         startTime: '11:00',
         healthProfessionalId: 1
     },
     // Disponibilités pour le jeudi
     {
-        day: 'Jeudi',
+        dayOfWeek: 'Jeudi',
         startTime: '09:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Jeudi',
+        dayOfWeek: 'Jeudi',
         startTime: '10:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Jeudi',
+        dayOfWeek: 'Jeudi',
         startTime: '11:00',
         healthProfessionalId: 1
     },
     // Disponibilités pour le vendredi
     {
-        day: 'Vendredi',
+        dayOfWeek: 'Vendredi',
         startTime: '09:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Vendredi',
+        dayOfWeek: 'Vendredi',
         startTime: '10:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Vendredi',
+        dayOfWeek: 'Vendredi',
         startTime: '11:00',
         healthProfessionalId: 1
     },
     // Disponibilités pour le samedi
     {
-        day: 'Samedi',
+        dayOfWeek: 'Samedi',
         startTime: '09:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Samedi',
+        dayOfWeek: 'Samedi',
         startTime: '10:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Samedi',
+        dayOfWeek: 'Samedi',
         startTime: '11:00',
         healthProfessionalId: 1
     },
     // Disponibilités pour le dimanche
     {
-        day: 'Dimanche',
+        dayOfWeek: 'Dimanche',
         startTime: '09:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Dimanche',
+        dayOfWeek: 'Dimanche',
         startTime: '10:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Dimanche',
+        dayOfWeek: 'Dimanche',
         startTime: '11:00',
         healthProfessionalId: 1
     },
     {
-        day: 'Lundi',
+        dayOfWeek: 'Lundi',
         startTime: '09:00',
         healthProfessionalId: 2
     },
     {
-        day: 'Lundi',
+        dayOfWeek: 'Lundi',
         startTime: '10:00',
         healthProfessionalId: 2
     },
     {
-        day: 'Lundi',
+        dayOfWeek: 'Lundi',
         startTime: '11:00',
         healthProfessionalId: 2
     },
     // Disponibilités pour le mardi
     {
-        day: 'Mardi',
+        dayOfWeek: 'Mardi',
         startTime: '09:00',
         healthProfessionalId: 2
     },
     {
-        day: 'Mardi',
+        dayOfWeek: 'Mardi',
         startTime: '10:00',
         healthProfessionalId: 2
     },
     {
-        day: 'Mardi',
+        dayOfWeek: 'Mardi',
         startTime: '11:00',
         healthProfessionalId: 2
     },
     // Disponibilités pour le mercredi
     {
-        day: 'Mercredi',
+        dayOfWeek: 'Mercredi',
         startTime: '09:00',
         healthProfessionalId: 2
     },
     {
-        day: 'Mercredi',
+        dayOfWeek: 'Mercredi',
         startTime: '10:00',
         healthProfessionalId: 2
     },
     {
-        day: 'Mercredi',
+        dayOfWeek: 'Mercredi',
         startTime: '11:00',
         healthProfessionalId: 2
     },
     // Disponibilités pour le jeudi
     {
-        day: 'Jeudi',
+        dayOfWeek: 'Jeudi',
         startTime: '09:00',
         healthProfessionalId: 2
     },
     {
-        day: 'Jeudi',
+        dayOfWeek: 'Jeudi',
         startTime: '10:00',
         healthProfessionalId: 2
     },
     {
-        day: 'Jeudi',
+        dayOfWeek: 'Jeudi',
         startTime: '11:00',
         healthProfessionalId: 2
     },
     // Disponibilités pour le vendredi
     {
-        day: 'Vendredi',
+        dayOfWeek: 'Vendredi',
         startTime: '09:00',
         healthProfessionalId: 2
     },
     {
-        day: 'Vendredi',
+        dayOfWeek: 'Vendredi',
         startTime: '10:00',
         healthProfessionalId: 2
     },
     {
-        day: 'Vendredi',
+        dayOfWeek: 'Vendredi',
         startTime: '11:00',
         healthProfessionalId: 2
     },
     // Disponibilités pour le samedi
     {
-        day: 'Samedi',
+        dayOfWeek: 'Samedi',
         startTime: '09:00',
         healthProfessionalId: 2
     },
     {
-        day: 'Samedi',
+        dayOfWeek: 'Samedi',
         startTime: '10:00',
         healthProfessionalId: 2
     },
     {
-        day: 'Samedi',
+        dayOfWeek: 'Samedi',
         startTime: '11:00',
         healthProfessionalId: 2
     },
     // Disponibilités pour le dimanche
     {
-        day: 'Dimanche',
+        dayOfWeek: 'Dimanche',
         startTime: '09:00',
         healthProfessionalId: 2
     },
     {
-        day: 'Dimanche',
+        dayOfWeek: 'Dimanche',
         startTime: '10:00',
         healthProfessionalId: 2
     },
     {
-        day: 'Dimanche',
+        dayOfWeek: 'Dimanche',
         startTime: '11:00',
         healthProfessionalId: 2
     },

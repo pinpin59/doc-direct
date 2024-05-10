@@ -11,7 +11,7 @@ exports.loginUser = async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
       const SECRET_KEY = process.env.JWT_SECRET
       const token = jwt.sign(
-        { id: user.id, email: user.email, lastname: user.lastname, firstname: user.firstname, city: user.city, address: user.address, role: user.role},
+        { id: user.id, email: user.email, lastname: user.lastname, firstname: user.firstname, city: user.city, address: user.address,profilePicture: user.profilePicture, role: user.role},
         SECRET_KEY,
         { expiresIn: '1h' }
       )
@@ -64,7 +64,7 @@ exports.loginHealthProfessional = async (req, res) => {
 }
 
 exports.registerHealthProfessional = async (req, res) => {
-    const { email, password, lastname, firstname, city, address,profession, status } = req.body
+    const { email, password, lastname, firstname, city, address,profession,profilePicture, status } = req.body
     // Vérifiez si l'utilisateur existe déjà
     const existingHealthProfessional = await HealthProfessional.findOne({ where: { email: email } });
 
@@ -79,6 +79,7 @@ exports.registerHealthProfessional = async (req, res) => {
       lastname : lastname,
       firstname : firstname,
       city,
+      profilePicture,
       profession,
       address,
       status

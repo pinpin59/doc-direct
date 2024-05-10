@@ -62,7 +62,7 @@ async function loadAvaibilities(){
   for(const avaibility of avaibilityData){
     await Avaibility.create({
       
-      day: avaibility.day,
+      dayOfWeek: avaibility.dayOfWeek,
       startTime: avaibility.startTime,
       healthProfessionalId: avaibility.healthProfessionalId
     })
