@@ -5,6 +5,7 @@ import { User } from '../../../../interfaces/user.interface';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../../environments/environments';
+import { HealthProfessional } from '../../../../interfaces/healthProfessional.interface';
 
 @Component({
   selector: 'app-profile',
@@ -16,16 +17,17 @@ import { environment } from '../../../../environments/environments';
 export class ProfileComponent implements OnInit{
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   profilePicture: string | null = null;
-  currentUser?: User;
+  currentUser : HealthProfessional | User = {} as HealthProfessional | User;
   imageUrl?: string;
 
-  constructor(private userService : UserService, private authService: AuthService) { }
+  constructor(private userService : UserService, private authService: AuthService, private sessionQuery : SessionQuery) { }
     
   ngOnInit(): void {
     this.imageUrl = `${environment.localhost}/uploads/`;
-    this.currentUser = this.authService.getUserInfoFromToken() as User;    
+    this.sessionQuery.select().subscribe((session) => {
+      this.currentUser = this.authService.getUserInfoFromToken() || this.authService.getHealthProfessionalInfoFromToken();      
+    });
     console.log(this.currentUser);
-    
   }
 
 
@@ -44,25 +46,33 @@ export class ProfileComponent implements OnInit{
 
     if (file) {
         try {          
-            // Appelez la fonction du service pour uploader le fichier
             const currentUserId = this.currentUser?.id;
-            if(currentUserId && file){
+            if(currentUserId && file && this.isUser()){
               const response = await this.userService.uploadProfilePictureUser(currentUserId,file).toPromise();
-              // Gérez la réponse de l'API (par exemple, mettre à jour l'interface utilisateur)
-              console.log('Photo de profil mise à jour avec succès:', response);
               //update token
               this.authService.updateTokenUser(response.token);
-              this.currentUser = this.authService.getUserInfoFromToken() as User;
+              this.currentUser = this.authService.getUserInfoFromToken();
               console.log(this.currentUser);
-            }
-
-            
-            
+            }else if(currentUserId && file && this.isHealthProfessional()){
+              const response = await this.userService.uploadProfilePictureHealthProfessional(currentUserId,file).toPromise();
+              //update token
+              this.authService.updateTokenHealthProfessional(response.token);
+              this.currentUser = this.authService.getHealthProfessionalInfoFromToken();
+              console.log(this.currentUser);
+            } 
         } catch (error) {
-            // Gérez les erreurs de manière appropriée
             console.error('Erreur lors de l\'upload de la photo de profil :', error);
-            // Vous pouvez afficher un message d'erreur à l'utilisateur ici
         }
     }
 }
+
+  // Méthode pour vérifier si l'utilisateur est un professionnel de la santé
+  isHealthProfessional(): boolean {
+    return this.currentUser && 'profession' in this.currentUser;
+  }
+
+  // Méthode pour vérifier si l'utilisateur est un utilisateur standard
+  isUser(): boolean {
+      return this.currentUser && 'role' in this.currentUser;
+  }
 }

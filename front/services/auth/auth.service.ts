@@ -46,7 +46,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register-user`, user);
   }
 
-  LoginHealtProfessionalComponent(email: string, password: string): Observable<any> {
+  loginHealtProfessionalComponent(email: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login-health-professional`, { email, password }).pipe(
         tap((response:any) => {
             const healthProfessionalToken = response.token;

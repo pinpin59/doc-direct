@@ -30,7 +30,7 @@ export class LoginHealthProfessionalComponent implements OnInit {
 
   async loginHealthProfessional(email: string, password: string) {
     try {
-      const response = await this.authService.LoginHealtProfessionalComponent(email, password).pipe(first()).toPromise();
+      const response = await this.authService.loginHealtProfessionalComponent(email, password).pipe(first()).toPromise();
     } catch (error) {
       console.error('Une erreur est survenue lors de la connexion de l\'utilisateur', error);
     }
