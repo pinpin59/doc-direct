@@ -43,6 +43,11 @@ const HealthProfessional = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false
     },
+    profilePicture:{
+      type: DataTypes.STRING,
+      allowNull: true,
+      field: 'profile_picture'
+    },
     status: {
       type: DataTypes.ENUM('verified', 'pending', 'rejected'),
       defaultValue: 'pending'

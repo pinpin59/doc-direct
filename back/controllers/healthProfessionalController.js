@@ -1,5 +1,6 @@
 const HealthProfessional = require('../models/healthProfessionalModel')
 const _ = require('lodash');
+const { generateToken } = require('../jwtUtils');
 
 // Récupérer tous les professionnels de santé
 exports.getAllHealthProfessionals = async (req, res, next) => {
@@ -68,6 +69,38 @@ exports.deleteHealthProfessional = async (req, res, next) => {
     }
     await healthProfessional.destroy()
     res.json({ message: 'Health professional deleted successfully' })
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
+exports.updateProfilePictureHealthProfessional = async (req, res, next) => {
+  const healthProfessionalId = req.params.id; 
+  try {
+    const healthProfessional = await HealthProfessional.findByPk(healthProfessionalId)
+    if (!healthProfessional) {
+      return res.status(404).json({ error: 'Health professional not found' })
+    }
+    healthProfessional.profilePicture = req.file.filename
+    await healthProfessional.save();
+
+    // Générer un nouveau jeton JWT après la mise à jour
+    const tokenPayload = {
+        id: healthProfessional.id,
+        email: healthProfessional.email,
+        lastname: healthProfessional.lastname,
+        firstname: healthProfessional.firstname,
+        city: healthProfessional.city,
+        address: healthProfessional.address,
+        profession: healthProfessional.profession,
+        status: healthProfessional.status,
+        profilePicture: healthProfessional.profilePicture
+    };
+
+    const newToken = generateToken(tokenPayload);
+
+    res.json({token: newToken});
+   
   } catch (error) {
     res.status(500).json({ error: error.message })
   }

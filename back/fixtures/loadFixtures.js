@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt')
 const { sequelize } = require('../services/connectDb')
+const fs = require('fs');
+const path = require('path');
 // Models
 const HealthProfessional = require('../models/healthProfessionalModel')
 const User = require('../models/userModel')
@@ -38,6 +40,7 @@ async function loadHealthProfessionals () {
       city: healthProfessional.city,
       profession: healthProfessional.profession,
       address: healthProfessional.address,
+      profilePicture: healthProfessional.profilePicture,
       status: healthProfessional.status
     })
   }
@@ -73,6 +76,7 @@ async function loadAvaibilities(){
 // Charge les fixtures dans la base de données
 async function loadFixtures () {
   try {
+    clearUploadsDirectory();
     await sequelize.sync({ force: true })
     await loadUsers()
     await loadHealthProfessionals()
@@ -85,4 +89,25 @@ async function loadFixtures () {
   }
 }
 
+function clearUploadsDirectory() {
+  const uploadsDir = path.join(__dirname, '../uploads');
+  fs.readdir(uploadsDir, (err, files) => {
+      if (err) {
+          console.error('Failed to read uploads directory:', err);
+          return;
+      }
+
+      files.forEach(file => {
+          const filePath = path.join(uploadsDir, file);
+          
+          fs.unlink(filePath, (err) => {
+              if (err) {
+                  console.error(`Failed to delete file ${file}:`, err);
+              }
+          });
+      });
+  });
+}
+
+clearUploadsDirectory();
 loadFixtures()
