@@ -31,9 +31,16 @@ export class UserService {
 
     uploadProfilePictureUser(userId:number, file: File): Observable<any> {
         const formData = new FormData();
-        formData.append('profilePicture', file); // Utilisez la clé correcte
+        formData.append('profilePicture', file);
         console.log('formData:', formData);
         return this.http.post(`${this.apiUrl}/users/${userId}/upload-user-profile-picture`, formData, { headers: this.getHeaders() });
+    }
+
+    uploadProfilePictureHealthProfessional(userId:number, file: File): Observable<any> {
+        const formData = new FormData();
+        formData.append('profilePicture', file);
+        console.log('formData:', formData);
+        return this.http.post(`${this.apiUrl}/health-professionals/${userId}/upload-health-professional-profile-picture`, formData, { headers: this.getHeaders() });
     }
 
     

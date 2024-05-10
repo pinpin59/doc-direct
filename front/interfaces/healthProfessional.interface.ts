@@ -10,6 +10,7 @@ export interface HealthProfessional {
     address: string;
     profession: string;
     status: HealthProfessionalStatus;
+    profilePicture?: string;
     createdAt?: Date;
     updatedAt?: Date;
 }
