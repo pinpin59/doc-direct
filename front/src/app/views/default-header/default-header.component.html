@@ -11,6 +11,8 @@
             <li *ngIf="!isUser() && !isHealthProfessional()"><a [routerLink]="['/login-user']">Se connecter</a></li>
             <li *ngIf="!isUser() && !isHealthProfessional()"><a [routerLink]="['/registration-health-professional']">Vous êtes praticien ?</a></li>
             <li *ngIf="isUser() || isHealthProfessional()"><a (click)="logout()">Déconnexion</a></li>
+            <li *ngIf="isUser()"><a [routerLink]="['/profile']" aria-label="Profil utilisateur" ><fa-icon [icon]="faUser" size="2x" class="text-white"></fa-icon></a></li>
+            <li *ngIf="isHealthProfessional()"><a [routerLink]="['/profile']" aria-label="Profil professionnel de la santé"><fa-icon [icon]="faUserDoctor" size="2x" class="text-white"></fa-icon></a></li>
     </ul>
     <ul id="mobile-menu" class="mobile-menu bg-gradient" [ngClass]="{open: isExpanded}">
         <li class="text-right">            
@@ -22,6 +24,7 @@
         <li *ngIf="!isUser() && !isHealthProfessional()"><a [routerLink]="['/registration-user']">Créer un compte</a></li>
         <li *ngIf="!isUser() && !isHealthProfessional()"><a [routerLink]="['/login-user']">Se connecter</a></li>
         <li *ngIf="!isUser() && !isHealthProfessional()"><a [routerLink]="['/registration-health-professional']">Vous êtes praticien ?</a></li>
+        <li *ngIf="isUser() || isHealthProfessional()"><a [routerLink]="['/profile']" >Mon profil</a></li>
         <li *ngIf="isUser() || isHealthProfessional()"><a (click)="logout()">Déconnexion</a></li>
     </ul>
 </nav>

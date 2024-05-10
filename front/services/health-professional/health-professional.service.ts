@@ -16,12 +16,11 @@ export class HealthProfessionalService {
     constructor(private http: HttpClient, private sessionQuery: SessionQuery) {}
 
     private getHeaders(): HttpHeaders {
-        const userToken = this.sessionQuery.getValue().userToken;
-        console.log('UserToken:', userToken);
+        const HealthProfessional = this.sessionQuery.getValue().healthProfessionalToken;
         
         let headers = new HttpHeaders();
-        if (userToken) {
-        headers = headers.set('Authorization', `Bearer ${userToken}`);
+        if (HealthProfessional) {
+        headers = headers.set('Authorization', `Bearer ${HealthProfessional}`);
         }
         console.log('Headers:', headers);
         
