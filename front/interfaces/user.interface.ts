@@ -7,6 +7,7 @@ export interface User {
     city: string;
     address: string;
     role: string;
+    profilePicture?: string;
     created_at?: Date;
     updated_at?: Date;
 }

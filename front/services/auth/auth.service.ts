@@ -33,6 +33,15 @@ export class AuthService {
     );
   }
 
+
+  updateTokenUser(token: string): void {
+    this.sessionStore.update({ userToken: token });
+  }
+
+  updateTokenHealthProfessional(token: string): void {
+    this.sessionStore.update({ healthProfessionalToken: token });
+  }
+
   registerUser(user:User): Observable<any> {
     return this.http.post(`${this.apiUrl}/register-user`, user);
   }

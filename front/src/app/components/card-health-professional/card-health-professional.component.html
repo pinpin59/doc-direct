@@ -4,7 +4,8 @@
             {{healthProfessional.lastname}} {{healthProfessional.firstname}}
         </h2>
     </header>
-    <table class="w-100">
+    <p class="d-flex align-items-center justify-content-center pt-5  bg-white" *ngIf="groupedAvailabilities.length < 1">Aucune disponibilités pour le moment</p>
+    <table class="w-100 bg-white">
         <tbody class="body-table-card" *ngIf="groupedAvailabilities">
           <!-- Parcourez les jours de la semaine -->
           <tr class="d-flex flex-column" *ngFor="let dayOfWeek of groupedAvailabilities">

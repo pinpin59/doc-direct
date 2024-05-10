@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {faCoffee, faBars, faXmark} from "@fortawesome/free-solid-svg-icons";
+import {faCoffee, faBars, faXmark, faUser, faUserDoctor} from "@fortawesome/free-solid-svg-icons";
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { Router, RouterModule } from '@angular/router';
 import { HealthProfessional } from '../../../../interfaces/healthProfessional.interface';
@@ -24,6 +24,8 @@ export class DefaultHeaderComponent implements OnInit {
   isExpanded: boolean = false;
   faXmark = faXmark;
   faBars = faBars;
+  faUser = faUser;
+  faUserDoctor = faUserDoctor;
   currentUser : Array<HealthProfessional | User> = [];
 
  

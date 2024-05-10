@@ -1,0 +1,29 @@
+<section class="profile-header">
+    <!-- Remplacez 'photo.jpg' par l'URL de la photo de l'utilisateur -->
+    <figure *ngIf="currentUser && currentUser.profilePicture && imageUrl">
+        <img style="width: 100px;" crossorigin="anonymous" [src]="imageUrl + currentUser.profilePicture" alt="Photo de l'utilisateur">
+        <figcaption>{{currentUser.profilePicture}}</figcaption>
+    </figure>
+
+    <!-- Sinon, donne la possibilité d'ajouter une photo -->
+    <button class="add-photo-button ms-3" (click)="openFileInput()" aria-label="Ajouter une photo">
+        <!-- Icône ronde avec symbole de plus -->
+        <span class="icon-plus">+</span>
+    </button>
+    <input  #fileInput type="file" style="display: none;" name="profilePicture" (change)="onFileChange($event)">
+
+    <div class="ms-5">
+        <!-- Remplacez 'Nom Prénom' par le nom complet de l'utilisateur -->
+        <h2>Nom Prénom</h2>
+        <!-- Remplacez 'Rôle de l'utilisateur' par le rôle de l'utilisateur -->
+        <h3>Rôle de l'utilisateur</h3>
+    </div>
+</section>
+
+<!-- Deuxième composant : informations de l'utilisateur --> 
+<section class="profile-info">
+    <!-- Ajoutez ici les informations de l'utilisateur -->
+    <p><strong>Email :</strong> utilisateur.com</p>
+    <p><strong>Téléphone :</strong> 01 23 45 67 89</p>
+    <!-- Vous pouvez ajouter d'autres informations supplémentaires -->
+</section> 
