@@ -20,10 +20,10 @@ async function getCurrentAppointmentsByUserId(userId) {
         type: QueryTypes.SELECT,
     });
     // Conversion en camel case des résultats
+    console.log(currentAppointmentsByUserId);
     const camelCaseCurrentAppointmentsByUserId = currentAppointmentsByUserId.map(currentAppointment => {
         return _.mapKeys(currentAppointment, (value, key) => _.camelCase(key));
     });
-
     return camelCaseCurrentAppointmentsByUserId;
 }
 
