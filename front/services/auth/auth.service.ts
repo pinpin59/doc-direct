@@ -21,7 +21,10 @@ export class AuthService {
         tap((response:any) => {
             const userToken = response.token;
             // Stocker le jeton dans SessionQuery et store
-            this.sessionStore.update({ userToken });
+            this.sessionStore.update({
+              userToken: userToken,
+              healthProfessionalToken: null
+            });
             this.sessionQuery.selectUserToken().subscribe((userToken) => {
                 console.log('Token:', userToken);
             });
@@ -51,7 +54,10 @@ export class AuthService {
         tap((response:any) => {
             const healthProfessionalToken = response.token;
             // Stocker le jeton dans SessionQuery et store
-            this.sessionStore.update({ healthProfessionalToken });
+            this.sessionStore.update({
+              userToken: null,
+              healthProfessionalToken: healthProfessionalToken
+            });
             this.sessionQuery.selectHealtProfessionalToken().subscribe((healthProfessionalToken) => {
                 console.log('Token:', healthProfessionalToken);
             });
@@ -103,7 +109,7 @@ export class AuthService {
     }
     return null;
   }
-
+ 
   // Check if the access token is valid
   isAccessUserTokenValid(): boolean {
 
@@ -119,8 +125,6 @@ export class AuthService {
     }
 
     const currentTime = Date.now() / 1000; // Convert to seconds
-    console.log(decodedToken);
-    console.log(decodedToken.exp > currentTime);
 
     if(decodedToken.exp > currentTime){
       return true;
@@ -150,9 +154,7 @@ export class AuthService {
     }
 
     // Check if the token is expired
-    const currentTime = Date.now() / 1000; // Convert to seconds
-    console.log(decodedToken);
-  
+    const currentTime = Date.now() / 1000; // Convert to seconds  
     return decodedToken.exp > currentTime;
   }
 }

@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SessionQuery } from '../../src/app/session/session.query';
 import { Observable } from 'rxjs';
 import { HealthProfessional } from '../../interfaces/healthProfessional.interface';
+import { UserRoles } from '../../src/app/enums/user-roles.enum';
+import { HealthProfessionalStatus } from '../../src/app/enums/health-professional-status.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +18,13 @@ export class HealthProfessionalService {
     constructor(private http: HttpClient, private sessionQuery: SessionQuery) {}
 
     private getHeaders(): HttpHeaders {
-        const HealthProfessional = this.sessionQuery.getValue().healthProfessionalToken;
+        const healthProfessional = this.sessionQuery.getValue().healthProfessionalToken;
+        console.log('HealthProfessionalToken:', healthProfessional);
         
         let headers = new HttpHeaders();
-        if (HealthProfessional) {
-        headers = headers.set('Authorization', `Bearer ${HealthProfessional}`);
+        if (healthProfessional) {
+        headers = headers.set('Authorization', `Bearer ${healthProfessional}`);
         }
-        console.log('Headers:', headers);
         
         return headers;
     }
@@ -37,9 +39,17 @@ export class HealthProfessionalService {
         return this.http.get(`${this.apiUrl}/health-professionals/${id}`, { headers: this.getHeaders() });
     }
 
-    createHealthProfessional(healthProfessional: HealthProfessional): Observable<any> {
-        return this.http.post(`${this.apiUrl}/health-professionals`, healthProfessional, { headers: this.getHeaders() });
+    getHealthProfessionalByStatus(status: HealthProfessionalStatus): Observable<any> {
+        return this.http.get(`${this.apiUrl}/health-professionals/status/${status}`, { headers: this.getHeaders() });
     }
-    
+
+    createHealthProfessional(healthProfessional: HealthProfessional): Observable<any> {
+        return this.http.post(`${this.apiUrl}/health-professionals`, healthProfessional);
+    }
+
+    //Change health professional status
+    changeHealthProfessionalStatus(id: number, status: HealthProfessionalStatus): Observable<any> {
+        return this.http.put(`${this.apiUrl}/health-professionals/status/${id}`, { status }, { headers: this.getHeaders() });
+    }
   
 }

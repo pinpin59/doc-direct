@@ -10,6 +10,11 @@
     z-index: 1000;
     border: none;
     width: 500px;
+    overflow: visible;
+}
+
+::backdrop{
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .custom-modal-sm{

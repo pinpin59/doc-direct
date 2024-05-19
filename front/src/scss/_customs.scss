@@ -1,0 +1,23 @@
+.status{
+    padding: 10px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    
+}
+
+.status-pending{
+    background-color: $yellow;
+    color: white;
+}
+
+.status-rejected{
+    background-color: $red;
+    color: white;
+}
+
+.status-verified{
+    background-color: $green;
+    color: white;
+}

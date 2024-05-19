@@ -13,4 +13,5 @@ export interface HealthProfessional {
     profilePicture?: string;
     createdAt?: Date;
     updatedAt?: Date;
+    availabilities?:any
 }

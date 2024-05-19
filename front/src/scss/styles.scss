@@ -7,6 +7,7 @@
 @import 'backgrounds';
 @import 'colors';
 @import 'modals';
+@import 'customs';
 
 
 
@@ -16,7 +17,7 @@
   box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6, legend, label {
+h1, h2, h3, h4, h5, h6, legend, label, summary {
   font-family: 'Rubik-light', sans-serif;
 }
 
@@ -30,4 +31,5 @@ fieldset{
 label{
   font-family: 'Rubik-regular', sans-serif;
 }
+
 
