@@ -14,5 +14,6 @@ export const routes: Routes = [
     {title:'Liste des professionnels de santé', canActivate:[authGuard] ,path: 'list-health-professional', loadComponent: () => import('./views/list-health-professional/list-health-professional.component').then(c => c.ListHealthProfessionalComponent) },
     {title: 'Confirmation rendez-vous', canActivate:[authUserGuard], path: 'confirmation-appointment', loadComponent: () => import('./views/list-health-professional/list-health-professional-details/list-health-professional-details.component').then(c => c.ListHealthProfessionalDetailsComponent) },
     {title :'Mes rendez-vous', canActivate:[authGuard], path: 'appointments', loadComponent: () => import('./views/list-appointment/list-appointment.component').then(c => c.ListAppointmentComponent) },
+    {title: 'Panel admin', path: 'panel-admin', loadComponent: () => import('./views/panel-admin/panel-admin.component').then(c => c.PanelAdminComponent)}
 ];
  

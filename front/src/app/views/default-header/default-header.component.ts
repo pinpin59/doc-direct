@@ -32,7 +32,18 @@ export class DefaultHeaderComponent implements OnInit {
   ngOnInit(): void {    
     this.sessionQuery.select().subscribe((session) => {
       this.currentUser = this.authService.getUserInfoFromToken() || this.authService.getHealthProfessionalInfoFromToken();      
-    });
+    });    
+    console.log(this.isAccessTokenHealthProfessionalValid());
+    console.log(this.isAccessTokenUserValid());
+    
+  }
+
+  isAccessTokenUserValid(): boolean { 
+    return this.authService.isAccessUserTokenValid();
+  }
+
+  isAccessTokenHealthProfessionalValid(): boolean {
+    return this.authService.isAccessHealthProfessionalTokenValid();
   }
 
   toggleNavbar(): void {    

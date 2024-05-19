@@ -8,6 +8,7 @@ import { HealthProfessional } from '../../../../../interfaces/healthProfessional
 import { AppointmentService } from '../../../../../services/appointment/appointment.service';
 import { HealthProfessionalService } from '../../../../../services/health-professional/health-professional.service';
 
+
 @Component({
   selector: 'app-list-health-professional-details',
   standalone: true,

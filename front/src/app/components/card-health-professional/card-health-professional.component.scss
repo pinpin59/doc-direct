@@ -17,6 +17,8 @@
     padding: 12px 16px; /* Espacement interne */
     border-bottom: 1px solid #ccc; /* Bordure inférieure */
     font-weight: bold; /* Texte en gras */
+    display: flex; /* Utilisation de flexbox */
+    align-items: center; /* Alignement vertical */
 }
 
 /* Corps de la carte */
@@ -67,6 +69,8 @@
 
 .body-table-card{
     display: flex;
+    max-height: 400px;
+    overflow-y: auto;
     justify-content: space-between;
     padding: 20px;
 }
@@ -82,6 +86,18 @@
         border-radius: 3px;
         cursor: pointer;
     }
+}
+
+.img-profile-card{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    &:hover{
+        opacity: 0.8;
+    }
+
 }
 
 .active{

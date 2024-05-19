@@ -12,7 +12,8 @@
     <!-- Liste de cartes -->
         <section class="card-container mt-5" *ngIf="healthProfessionals.length > 0">
             <ng-container *ngFor="let healthProfessional of healthProfessionals">
-                <app-card-health-professional [healthProfessional]="healthProfessional" style="display: contents;"></app-card-health-professional>
+                
+                <app-card-health-professional *ngIf="healthProfessional.status !== 'pending' && healthProfessional.status !== 'rejected'" [healthProfessional]="healthProfessional" style="display: contents;"></app-card-health-professional>
             </ng-container>
         </section>
 </div>

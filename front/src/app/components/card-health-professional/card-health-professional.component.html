@@ -1,8 +1,16 @@
 <article class="card" [attr.aria-labelledby]="'card-title-' + healthProfessional.id">
     <header class="card-header">
+        <figure class="me-3" *ngIf="imageUrl && healthProfessional.profilePicture">
+          <img class="img-profile-card" crossorigin="anonymous" [src]="imageUrl + healthProfessional.profilePicture" alt="Photo de l'utilisateur">
+        </figure>
+        <div class="me-3" *ngIf="!healthProfessional.profilePicture">
+          <fa-icon size="2x" [icon]="faUser" aria-hidden="true"></fa-icon>
+          <span class="sr-only">Icône représentant un utilisateur</span>
+        </div>
         <h2 id="card-title-{{healthProfessional.id}}" class="card-title">
             {{healthProfessional.lastname}} {{healthProfessional.firstname}}
         </h2>
+        <p class="d-flex align-items-center ms-3 underline">{{healthProfessional.profession}}</p>
     </header>
     <p class="d-flex align-items-center justify-content-center pt-5  bg-white" *ngIf="groupedAvailabilities.length < 1">Aucune disponibilités pour le moment</p>
     <table class="w-100 bg-white">
@@ -11,7 +19,8 @@
           <tr class="d-flex flex-column" *ngFor="let dayOfWeek of groupedAvailabilities">
             <!-- Afficher le jour de la semaine -->
             <td class="mx-auto mb-1">{{ dayOfWeek.dayOfWeek }}</td>
-            <td class="mx-auto mb-3">{{ dayOfWeek.availabilities[0].dateOfWeek | dateFormatter }}</td>
+            <td *ngIf="dayOfWeek.availabilities.length > 0" class="mx-auto mb-3">{{ dayOfWeek.availabilities[0].dateOfWeek | dateFormatter }}</td>
+            <td *ngIf="dayOfWeek.availabilities.length < 1" class="mx-auto mb-3">Aucune</td>
             <td>
               <!-- Parcourir les disponibilités pour ce jour de la semaine -->
               <ul>

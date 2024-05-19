@@ -1,15 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-alert',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './alert.component.html',
   styleUrl: './alert.component.scss'
 })
 export class AlertComponent implements OnInit{
   @Input({required:true}) message!: string;
-  @Input() color!: string;
+  @Input() color?: string;
+  @Input() class?: string;
   constructor() { }
 
   ngOnInit(): void {

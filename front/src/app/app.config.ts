@@ -6,7 +6,6 @@ import { provideHttpClient } from '@angular/common/http';
 import { SessionStore } from './session/session.store';
 import { SessionQuery } from './session/session.query';
 import { persistState } from '@datorama/akita';
-import { DateFormatterPipe } from './pipes/date-formatter.pipe';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';

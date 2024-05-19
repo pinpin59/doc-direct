@@ -1,0 +1,38 @@
+<section *ngIf="currentHealthProfessional" class="profile-header-health-professional">
+    <!-- Remplacez 'photo.jpg' par l'URL de la photo de l'utilisateur -->
+    <div class="d-flex align-items-center">
+        <figure class="ms-3" *ngIf="currentHealthProfessional && currentHealthProfessional.profilePicture && imageUrl" (click)="openFileInput()">
+            <img class="img-profile" crossorigin="anonymous" [src]="imageUrl + currentHealthProfessional.profilePicture" alt="Photo de l'utilisateur">
+        </figure>
+    
+        <!-- Sinon, donne la possibilité d'ajouter une photo -->
+        <button *ngIf="!currentHealthProfessional?.profilePicture" class="add-photo-button ms-3" (click)="openFileInput()" aria-label="Ajouter une photo">
+            <!-- Icône ronde avec symbole de plus -->
+            <span class="icon-plus">+</span>
+        </button>
+        <input  #fileInput type="file" style="display: none;" name="profilePicture" (change)="onFileChange($event)">
+    
+        <div class="ms-5">
+            <!-- Remplacez 'Nom Prénom' par le nom complet de l'utilisateur -->
+            <h2>{{currentHealthProfessional.firstname}} {{currentHealthProfessional.lastname}}</h2>
+            <!-- Remplacez 'Rôle de l'utilisateur' par le rôle de l'utilisateur -->
+            <h3 class="mt-3">Praticien</h3>
+        </div>
+    </div>
+    
+
+    <span class="status me-3"[ngClass]="'status-' + currentHealthProfessional.status">{{ currentHealthProfessional.status | status}}</span>
+</section>
+ 
+<!-- Deuxième composant : informations de l'utilisateur --> 
+<section *ngIf="currentHealthProfessional" class="profile-main bg-white">
+
+    <section>
+        <h3 class="text-xlarge">Informations personnelles</h3>
+
+        <p class="mt-4 text-medium"><strong>Adresse :</strong> {{currentHealthProfessional.address}}</p>
+        <p class="mt-4 text-medium"> <strong>Email :</strong> {{currentHealthProfessional.email}}</p>
+        <p class="mt-4 text-medium"><strong>Ville :</strong> {{currentHealthProfessional.city}}</p>
+    </section>
+   
+</section> 

@@ -1,0 +1,102 @@
+.nav-admin{
+    border-top: 1px solid rgba(255, 255, 255, 0.505);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-admin nav ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    color: white;
+    li{
+        margin: 0 1rem;
+        font-size: 1.2rem;
+        cursor: pointer;
+        &:hover{
+            color: #f1f1f1;
+        }
+    }
+}
+
+/* Réinitialiser les styles par défaut des éléments details/summary */
+summary {
+    list-style: none;
+    display: list-item;
+    cursor: pointer;
+}
+
+/* Masquer l'élément détail par défaut */
+details {
+    display: block;
+}
+
+/* Réinitialiser les styles par défaut des éléments details/summary */
+summary {
+    list-style: none;
+    display: list-item;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Masquer l'élément détail par défaut */
+details {
+    margin-top: 1rem;
+    background-color: white;
+    width: 800px;
+    max-width: 90%;
+}
+
+/* Styles personnalisés pour l'accordéon */
+.accordion-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.accordion-title {
+    background-color: #f4f4f4;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion-content {
+    padding: 10px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-in-out;
+}
+
+/* Lorsque le détail est ouvert, afficher le contenu */
+details[open] .accordion-content {
+    max-height: 200px; /* Ajustez la hauteur maximale selon vos besoins */
+}
+
+.status-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Style pour les détails fermés */
+details > summary {
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  /* Style pour les détails ouverts */
+  details[open] > summary {
+    font-weight: normal;
+  }
+  
+  /* Transition pour les détails */
+  details > summary {
+    transition: font-weight 0.2s ease; /* Transition sur la propriété font-weight */
+  }
