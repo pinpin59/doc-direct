@@ -1,5 +1,7 @@
-const e = require('express')
-const User = require('../models/userModel')
+const e = require('express');
+const User = require('../models/userModel');
+const fs = require('fs');
+const path = require('path');
 const { generateToken } = require('../jwtUtils');
 
 // Récupérer tous les utilisateurs
@@ -11,7 +13,7 @@ exports.getAllUsers = async (req, res, next) => {
     res.status(500).json({ error: error.message })
   }
 }
-
+ 
 // Récupérer un utilisateur par son id
 exports.getUserById = async (req, res, next) => {
   try {
@@ -64,8 +66,15 @@ exports.deleteUser = async (req, res, next) => {
 }
 
 exports.updateProfilePictureUser = async (req, res, next) => {
+  const uploadsDir = path.join(__dirname, '../uploads');
   const userId = req.params.id; 
   try {
+    console.log(fs.existsSync(uploadsDir));
+    if (!fs.existsSync(uploadsDir)) {
+      console.log('uploads directory does not exist');
+      fs.mkdirSync(uploadsDir, { recursive: true });
+    }
+    
     const user = await User.findByPk(userId)
     if (!user) {
       return res.status(404).json({ error: 'User not found' })

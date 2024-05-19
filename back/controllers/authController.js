@@ -15,10 +15,9 @@ exports.loginUser = async (req, res) => {
         SECRET_KEY,
         { expiresIn: '1h' }
       )
+      res.status(200)
       res.json({ token })
-    } else if (!user) {
-      res.status(404).json({ error: 'User not found' })
-    } else {
+    }else {
       res.status(401).json({ error: 'Bad credentials' })
     }
 }
@@ -51,14 +50,13 @@ exports.loginHealthProfessional = async (req, res) => {
     if (healthProfessional && (await bcrypt.compare(password, healthProfessional.password))) {
       const SECRET_KEY = process.env.JWT_SECRET
       const token = jwt.sign(
-        { id: healthProfessional.id, email: healthProfessional.email, lastname: healthProfessional.lastName, firstname: healthProfessional.firstName, city: healthProfessional.city, address: healthProfessional.address,profession :healthProfessional.profession, profilePicture: healthProfessional.profilePicture, status: healthProfessional.status },
+        { id: healthProfessional.id, email: healthProfessional.email, lastname: healthProfessional.lastname, firstname: healthProfessional.firstname, city: healthProfessional.city, address: healthProfessional.address,profession :healthProfessional.profession, profilePicture: healthProfessional.profilePicture, status: healthProfessional.status },
         SECRET_KEY,
         { expiresIn: '1h' }
       )
+      res.status(200)
       res.json({ token })
-    } else if (!healthProfessional) {
-      res.status(404).json({ error: 'Health professional not found' })
-    } else {
+    }else {
       res.status(401).json({ error: 'Bad credentials' })
     }
 }
