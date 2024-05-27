@@ -2,11 +2,13 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const User = require('../models/userModel')
 const HealthProfessional = require('../models/healthProfessionalModel')
+const Availability = require('../models/availabilityModel')
+const { sequelize } = require('../services/connectDb');
+
 
 exports.loginUser = async (req, res) => {
     const { email, password } = req.body
     const user = await User.findOne({ where: { email } })
-    console.log(user);
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const SECRET_KEY = process.env.JWT_SECRET
@@ -62,7 +64,7 @@ exports.loginHealthProfessional = async (req, res) => {
 }
 
 exports.registerHealthProfessional = async (req, res) => {
-    const { email, password, lastname, firstname, city, address,profession,profilePicture, status } = req.body
+    const { email, password, lastname, firstname, city, address,profession,profilePicture, status ,availabilities} = req.body
     // Vérifiez si l'utilisateur existe déjà
     const existingHealthProfessional = await HealthProfessional.findOne({ where: { email: email } });
 
@@ -71,16 +73,25 @@ exports.registerHealthProfessional = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
-    const healthProfessional = await HealthProfessional.create({
-      email,
-      password: hashedPassword,
-      lastname : lastname,
-      firstname : firstname,
-      city,
-      profilePicture,
-      profession,
-      address,
-      status
-    })
-    res.status(201).json(healthProfessional)
+    await sequelize.transaction(async (t) => {
+      // Créer le professionnel de santé
+      const healthProfessional = await HealthProfessional.create({
+        email,
+        password: hashedPassword,
+        lastname : lastname,
+        firstname : firstname,
+        city,
+        profilePicture,
+        profession,
+        address,
+        status
+      });
+      // Ajouter les disponibilités
+      await Availability.bulkCreate(availabilities.map(av => ({
+        healthProfessionalId: healthProfessional.id,
+        dayOfWeek: av.dayOfWeek,
+        startTime: av.startTime
+      })), { transaction: t });
+    });
+    res.status(201).json({ message: 'Health professional created successfully' });
 }  

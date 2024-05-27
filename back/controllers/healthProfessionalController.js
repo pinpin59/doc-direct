@@ -1,5 +1,6 @@
-const HealthProfessional = require('../models/healthProfessionalModel')
-const Availability = require('../models/availabilityModel')
+const HealthProfessional = require('../models/healthProfessionalModel');
+const Availability = require('../models/availabilityModel');
+const Appointment = require('../models/appointmentModel');
 const { sequelize } = require('../services/connectDb');
 const _ = require('lodash');
 const { generateToken } = require('../jwtUtils');
@@ -32,41 +33,6 @@ exports.getHealthProfessionalById = async (req, res, next) => {
   }
 }
 
-// Créer un professionnel de santé
-exports.createHealthProfessional = async (req, res) => {
-  const { email, password, lastname, firstname, city, address, profession, availabilities } = req.body;
-  //console.log(req.body);
-
-  try {
-    // Démarrer une transaction
-    await sequelize.transaction(async (t) => {
-      // Créer le professionnel de santé
-      const healthProfessional = await HealthProfessional.create({
-        email,
-        password,
-        lastname,
-        firstname,
-        city,
-        address,
-        profession
-      });
-      console.log(availabilities);
-      // Ajouter les disponibilités
-      await Availability.bulkCreate(availabilities.map(av => ({
-        healthProfessionalId: healthProfessional.id,
-        dayOfWeek: av.dayOfWeek,
-        startTime: av.startTime
-      })), { transaction: t });
-    });
-
-    res.status(201).json({ message: 'Health professional created successfully' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};
-
-
 // Mettre à jour un professionnel de santé
 exports.updateHealthProfessional = async (req, res, next) => {
   try {
@@ -81,13 +47,22 @@ exports.updateHealthProfessional = async (req, res, next) => {
   }
 }
 
-// Supprimer un professionnel de santé
+// Supprimer son profil professionnel de santé
 exports.deleteHealthProfessional = async (req, res, next) => {
   try {
     const healthProfessional = await HealthProfessional.findByPk(req.params.id)
+    const authentifiedHealthProfessional = req.userInfos;
+
+    if(authentifiedHealthProfessional.id !== healthProfessional.id) {
+      return res.status(403).json({ error: 'Access forbidden' });
+    }
     if (!healthProfessional) {
       return res.status(404).json({ error: 'Health professional not found' })
     }
+    const appointments = await Appointment.findAll({ where: { healthProfessionalId: healthProfessional.id } })
+    appointments.forEach(async appointment => {
+      await appointment.destroy()
+    })
     await healthProfessional.destroy()
     res.json({ message: 'Health professional deleted successfully' })
   } catch (error) {
