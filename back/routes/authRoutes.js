@@ -7,4 +7,4 @@ router.post('/register-user', authController.registerUser)
 router.post('/login-health-professional', authController.loginHealthProfessional)
 router.post('/register-health-professional', authController.registerHealthProfessional)
 
-module.exports = router
+module.exports = router 
