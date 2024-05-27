@@ -1,9 +1,12 @@
-<header class="bg-gradient p-2 border-bottom-light-gray">
-  <app-default-header></app-default-header>
-</header>
-<main>
-  <router-outlet></router-outlet> <!-- Zone pour charger les vues -->
-</main>
-<footer>
-  <!-- Contenu du pied de page -->
-</footer> 
+<section class="wrapper">
+  <header class="bg-gradient p-2 border-bottom-light-gray">
+    <app-default-header></app-default-header>
+  </header>
+  <main>
+    <router-outlet></router-outlet> <!-- Zone pour charger les vues -->
+  </main>
+  <footer class="bg-gradient">
+    <!-- Contenu du pied de page -->
+    <app-default-footer></app-default-footer>
+  </footer> 
+</section>

@@ -33,6 +33,40 @@
         <p class="mt-4 text-medium"><strong>Adresse :</strong> {{currentHealthProfessional.address}}</p>
         <p class="mt-4 text-medium"> <strong>Email :</strong> {{currentHealthProfessional.email}}</p>
         <p class="mt-4 text-medium"><strong>Ville :</strong> {{currentHealthProfessional.city}}</p>
+        <app-button color="danger" class="mt-4" (click)="openModalDeleteProfileHealthProfessional()">Supprimer mon profil</app-button>
     </section>
    
 </section> 
+
+
+<!-- Modal pour supprimer son profil -->
+<dialog #modalDeleteProfileHealthProfessional aria-modal="true" aria-labelledby="modalLabel" class="custom-modal">
+    <div class="modal-header">
+        <h2 id="modalLabel">Suppresion du compte</h2>
+        <button class="close-button" (click)="closeModalDeleteProfileHealthProfessional()" aria-label="Fermer">&times;</button>
+    </div>
+    <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer votre compte ?</p>
+        <p class="mt-2">Cette action est irréversible et entraînera la suppression totale de vos données.</p>
+    </div>
+    <div class="modal-footer">
+        <app-button color="danger" (click)="closeModalDeleteProfileHealthProfessional()" class="btn-md">Annuler</app-button>
+        <app-button  class="btn-md ms-3" (click)="openModalDeleteProfileHealthProfessionalConfirm()" >Confirmer</app-button>
+    </div>
+</dialog>
+
+
+<!-- Modal pour supprimer son profil -->
+<dialog #modalDeleteProfileHealthProfessionalConfirm aria-modal="true" aria-labelledby="modalLabel" class="custom-modal">
+    <div class="modal-header">
+        <h2 id="modalLabel">Suppresion du compte</h2>
+        <button class="close-button" (click)="closeModalDeleteProfileHealthProfessionalConfirm()" aria-label="Fermer">&times;</button>
+    </div>
+    <div class="modal-body">
+        <p>Veuillez cliquer sur le bouton &quot;Confirmer&quot; pour supprimer immédiatement votre profil.</p>
+    </div>
+    <div class="modal-footer">
+        <app-button color="danger" (click)="closeModalDeleteProfileHealthProfessionalConfirm()" class="btn-md">Annuler</app-button>
+        <app-button  class="btn-md ms-3" (click)="deleteUser()" >Confirmer</app-button>
+    </div>
+</dialog>

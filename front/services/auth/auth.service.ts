@@ -6,6 +6,7 @@ import { Observable, catchError, tap, throwError } from 'rxjs';
 import { SessionStore } from '../../src/app/session/session.store';
 import {jwtDecode} from 'jwt-decode';
 import { User } from '../../interfaces/user.interface';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
 
   private apiUrl = `${environment.apiUrl}`;
 
-  constructor(private http: HttpClient, private sessionStore: SessionStore, private sessionQuery: SessionQuery) {}
+  constructor(private http: HttpClient, private sessionStore: SessionStore, private sessionQuery: SessionQuery, private router : Router) {}
 
   loginUser(email: string, password: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login-user`, { email, password }).pipe(
@@ -36,6 +37,15 @@ export class AuthService {
     );
   }
 
+  logout(): void{
+    this.sessionStore.update({
+      userToken: null,
+      healthProfessionalToken: null
+    });
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigate(['/login-user']);
+  }
 
   updateTokenUser(token: string): void {
     this.sessionStore.update({ userToken: token });
@@ -47,6 +57,10 @@ export class AuthService {
 
   registerUser(user:User): Observable<any> {
     return this.http.post(`${this.apiUrl}/register-user`, user);
+  }
+
+  registerHealthProfessional(healthProfessional: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register-health-professional`, healthProfessional);
   }
 
   loginHealtProfessionalComponent(email: string, password: string): Observable<any> {

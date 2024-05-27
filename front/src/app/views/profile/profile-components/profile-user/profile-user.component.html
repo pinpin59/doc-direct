@@ -29,6 +29,40 @@
         <p class="mt-4 text-medium"><strong>Adresse :</strong> {{currentUser.address}}</p>
         <p class="mt-4 text-medium"> <strong>Email :</strong> {{currentUser.email}}</p>
         <p class="mt-4 text-medium"><strong>Ville :</strong> {{currentUser.city}}</p>
+        <app-button color="danger" (click)="openModalDeleteProfileUser()" class="mt-4 btn-sm">Supprimer mon profil</app-button>
     </section>
    
 </section> 
+
+
+<!-- Modal pour supprimer son profil -->
+<dialog #modalDeleteProfileUser aria-modal="true" aria-labelledby="modalLabel" class="custom-modal">
+    <div class="modal-header">
+        <h2 id="modalLabel">Suppresion du compte</h2>
+        <button class="close-button" (click)="closeModalDeleteProfileUser()" aria-label="Fermer">&times;</button>
+    </div>
+    <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer votre compte ?</p>
+        <p class="mt-2">Cette action est irréversible et entraînera la suppression totale de vos données.</p>
+    </div>
+    <div class="modal-footer">
+        <app-button color="danger" (click)="closeModalDeleteProfileUser()" class="btn-md">Annuler</app-button>
+        <app-button  class="btn-md ms-3" (click)="openModalDeleteProfileUserConfirm()" >Confirmer</app-button>
+    </div>
+</dialog>
+
+
+<!-- Modal pour supprimer son profil -->
+<dialog #modalDeleteProfileUserConfirm aria-modal="true" aria-labelledby="modalLabel" class="custom-modal">
+    <div class="modal-header">
+        <h2 id="modalLabel">Suppresion du compte</h2>
+        <button class="close-button" (click)="closeModalDeleteProfileUserConfirm()" aria-label="Fermer">&times;</button>
+    </div>
+    <div class="modal-body">
+        <p>Veuillez cliquer sur le bouton &quot;Confirmer&quot; pour supprimer immédiatement votre profil.</p>
+    </div>
+    <div class="modal-footer">
+        <app-button color="danger" (click)="closeModalDeleteProfileUserConfirm()" class="btn-md">Annuler</app-button>
+        <app-button  class="btn-md ms-3" (click)="deleteUser()" >Confirmer</app-button>
+    </div>
+</dialog>

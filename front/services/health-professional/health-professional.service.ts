@@ -51,5 +51,16 @@ export class HealthProfessionalService {
     changeHealthProfessionalStatus(id: number, status: HealthProfessionalStatus): Observable<any> {
         return this.http.put(`${this.apiUrl}/health-professionals/status/${id}`, { status }, { headers: this.getHeaders() });
     }
+
+    deleteHealthProfessionalProfile(id: number): Observable<any> {
+        return this.http.delete(`${this.apiUrl}/health-professionals/${id}`, { headers: this.getHeaders() });
+    }
+
+    uploadProfilePictureHealthProfessional(userId:number, file: File): Observable<any> {
+        const formData = new FormData();
+        formData.append('profilePicture', file);
+        console.log('formData:', formData);
+        return this.http.post(`${this.apiUrl}/health-professionals/${userId}/upload-health-professional-profile-picture`, formData, { headers: this.getHeaders() });
+    }
   
 }
