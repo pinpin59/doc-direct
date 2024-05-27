@@ -19,6 +19,14 @@
     font-size: $font-size-xlarge;
 }
 
+.text-bold {
+    font-weight: bolder;
+}
+
+.text-italic {
+    font-style: italic;
+}
+
 @font-face {
     font-family: 'Rubik-light';
     src: url('../assets/fonts/Rubik/static/Rubik-Light.ttf') format('truetype');

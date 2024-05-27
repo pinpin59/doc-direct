@@ -1,15 +1,72 @@
-<button type="button" (click)="openModal()">Ouvrir la modal</button>
+<section class="full-width-image" aria-labelledby="image-section-heading">
+    <img src="../../../assets/img/home/hea.jpg" alt="Description de l'image">
+    <div class="text">
+        <h2 id="image-section-heading">DocDirect : au service de votre santé
+        </h2>
+    </div>
+</section>
 
-<dialog #modal aria-modal="true" aria-labelledby="modalLabel" class="custom-modal">
-    <div class="modal-header">
-        <h2 id="modalLabel">Titre de la modal</h2>
-        <button class="close-button" (click)="closeModal()" aria-label="Fermer">&times;</button>
-    </div>
-    <div class="modal-body">
-        <p>Contenu de la modal...</p>
-    </div>
-    <div class="modal-footer">
-        <app-button color="danger" class="btn-md">Annuler</app-button>
-        <app-button  class="btn-md ms-3">Confirmer</app-button>
-    </div>
-</dialog>
+<section class="card-container-home pt-5">
+    <section class="card-home section2-heading bg-white text-center">
+        <article class="card">
+            <figure>
+                <img class="icon-medium" src="../../../assets/img/home/calendar.svg" alt="Description de l'image de la carte">
+                <figcaption>
+                    <p class="mt-3">Accédez simplement et rapidement à une large communauté de praticiens.</p>
+                </figcaption>
+            </figure>
+        </article>
+    </section>
+
+    <section class="card-home bg-white">
+        <article class="card text-center">
+            <figure>
+                <img class="icon-medium" src="../../../assets/img/home/heart.svg" alt="Description de l'image de la carte">
+                <figcaption>
+                    <p class="mt-3">Prévenez l’apparition de maladies grâce à des messages de sensibilisation.</p>
+                </figcaption>
+            </figure>
+        </article>
+    </section>
+
+    <section class="card-home bg-white">
+        <article class="card d-flex text-center">
+            <figure>
+                <img class="icon-medium" src="../../../assets/img/home/clock.svg" alt="Description de l'image de la carte">
+                <figcaption>
+                    <p class="mt-3">Prévenez l’apparition de maladies grâce à des messages de sensibilisation.</p>
+                </figcaption>
+            </figure>
+        </article>
+    </section>
+
+    
+</section>
+
+<section class="card-container-home-health">
+    <section class="icon-home-health-container">
+        <img class="icon-xlarge" src="../../../assets/img/home/doctor.svg" alt="Description de l'image de la carte">
+
+    </section>
+    <section class="w-100 m-5">
+        <h2 class="mt-3">Vous êtes praticien ?</h2>
+        <p class="mt-3"><fa-icon [icon]="faArrowRight" size="1x" class="text-black me-1"></fa-icon>Rejoignez notre réseau de professionnels de santé et élargissez votre clientèle facilement.</p>
+        <p class="mt-3"><fa-icon [icon]="faArrowRight" size="1x" class="text-black me-1"></fa-icon>Gérez vos consultations en ligne avec notre interface conviviale et sécurisée.</p>
+        <p class="mt-3"><fa-icon [icon]="faArrowRight" size="1x" class="text-black me-1"></fa-icon>Accédez à des outils de gestion performants pour améliorer votre pratique au quotidien.</p>
+        <p class="mt-3"><fa-icon [icon]="faArrowRight" size="1x" class="text-black me-1"></fa-icon>Optimisez votre emploi du temps grâce à notre système de réservation en temps réel.</p>
+        <button [routerLink]="['/registration-health-professional']" class="btn btn-primary mt-3">Rejoidre DocDirect</button>
+    </section>
+</section>
+
+<section class="card-container-home-user">
+    <section class="icon-home-health-container">
+        <img class="icon-xlarge" src="../../../assets/img/home/family.svg" alt="Description de l'image de la carte">
+
+    </section>
+    <section class="w-100 text-center m-5">
+        <p class="mt-3 text-bold"><fa-icon [icon]="faCheck" size="1x" class="text-black me-1"></fa-icon>Profitez d'une expérience de réservation fluide et sécurisée, sans tracas ni attente inutile.</p>
+        <p class="mt-3 text-bold"><fa-icon [icon]="faCheck" size="1x" class="text-black me-1"></fa-icon>Optimisez votre bien-être en réservant des consultations à tout moment, où que vous soyez.</p>
+        <p class="mt-3 text-bold"><fa-icon [icon]="faCheck" size="1x" class="text-black me-1"></fa-icon>Explorez notre plateforme et prenez rendez-vous facilement avec des praticiens de confiance.</p>
+    </section>
+</section>
+

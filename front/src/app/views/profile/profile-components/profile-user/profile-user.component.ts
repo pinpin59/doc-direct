@@ -6,16 +6,21 @@ import { AuthService } from '../../../../../../services/auth/auth.service';
 import { UserService } from '../../../../../../services/user/user.service';
 import { SessionQuery } from '../../../../session/session.query';
 import { CommonModule } from '@angular/common';
+import { ButtonComponent } from '../../../../components/button/button.component';
 
 @Component({
   selector: 'app-profile-user',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonComponent],
   templateUrl: './profile-user.component.html',
   styleUrl: '../../profile.component.scss'
 })
 export class ProfileUserComponent {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('modalDeleteProfileUser') modalDeleteProfileUser!: ElementRef<HTMLDialogElement>; // Référence à l'élément <dialog>
+  @ViewChild('modalDeleteProfileUserConfirm') modalDeleteProfileUserConfirm!: ElementRef<HTMLDialogElement>; // Référence à l'élément <dialog>
+
+
   profilePicture: string | null = null;
   currentUser?: User ;
   imageUrl?: string;
@@ -59,7 +64,43 @@ export class ProfileUserComponent {
             console.error('Erreur lors de l\'upload de la photo de profil :', error);
         }
     }
-}
+  }
 
- 
+  // Fonction pour ouvrir la modal de suppression de profil
+  openModalDeleteProfileUser(): void {
+    this.modalDeleteProfileUser.nativeElement.showModal();
+    // Placer le focus sur le premier élément interactif de la modal
+    const focusableElements = this.modalDeleteProfileUser.nativeElement.querySelectorAll<HTMLElement>('button, [tabindex="0"], a[href], input, select, textarea');
+    if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+    }
+  }
+
+  closeModalDeleteProfileUser(): void {
+      this.modalDeleteProfileUser.nativeElement.close();
+  }
+
+  // Fonction pour ouvrir la modal de confirmation de suppression de profil
+  openModalDeleteProfileUserConfirm() : void {
+    this.modalDeleteProfileUser.nativeElement.close();
+    this.modalDeleteProfileUserConfirm.nativeElement.showModal();
+    const focusableElements = this.modalDeleteProfileUserConfirm.nativeElement.querySelectorAll<HTMLElement>('button, [tabindex="0"], a[href], input, select, textarea');
+    if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+    }
+  }
+
+  closeModalDeleteProfileUserConfirm(): void {
+    this.modalDeleteProfileUserConfirm.nativeElement.close();
+  }
+
+  //Function pour supprimer le profil utilisateur
+  deleteUser(): void {
+    if(this.currentUser?.id){
+      this.userService.deleteUserProfile(this.currentUser.id).subscribe((data) => {
+        console.log(data);
+        this.authService.logout();
+      });
+    }
+  }
 }

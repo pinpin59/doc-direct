@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { HealthProfessionalStatus } from '../../enums/health-professional-status.enum';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-registation-healt-professional',
@@ -38,7 +39,7 @@ export class RegistrationHealthProfessionalComponent implements OnInit {
     // Liste des heures de 00h00 à 23h00
     hoursOfDay = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
 
-  constructor(private healthProfessionalService : HealthProfessionalService, private fb: FormBuilder) {
+  constructor(private authService: AuthService, private fb: FormBuilder) {
 
     this.addHealthProfessionalForm = this.fb.group({
       email: ['', Validators.required],
@@ -110,7 +111,7 @@ export class RegistrationHealthProfessionalComponent implements OnInit {
           availabilities: availabilities  // Ajout des disponibilités
         } as HealthProfessional;
       
-        this.healthProfessionalService.createHealthProfessional(healthProfessionalData).pipe(first()).subscribe(
+        this.authService.registerHealthProfessional(healthProfessionalData).pipe(first()).subscribe(
           (data) => {
             console.log(data);
           },
@@ -129,16 +130,7 @@ export class RegistrationHealthProfessionalComponent implements OnInit {
     
   }
 
-  createHealthProfessional(healthProfessionalData :HealthProfessional){
-    this.healthProfessionalService.createHealthProfessional(healthProfessionalData).pipe(first()).subscribe(
-      (data) => {
-        console.log(data);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  }
-
+ 
+  
   
 }
