@@ -21,8 +21,8 @@ export class RegistrationUserComponent implements OnInit{
 
   constructor(private fb: FormBuilder, private authService : AuthService, private router : Router) {
     this.registrationForm = this.fb.group({
-      email: ['',Validators.required],
-      password: ['',Validators.required],
+      email: ['',[Validators.required, Validators.email]],
+      password: ['',[Validators.required, Validators.minLength(6)]],
       passwordConfirm: ['',Validators.required],
       firstname: ['',Validators.required],
       lastname: ['',Validators.required],
@@ -35,7 +35,6 @@ export class RegistrationUserComponent implements OnInit{
   }
 
   onSubmitRegistration(){
-    // Check if the confirmation password is the same as the password
     console.log(this.registrationForm);
     
     if(this.registrationForm?.valid){
@@ -45,6 +44,14 @@ export class RegistrationUserComponent implements OnInit{
       }
       // Call the registration method      
     }else{
+      if(this.registrationForm.controls['email'].errors?.['email']){
+        this.errorMsg = 'Veuillez saisir un email valide.';
+        return;
+      }
+      if(this.registrationForm.controls['password'].errors?.['minlength']){
+        this.errorMsg = 'Le mot de passe doit contenir au moins 6 caractères.';
+        return;
+      }
       this.errorMsg = 'Veuillez remplir tous les champs *';
       return;
     }

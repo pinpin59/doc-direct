@@ -42,8 +42,8 @@ export class RegistrationHealthProfessionalComponent implements OnInit {
   constructor(private authService: AuthService, private fb: FormBuilder) {
 
     this.addHealthProfessionalForm = this.fb.group({
-      email: ['', Validators.required],
-      password: ['',Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['',[Validators.required, Validators.minLength(6)]],
       passwordConfirm: ['',Validators.required],
       lastname: ['',Validators.required],
       firstname: ['',Validators.required],
@@ -58,17 +58,6 @@ export class RegistrationHealthProfessionalComponent implements OnInit {
       samedi: [[]],
       dimanche: [[]],
     });
-    // workSchedule: this.fb.group({
-    //   // Création d'un FormControl pour chaque jour de la semaine, initialisé à un tableau vide
-    //   lundi: [[],Validators.required],
-    //   mardi: [[],Validators.required],
-    //   mercredi: [[],Validators.required],
-    //   jeudi: [[],Validators.required],
-    //   vendredi: [[],Validators.required],
-    //   samedi: [[],Validators.required],
-    //   dimanche: [[],Validators.required]
-    // })
-  
   }
 
   ngOnInit(): void {
@@ -121,6 +110,14 @@ export class RegistrationHealthProfessionalComponent implements OnInit {
         );
       }
     }else{
+      if(this.addHealthProfessionalForm.controls['email'].errors?.['email']){
+        this.errorMsg = 'Veuillez saisir un email valide.';
+        return;
+      }
+      if(this.addHealthProfessionalForm.controls['password'].errors?.['minlength']){
+        this.errorMsg = 'Le mot de passe doit contenir au moins 6 caractères.';
+        return;
+      }
       this.errorMsg = 'Veuillez remplir tous les champs *';
       console.log(this.addHealthProfessionalForm.value);
       
