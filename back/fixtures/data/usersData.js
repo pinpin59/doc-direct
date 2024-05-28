@@ -18,6 +18,6 @@ const usersData = [
       role : 'ROLE_USER'
     },
   ]
-  
+   
 module.exports = usersData
   
