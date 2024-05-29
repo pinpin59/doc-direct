@@ -84,7 +84,7 @@ export class AuthService {
   }
 
 
-  // Get the user token from the store
+  // Récupérer le jeton de l'utilisateur dans le store
   getUserToken(): string | null {    
     return this.sessionQuery.getValue().userToken;
   }
@@ -94,7 +94,7 @@ export class AuthService {
   }
 
 
-  // Decode the ID token and return its payload
+  // Décode le jeton
   decodeToken(token:string | null): any {
     const idToken = token;
     if (idToken) {
@@ -103,7 +103,7 @@ export class AuthService {
     return null;
   }
 
-  // Get user information from the ID token
+  // Récupérer les informations de l'utilisateur à partir du jeton
   getUserInfoFromToken(): any {
     const accessToken = this.sessionQuery.getValue().userToken;
     const decodedToken = this.decodeToken(accessToken);
@@ -114,6 +114,7 @@ export class AuthService {
     return null;
   }
 
+  // Récupérer les informations du professionnel de la santé à partir du jeton
   getHealthProfessionalInfoFromToken(): any {
     const accessToken = this.sessionQuery.getValue().healthProfessionalToken;
     const decodedToken = this.decodeToken(accessToken);
@@ -124,7 +125,7 @@ export class AuthService {
     return null;
   }
  
-  // Check if the access token is valid
+  // Vérifie si le jeton de l'utilisateur est valide
   isAccessUserTokenValid(): boolean {
 
     const accessToken = this.sessionQuery.getValue().userToken;
@@ -138,7 +139,7 @@ export class AuthService {
       return false;
     }
 
-    const currentTime = Date.now() / 1000; // Convert to seconds
+    const currentTime = Date.now() / 1000; // Convertir en secondes
 
     if(decodedToken.exp > currentTime){
       return true;
@@ -167,8 +168,8 @@ export class AuthService {
       return false;
     }
 
-    // Check if the token is expired
-    const currentTime = Date.now() / 1000; // Convert to seconds  
+    // Vérifiez si le jeton a expiré
+    const currentTime = Date.now() / 1000; // Convertie en secondes  
     return decodedToken.exp > currentTime;
   }
 }

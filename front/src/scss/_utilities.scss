@@ -118,6 +118,7 @@
     border-color: #007bff;
     outline: none;
 }
+
 // Boucle pour créer les classes de largeur
 @each $width in $width-steps {
     .w-#{$width}{

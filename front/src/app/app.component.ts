@@ -6,7 +6,7 @@ import { DefaultFooterComponent } from './views/default-footer/default-footer.co
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, DefaultHeaderComponent, DefaultFooterComponent],
+  imports: [RouterOutlet, DefaultHeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

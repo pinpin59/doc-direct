@@ -5,9 +5,9 @@ import { AuthService } from '../../../services/auth/auth.service';
 export const authHealthProfessional: CanActivateFn = (route, state) => {
   if (inject(AuthService).getHealthProfessionalToken()) {
     console.log('Le professionel de santé est connecté');
-    return true; // Le professionel est connecté, autorisez l'accès à la route
+    return true; // Le professionel est connecté et peut accéder à la page
   } else {
-    // Le professionel n'est pas connecté, redirigez vers la page de connexion
+    // Rediriger vers la page de connexion
     return inject(Router).parseUrl('/login-healt-professional');
   }
 };

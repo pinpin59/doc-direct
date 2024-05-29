@@ -15,7 +15,7 @@
     <p class="d-flex align-items-center justify-content-center pt-5  bg-white" *ngIf="groupedAvailabilities.length < 1">Aucune disponibilités pour le moment</p>
     <table class="w-100 bg-white">
         <tbody class="body-table-card" *ngIf="groupedAvailabilities">
-          <!-- Parcourez les jours de la semaine -->
+          <!-- Parcoure les jours de la semaine -->
           <tr class="d-flex flex-column" *ngFor="let dayOfWeek of groupedAvailabilities">
             <!-- Afficher le jour de la semaine -->
             <td class="mx-auto mb-1">{{ dayOfWeek.dayOfWeek }}</td>
@@ -34,6 +34,5 @@
       </table>
     <footer class="card-footer">
         <button class="btn btn-primary">Prendre rendez-vous</button>
-        <!-- Ajoutez des actions ou des liens si nécessaire -->
     </footer>
 </article>

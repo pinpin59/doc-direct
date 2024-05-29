@@ -6,9 +6,9 @@ export const authUserGuard: CanActivateFn = (route, state) => {
   console.log(inject(AuthService).getUserToken());
   
   if (inject(AuthService).isAccessUserTokenValid()) {    
-    return true; // L'utilisateur est connecté, autorisez l'accès à la route
+    return true; // L'utilisateur est connecté et peut accéder à la page
   } else {
-    // L'utilisateur n'est pas connecté, redirigez vers la page de connexion
+    // Rediriger vers la page de connexion
     return inject(Router).parseUrl('/login-user');
   }
 };

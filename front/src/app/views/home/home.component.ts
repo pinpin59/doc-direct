@@ -4,11 +4,12 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { faArrowRight, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
+import { DefaultFooterComponent } from '../default-footer/default-footer.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, FaIconComponent, RouterModule],
+  imports: [CommonModule, ButtonComponent, FaIconComponent, RouterModule, DefaultFooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
