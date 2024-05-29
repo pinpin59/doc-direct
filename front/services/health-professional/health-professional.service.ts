@@ -29,25 +29,23 @@ export class HealthProfessionalService {
         return headers;
     }
 
-  // Get all health professionals
+    // Réccupère les professionnels de santé
     getHealthProfessionals(): Observable<any> {
         return this.http.get(`${this.apiUrl}/health-professionals`, { headers: this.getHeaders() });
     }
 
-    // Get health professional by id
+    // Réccupère les professionnels de santé par id
     getHealthProfessionalById(id: number): Observable<any> {
         return this.http.get(`${this.apiUrl}/health-professionals/${id}`, { headers: this.getHeaders() });
     }
 
-    getHealthProfessionalByStatus(status: HealthProfessionalStatus): Observable<any> {
-        return this.http.get(`${this.apiUrl}/health-professionals/status/${status}`, { headers: this.getHeaders() });
-    }
+    
 
     createHealthProfessional(healthProfessional: HealthProfessional): Observable<any> {
         return this.http.post(`${this.apiUrl}/health-professionals`, healthProfessional);
     }
 
-    //Change health professional status
+    //Change le statut d'un professionnel de santé
     changeHealthProfessionalStatus(id: number, status: HealthProfessionalStatus): Observable<any> {
         return this.http.put(`${this.apiUrl}/health-professionals/status/${id}`, { status }, { headers: this.getHeaders() });
     }

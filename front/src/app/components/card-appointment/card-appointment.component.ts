@@ -41,7 +41,7 @@ export class CardAppointmentComponent implements OnInit{
     });
   }
 
-  //Output action
+  //Action de l'output
   onAction(): void {
     this.appointmentAction.emit();
   }

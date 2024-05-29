@@ -39,8 +39,5 @@ export class UserService {
         return this.http.post(`${this.apiUrl}/users/${userId}/upload-user-profile-picture`, formData, { headers: this.getHeaders() });
     }
 
-    
-
-    
   
 }

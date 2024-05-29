@@ -24,7 +24,7 @@ export class CardHealthProfessionalComponent implements OnInit{
   @Input() healthProfessional!: HealthProfessional
   availabilities: Avaibility[] = [];
   currentUser?: User;
-  selectedAvailability?: Avaibility; // Ou définir un type plus précis si nécessaire
+  selectedAvailability?: Avaibility;
   groupedAvailabilities: any = [];
   imageUrl?: string;
   faUser = faUser;
@@ -67,7 +67,7 @@ export class CardHealthProfessionalComponent implements OnInit{
   }
 
   groupAvailabilitiesByDayOfWeek(availabilities: any[]): any[] {
-    // Créez un objet pour regrouper les disponibilités par jour de la semaine
+    // Crée un objet pour regrouper les disponibilités par jour de la semaine
     const groupedObj = availabilities.reduce((acc, availability) => {
         const dayOfWeek = availability.dayOfWeek;
         if (!acc[dayOfWeek]) {
@@ -81,13 +81,11 @@ export class CardHealthProfessionalComponent implements OnInit{
     // Liste des jours de la semaine
     const daysOfWeek = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
-    // Assurez-vous que chaque jour de la semaine est présent dans l'objet regroupé
+    // Crée un tableau d'objets avec les jours de la semaine et les disponibilités correspondantes
     this.groupedAvailabilities = daysOfWeek.map(dayOfWeek => ({
         dayOfWeek,
         availabilities: groupedObj[dayOfWeek] || [] // Si le jour n'a pas d'availability, utilisez un tableau vide
     }));
-
-    console.log(this.groupedAvailabilities);
     
     return this.groupedAvailabilities;
   }
@@ -99,10 +97,8 @@ export class CardHealthProfessionalComponent implements OnInit{
   formatDate(dateString:string): string {
     // Séparez les parties de la date
     const [year, month, day] = dateString.split('-');
-
     // Recomposez la date au format DD-MM
     const formattedDate = `${day}-${month}`;
-
-    return formattedDate;
-}
+    return formattedDate; 
+  }
 }

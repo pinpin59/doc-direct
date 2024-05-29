@@ -1,0 +1,77 @@
+<section class="panel-admin-user-container">
+    <article class="d-flex justify-content-center"  *ngFor="let user of users">
+        <details class="accordion-item">
+            
+            <summary class="accordion-title">
+                <figure class="me-3" *ngIf="user.profilePicture && imageUrl" >
+                    <img class="img-profile-panel-admin" crossorigin="anonymous" [src]="imageUrl + user.profilePicture" alt="Photo de l'utilisateur">
+                </figure>
+                {{user.lastname}} {{user.firstname}}
+            </summary>
+            <section class="accordion-content">
+                <!-- Informations sur le praticien -->
+                <p>Nom : {{user.lastname}} {{user.firstname}}</p>
+                <p class="mt-3">Spécialité : {{user.address}}</p>
+                <p class="mt-3">Ville : {{user.city}}</p>
+                <p class="mt-3">Adresse : {{user.address}}</p>
+                <p class="mt-3">Email : {{user.email}}</p>
+              
+            </section>
+            <app-button *ngIf="user.id" class="d-flex justify-content-end mb-1 me-1" color="primary" (click)="openModalEditUser(user)">Modifier</app-button>
+            <app-button *ngIf="user.id" class="d-flex justify-content-end mb-1 me-1" color="danger" (click)="openModalDeleteUser(user.id)">Supprimer</app-button>
+        </details>
+    </article>
+</section>
+
+
+<!-- Modal pour supprimer un utilisateur-->
+<dialog #modalDeleteUser aria-modal="true" aria-labelledby="modalLabel" class="custom-modal">
+    <div class="modal-header">
+        <h2 id="modalLabel">Supprimer l'utilisateur</h2>
+        <button class="close-button" (click)="closeModalDeleteUser()" aria-label="Fermer">&times;</button>
+    </div>
+    <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
+        <p class="mt-2">Cette action est irréversible et entraînera la suppression totale de ses données.</p>
+    </div>
+    <div class="modal-footer">
+        <app-button color="danger" (click)="closeModalDeleteUser()" class="btn-md">Annuler</app-button>
+        <app-button *ngIf="currentUserIdToDelete"  class="btn-md ms-3" (click)="deleteUser(currentUserIdToDelete)">Confirmer</app-button>
+    </div>
+</dialog>
+
+<!-- Modal pour modifier un utilisateur-->
+<dialog #modalEditUser aria-modal="true" aria-labelledby="modalLabel" class="custom-modal">
+    <div class="modal-header">
+        <h2 id="modalLabel">Modifier les informations</h2>
+        <button class="close-button" (click)="closeModalEditUser()" aria-label="Fermer">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form id="signupForm" [formGroup]="editUserForm" class="registration-form mx-auto bg-white" aria-labelledby="signupFormTitle">
+            <div class="form-group-global">
+                 
+                        <label for="email" class="form-label">Email :</label>
+                        <input type="email" id="email" name="email"  required formControlName="email" required autocomplete="email"  aria-required="true" placeholder="Entrez votre email" aria-describedby="emailHelp" class="form-control">
+                        <!-- Champ pour le nom de famille -->
+                        <label for="lastname" class="form-label">Nom de famille :</label>
+                        <input type="text" id="lastname" name="lastname" formControlName="lastname" required aria-required="true" placeholder="Entrez votre nom de famille" class="form-control">
+            
+                        <!-- Champ pour le prénom -->
+                        <label for="firstname" class="form-label">Prénom :</label>
+                        <input type="text" id="firstname" name="firstname" formControlName="firstname" required aria-required="true" placeholder="Entrez votre prénom" class="form-control">
+            
+                        <!-- Champ pour la ville -->
+                        <label for="city" class="form-label">Ville :</label>
+                        <input type="text" id="city" name="city" formControlName="city" required aria-required="true" placeholder="Entrez votre ville" class="form-control">
+            
+                        <!-- Champ pour l'adresse -->
+                        <label for="address" class="form-label">Adresse :</label>
+                        <input type="text" id="address" name="address" formControlName="address" required aria-required="true" placeholder="Entrez votre adresse" class="form-control">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <app-button color="danger" (click)="closeModalEditUser()" class="btn-md">Annuler</app-button>
+        <app-button color="primary" (click)="updateUser()" class="btn-md ms-3" >Modifier</app-button>
+    </div>
+</dialog>
