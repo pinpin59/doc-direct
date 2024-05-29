@@ -1,5 +1,5 @@
 const { QueryTypes } = require('sequelize');
-const {sequelize} = require('./connectDb'); // Votre configuration de base de données
+const {sequelize} = require('./connectDb'); // Importation de la connexion à la base de données
 const _ = require('lodash');
 
 async function getAvailabilityForHealthProfessional(healthProfessionalId) {

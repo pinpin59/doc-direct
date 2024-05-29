@@ -1,19 +1,11 @@
-const e = require('express');
 const User = require('../models/userModel');
 const Appointment = require('../models/appointmentModel');
 const fs = require('fs');
 const path = require('path');
 const { generateToken } = require('../jwtUtils');
+const { log } = require('console');
 
-// Récupérer tous les utilisateurs
-exports.getAllUsers = async (req, res, next) => {
-  try {
-    const users = await User.findAll()
-    res.json(users)
-  } catch (error) {
-    res.status(500).json({ error: error.message })
-  }
-}
+
  
 // Récupérer un utilisateur par son id
 exports.getUserById = async (req, res, next) => {
@@ -70,14 +62,17 @@ exports.deleteUser = async (req, res, next) => {
 exports.updateProfilePictureUser = async (req, res, next) => {
   const uploadsDir = path.join(__dirname, '../uploads');
   const userId = req.params.id; 
+  const user = await User.findByPk(userId)
+  const authentifiedUser = req.userInfos;
+  
   try {
-    console.log(fs.existsSync(uploadsDir));
     if (!fs.existsSync(uploadsDir)) {
-      console.log('uploads directory does not exist');
       fs.mkdirSync(uploadsDir, { recursive: true });
     }
-    
-    const user = await User.findByPk(userId)
+    //Verifie si l'utilisateur authentifié est bien le propriétaire du profil
+    if(authentifiedUser.id !== user.id) {
+      return res.status(403).json({ error: 'Access forbidden' });
+    }
     if (!user) {
       return res.status(404).json({ error: 'User not found' })
     }

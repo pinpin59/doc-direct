@@ -48,7 +48,7 @@ const Appointment = sequelize.define(
   },
   {
     tableName: 'appointment',
-    timestamps: true, // turns off createdAt and updatedAt
+    timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
     underscored: true // Permet la conversion automatique des noms de champs entre snake case et camel case
@@ -56,6 +56,7 @@ const Appointment = sequelize.define(
 
 )
 
+// Permet de définir les relations
 User.hasMany(Appointment, {
   foreignKey: 'userId',
   as: 'appointments'

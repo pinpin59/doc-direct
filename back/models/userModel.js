@@ -51,7 +51,7 @@ const User = sequelize.define(
   },
   {
     tableName: 'user',
-    timestamps: true, // turns off createdAt and updatedAt
+    timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
   }
