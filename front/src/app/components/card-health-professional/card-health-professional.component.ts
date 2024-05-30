@@ -68,6 +68,10 @@ export class CardHealthProfessionalComponent implements OnInit{
 
   groupAvailabilitiesByDayOfWeek(availabilities: any[]): any[] {
     // Crée un objet pour regrouper les disponibilités par jour de la semaine
+    const now = new Date();
+    const currentHours = now.getHours();
+    const currentMinutes = now.getMinutes();
+    const currentTime = `${currentHours}:${currentMinutes < 10 ? '0' : ''}${currentMinutes}`;
     const groupedObj = availabilities.reduce((acc, availability) => {
         const dayOfWeek = availability.dayOfWeek;
         if (!acc[dayOfWeek]) {
@@ -76,18 +80,33 @@ export class CardHealthProfessionalComponent implements OnInit{
         acc[dayOfWeek].push(availability);        
         return acc;
     }, {});
-
+    console.log(groupedObj);
+    
    
     // Liste des jours de la semaine
-    const daysOfWeek = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+    const daysOfWeek = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 
-    // Crée un tableau d'objets avec les jours de la semaine et les disponibilités correspondantes
-    this.groupedAvailabilities = daysOfWeek.map(dayOfWeek => ({
-        dayOfWeek,
-        availabilities: groupedObj[dayOfWeek] || [] // Si le jour n'a pas d'availability, utilisez un tableau vide
-    }));
+     // Détermine le jour actuel
+     const currentDayIndex = new Date().getDay();
     
-    return this.groupedAvailabilities;
+     // Réorganise les jours de la semaine pour commencer par le jour actuel
+     const orderedDaysOfWeek = [
+         ...daysOfWeek.slice(currentDayIndex),
+         ...daysOfWeek.slice(0, currentDayIndex)
+     ];
+    // Filtre les horaires passés pour le jour actuel
+    if (groupedObj[daysOfWeek[currentDayIndex]]) {
+      groupedObj[daysOfWeek[currentDayIndex]] = groupedObj[daysOfWeek[currentDayIndex]].filter((availability: { startTime: string; }) => {
+          return availability.startTime > currentTime;
+      });
+    }    
+     // Crée un tableau d'objets avec les jours de la semaine et les disponibilités correspondantes
+     this.groupedAvailabilities = orderedDaysOfWeek.map(dayOfWeek => ({
+         dayOfWeek,
+         availabilities: groupedObj[dayOfWeek] || [] // Si le jour n'a pas d'availabilities, utilise un tableau vide
+     }));
+     
+     return this.groupedAvailabilities;
   }
 
   navigateToConfirmationAppointment(params:any) {
