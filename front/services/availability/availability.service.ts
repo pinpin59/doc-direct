@@ -12,15 +12,17 @@ export class AvailabilityService {
 
     private apiUrl = `${environment.apiUrl}`;
 
-    constructor(private http: HttpClient, private sessionQuery: SessionQuery) {}
+    constructor(private http: HttpClient, private sessionQuery: SessionQuery ) {}
 
     private getHeaders(): HttpHeaders {
         const userToken = this.sessionQuery.getValue().userToken;
+
         let headers = new HttpHeaders();
         if (userToken) {
         headers = headers.set('Authorization', `Bearer ${userToken}`);
         }
         return headers;
+
     }
     
     getAvailabilityByHealthProfessionalId(healthProfessionalId: number) {

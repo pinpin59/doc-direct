@@ -64,7 +64,7 @@ export class PanelAdminHealthProfessionalComponent {
     const status = this.selectedStatus as HealthProfessionalStatus;
     if(this.currentUser?.role === UserRoles.Admin){
       this.adminService.updateHealthProfessionalStatus(id, status).subscribe((data) => {
-        this.getHealthProfessionalsByStatus(HealthProfessionalStatus.PENDING);
+        this.getHealthProfessionalsByStatus(status);
       });
     }
   }
