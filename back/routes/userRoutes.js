@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/userController')
 const auth = require('../middlewares/auth')
-const upload = require('../multer-config');
+const upload = require('../multerConfig');
 
 router.get('/:id', auth, userController.getUserById)
 router.post('/:id/upload-user-profile-picture',auth,upload.single('profilePicture'), userController.updateProfilePictureUser)
