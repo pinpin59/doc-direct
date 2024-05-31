@@ -2,7 +2,7 @@ require('dotenv').config()
 const app = require('./app')
 const { connectDB } = require('./services/connectDb')
 
-let port = process.env.APP_PORT || 3000
+let port = process.env.APP_PORT
 
 const startServer = port => {
   connectDB()
@@ -14,11 +14,9 @@ const startServer = port => {
         .on('error', err => {
           if (err.code === 'EADDRINUSE') {
             console.error(
-              `Port ${port} is already in use, trying port ${
-                parseInt(port) + 1
-              }…`
+              `Port ${port} is already in use.`
             )
-            startServer(parseInt(port) + 1)
+            process.exit(1)
           } else {
             console.error(err) 
             process.exit(1)

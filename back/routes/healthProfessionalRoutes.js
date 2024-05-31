@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const healthProfessionalController = require('../controllers/healthProfessionalController')
 const auth = require('../middlewares/auth')
-const upload = require('../multer-config');
+const upload = require('../multerConfig');
 
 
 router.get('/', healthProfessionalController.getAllHealthProfessionals)
