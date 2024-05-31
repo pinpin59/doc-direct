@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environments';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SessionQuery } from '../../src/app/session/session.query';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { SessionStore } from '../../src/app/session/session.store';
 import {jwtDecode} from 'jwt-decode';
 import { User } from '../../interfaces/user.interface';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { CsrfService } from '../csrf/csrf.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +17,25 @@ export class AuthService {
 
   private apiUrl = `${environment.apiUrl}`;
 
-  constructor(private http: HttpClient, private sessionStore: SessionStore, private sessionQuery: SessionQuery, private router : Router) {}
+  constructor(private http: HttpClient, private sessionStore: SessionStore, private sessionQuery: SessionQuery, private router : Router, private csrfService : CsrfService) {}
+  
+  private getHeaders(): HttpHeaders {
+    const csrfToken = this.csrfService.getCsrfTokenValue(); // Récupérer le jeton CSRF depuis le stockage local
+    console.log('CsrfToken:', csrfToken);
+    
+    let headers = new HttpHeaders();
+
+    if (csrfToken) {
+      headers = headers.set('x-csrf-token', csrfToken);
+    }
+  
+   console.log('Headers:', headers);
+   
+    return headers; 
+  }
 
   loginUser(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login-user`, { email, password }).pipe(
+    return this.http.post(`${this.apiUrl}/login-user`, { email, password },{ headers: this.getHeaders(), withCredentials: true}).pipe(
         tap((response:any) => {
             const userToken = response.token;
             // Stocker le jeton dans SessionQuery et store
@@ -56,15 +73,15 @@ export class AuthService {
   }
 
   registerUser(user:User): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register-user`, user);
+    return this.http.post(`${this.apiUrl}/register-user`, user, { headers: this.getHeaders(), withCredentials: true});
   }
 
   registerHealthProfessional(healthProfessional: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register-health-professional`, healthProfessional);
+    return this.http.post(`${this.apiUrl}/register-health-professional`, healthProfessional, { headers: this.getHeaders(), withCredentials: true});
   }
 
   loginHealtProfessionalComponent(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login-health-professional`, { email, password }).pipe(
+    return this.http.post(`${this.apiUrl}/login-health-professional`, { email, password }, { headers: this.getHeaders(), withCredentials: true}).pipe(
         tap((response:any) => {
             const healthProfessionalToken = response.token;
             // Stocker le jeton dans SessionQuery et store
