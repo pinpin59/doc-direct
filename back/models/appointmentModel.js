@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize')
 const { sequelize } = require('../services/connectDb')
+const sanitizeHtml = require('sanitize-html')
 const User = require('./userModel')
 const HealthProfessional = require('./healthProfessionalModel')
 
@@ -76,5 +77,27 @@ Appointment.belongsTo(HealthProfessional, {
   foreignKey: 'healthProfessionalId',
   as: 'healthProfessional'
 })
+
+// Hook "afterFind" pour nettoyer les données avant qu'elles ne soient renvoyées
+Appointment.addHook('afterFind', (instanceOrInstances) => {
+  if (Array.isArray(instanceOrInstances)) {
+      // Si plusieurs instances sont trouvées, nettoyez chaque instance
+      instanceOrInstances.forEach(instance => {
+          instance.sanitize();
+      });
+  } else {
+      // Si une seule instance est trouvée, nettoyez cette instance
+      instanceOrInstances.sanitize();
+  }
+});
+
+// Méthode de transformation pour nettoyer les données d'une instance
+Appointment.prototype.sanitize = function() {
+  this.appointmentDate =  sanitizeHtml(this.appointmentDate, { allowedTags: [] });
+  this.appointmentTime = sanitizeHtml(this.appointmentTime, { allowedTags: [] });
+  this.appointmentAddress = sanitizeHtml(this.appointmentAddress, { allowedTags: [] });
+  this.appointmentCity = sanitizeHtml(this.appointmentCity, { allowedTags: [] });
+  this.comment = sanitizeHtml(this.comment, { allowedTags: [] });
+};
 
 module.exports = Appointment

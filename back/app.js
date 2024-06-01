@@ -8,7 +8,8 @@ const swaggerSpec = require('./swagger')
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const app = express()
-const { doubleCsrfProtection } = require('./csrfConfig'); // Importez la protection CSRF à partir du fichier de configuration
+const { doubleCsrfProtection } = require('./csrfConfig');
+const sanitizeInput = require('./middlewares/sanatizeMiddleware')
 
 // Routes imports
 const authRoutes = require('./routes/authRoutes')
@@ -23,12 +24,13 @@ const corsOptions = {
     credentials: true, // autorise les cookies dans les requêtes cross-origin    
 };
 // Middlewares
-app.use(cors(corsOptions));
+app.use(cors(corsOptions))
 app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet())
-app.use(cookieParser());
+app.use(cookieParser())
 // Routes
+app.use(sanitizeInput)
 app.use("/api/csrf-token", csrfRoutes);
 // Middleware CSRF appliqué à toutes les routes de l'API
 app.use(doubleCsrfProtection);
