@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../services/connectDb');
+const sanitizeHtml = require('sanitize-html');
 const HealthProfessional = require('./healthProfessionalModel');
 
 // Définition du modèle Availability
@@ -46,4 +47,22 @@ Availability.belongsTo(HealthProfessional, {
     as: 'healthProfessional',
 });
 
+// Hook "afterFind" pour nettoyer les données avant qu'elles ne soient renvoyées
+Availability.addHook('afterFind', (instanceOrInstances) => {
+    if (Array.isArray(instanceOrInstances)) {
+        // Si plusieurs instances sont trouvées, nettoyez chaque instance
+        instanceOrInstances.forEach(instance => {
+            instance.sanitize();
+        });
+    } else {
+        // Si une seule instance est trouvée, nettoyez cette instance
+        instanceOrInstances.sanitize();
+    }
+  });
+  
+  // Méthode de transformation pour nettoyer les données d'une instance
+Availability.prototype.sanitize = function() {
+    this.dayOfWeek =  sanitizeHtml(this.dayOfWeek, { allowedTags: [] });
+    this.startTime = sanitizeHtml(this.startTime, { allowedTags: [] });
+};
 module.exports = Availability;

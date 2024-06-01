@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize')
 const { sequelize } = require('../services/connectDb')
-
+const sanitizeHtml = require('sanitize-html');
 const HealthProfessional = sequelize.define(
   'HealthProfessional',
   {
@@ -63,5 +63,30 @@ const HealthProfessional = sequelize.define(
 
   }
 )
+
+// Hook "afterFind" pour nettoyer les données avant qu'elles ne soient renvoyées
+HealthProfessional.addHook('afterFind', (instanceOrInstances) => {
+  if (Array.isArray(instanceOrInstances)) {
+      // Si plusieurs instances sont trouvées, nettoyez chaque instance
+      instanceOrInstances.forEach(instance => {
+          instance.sanitize();
+      });
+  } else {
+      // Si une seule instance est trouvée, nettoyez cette instance
+      instanceOrInstances.sanitize();
+  }
+});
+
+// Méthode de transformation pour nettoyer les données d'une instance
+HealthProfessional.prototype.sanitize = function() {
+  this.email = sanitizeHtml(this.email, { allowedTags: [] });
+  this.lastname = sanitizeHtml(this.lastname, { allowedTags: [] });
+  this.firstname = sanitizeHtml(this.firstname, { allowedTags: [] });
+  this.city = sanitizeHtml(this.city, { allowedTags: [] });
+  this.address = sanitizeHtml(this.address, { allowedTags: [] });
+  this.profession = sanitizeHtml(this.profession, { allowedTags: [] });
+  this.profilePicture = sanitizeHtml(this.profilePicture, { allowedTags: [] });
+  this.status = sanitizeHtml(this.status, { allowedTags: [] });
+};
 
 module.exports = HealthProfessional
