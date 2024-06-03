@@ -21,15 +21,33 @@ exports.getUserById = async (req, res, next) => {
 }
 
 
-// Mettre à jour un utilisateur
+// Mettre à jour son profil utilisateur
 exports.updateUser = async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
+    const authentifiedUser = req.userInfos;
+    //Verifie si l'utilisateur authentifié est bien le propriétaire du profil
+    if(authentifiedUser.id !== user.id) {
+      return res.status(403).json({ error: 'Access forbidden' });
+    }
     if (!user) {
       return res.status(404).json({ error: 'User not found' })
     }
     await user.update(req.body)
-    res.json(user)
+    // Générer un nouveau jeton JWT après la mise à jour
+    const tokenPayload = {
+      id: user.id,
+      email: user.email,
+      lastname: user.lastname,
+      firstname: user.firstname,
+      city: user.city,
+      address: user.address,
+      profilePicture: user.profilePicture,
+      role: user.role
+    };
+
+    const newToken = generateToken(tokenPayload);
+    res.json({token: newToken});
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
