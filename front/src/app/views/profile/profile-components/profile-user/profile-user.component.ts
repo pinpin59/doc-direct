@@ -7,11 +7,12 @@ import { UserService } from '../../../../../../services/user/user.service';
 import { SessionQuery } from '../../../../session/session.query';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../../components/button/button.component';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-user',
   standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule, ButtonComponent, ReactiveFormsModule],
   templateUrl: './profile-user.component.html',
   styleUrl: '../../profile.component.scss'
 })
@@ -19,19 +20,29 @@ export class ProfileUserComponent {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   @ViewChild('modalDeleteProfileUser') modalDeleteProfileUser!: ElementRef<HTMLDialogElement>; // Référence à l'élément <dialog>
   @ViewChild('modalDeleteProfileUserConfirm') modalDeleteProfileUserConfirm!: ElementRef<HTMLDialogElement>; // Référence à l'élément <dialog>
+  @ViewChild('modalEditProfileUser') modalEditProfileUser!: ElementRef<HTMLDialogElement>; // Référence à l'élément <dialog>
 
 
   profilePicture: string | null = null;
   currentUser?: User ;
   imageUrl?: string;
+  editFormUser!: FormGroup;
 
-  constructor(private userService : UserService, private authService: AuthService, private sessionQuery : SessionQuery) { }
+  constructor(private userService : UserService, private authService: AuthService, private sessionQuery : SessionQuery, private fb : FormBuilder) {
+    this.editFormUser = this.fb.group({
+      id: [''],
+      firstname: ['',Validators.required],
+      lastname: ['',Validators.required],
+      city: ['',Validators.required],
+      address: ['',Validators.required],
+    });
+  }
     
   ngOnInit(): void {
     this.imageUrl = `${environment.localhost}/uploads/`;
     this.sessionQuery.select().subscribe((session) => {
-    const userInfo = this.authService.getUserInfoFromToken();
-    this.currentUser = userInfo as User;
+      const userInfo = this.authService.getUserInfoFromToken();
+      this.currentUser = userInfo as User;
     });
   };
 
@@ -100,6 +111,37 @@ export class ProfileUserComponent {
       this.userService.deleteUserProfile(this.currentUser.id).subscribe((data) => {
         console.log(data);
         this.authService.logout();
+      });
+    }
+  }
+
+  // Fonction pour updater son profil utilisateur
+  openModalEditProfileUser(): void {
+    this.modalEditProfileUser.nativeElement.showModal();
+    this.editFormUser.patchValue({
+      id: this.currentUser?.id,
+      firstname: this.currentUser?.firstname,
+      lastname: this.currentUser?.lastname,
+      city: this.currentUser?.city,
+      address: this.currentUser?.address,
+    });
+    // Placer le focus sur le premier élément interactif de la modal
+    const focusableElements = this.modalEditProfileUser.nativeElement.querySelectorAll<HTMLElement>('button, [tabindex="0"], a[href], input, select, textarea');
+    if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+    }
+  }
+
+  closeModalEditProfileUser(): void {
+      this.modalEditProfileUser.nativeElement.close();
+  }
+
+  onSubmitEditProfileUser(): void {
+    if(this.editFormUser.valid && this.currentUser?.id){
+      this.userService.updateUserProfile(this.currentUser.id,this.editFormUser.value).subscribe((data) => {
+        this.authService.updateTokenUser(data.token);
+        this.currentUser = this.authService.getUserInfoFromToken();
+        this.closeModalEditProfileUser();
       });
     }
   }

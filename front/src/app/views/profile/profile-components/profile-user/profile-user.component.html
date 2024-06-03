@@ -1,20 +1,17 @@
 <section *ngIf="currentUser" class="profile-header-user">
-    <!-- Remplacez 'photo.jpg' par l'URL de la photo de l'utilisateur -->
+    <!-- Remplace la 'photo.jpg' par l'URL de la photo de l'utilisateur -->
     <figure class="ms-3" *ngIf="currentUser && currentUser.profilePicture && imageUrl" (click)="openFileInput()">
         <img class="img-profile" crossorigin="anonymous" [src]="imageUrl + currentUser.profilePicture" alt="Photo de l'utilisateur">
     </figure>
 
     <!-- Sinon, donne la possibilité d'ajouter une photo -->
     <button *ngIf="!currentUser.profilePicture" class="add-photo-button ms-3" (click)="openFileInput()" aria-label="Ajouter une photo">
-        <!-- Icône ronde avec symbole de plus -->
         <span class="icon-plus">+</span>
     </button>
     <input  #fileInput type="file" style="display: none;" name="profilePicture" (change)="onFileChange($event)">
 
     <div class="ms-5">
-        <!-- Remplacez 'Nom Prénom' par le nom complet de l'utilisateur -->
         <h2>{{currentUser.firstname}} {{currentUser.lastname}}</h2>
-        <!-- Remplacez 'Rôle de l'utilisateur' par le rôle de l'utilisateur -->
         <h3 class="mt-3" >Patient</h3>
     </div>
 
@@ -22,16 +19,14 @@
 
 <!-- Deuxième composant : informations de l'utilisateur --> 
 <section  class="profile-main bg-white">
-
     <section *ngIf="currentUser">
         <h3 class="text-xlarge">Informations personnelles</h3>
-
         <p class="mt-4 text-medium"><strong>Adresse :</strong> {{currentUser.address}}</p>
         <p class="mt-4 text-medium"> <strong>Email :</strong> {{currentUser.email}}</p>
         <p class="mt-4 text-medium"><strong>Ville :</strong> {{currentUser.city}}</p>
-        <app-button color="danger" (click)="openModalDeleteProfileUser()" class="mt-4 btn-sm">Supprimer mon profil</app-button>
+        <app-button color="danger" (click)="openModalDeleteProfileUser()" class="mt-4 btn-xl">Supprimer mon profil</app-button>
+        <app-button color="primary" (click)="openModalEditProfileUser()" class="mt-4 btn-xl ms-2">Modifier mon profil</app-button>
     </section>
-   
 </section> 
 
 
@@ -64,5 +59,39 @@
     <div class="modal-footer">
         <app-button color="danger" (click)="closeModalDeleteProfileUserConfirm()" class="btn-md">Annuler</app-button>
         <app-button  class="btn-md ms-3" (click)="deleteUser()" >Confirmer</app-button>
+    </div>
+</dialog>
+
+
+<!-- Modal pour modifier son profil -->
+<dialog #modalEditProfileUser aria-modal="true" aria-labelledby="modalLabel" class="custom-modal">
+    <div class="modal-header">
+        <h2 id="modalLabel">Modifier mes informations</h2>
+        <button class="close-button" (click)="closeModalEditProfileUser()"  aria-label="Fermer">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form id="signupForm" [formGroup]="editFormUser" class="registration-form mx-auto bg-white" aria-labelledby="signupFormTitle">
+            <div>
+                        <!-- Champ pour le nom de famille -->
+                        <label for="lastname" class="form-label">Nom de famille :</label>
+                        <input type="text" id="lastname" name="lastname" formControlName="lastname" required aria-required="true" placeholder="Entrez votre nom de famille" class="form-control">
+            
+                        <!-- Champ pour le prénom -->
+                        <label for="firstname" class="form-label">Prénom :</label>
+                        <input type="text" id="firstname" name="firstname" formControlName="firstname" required aria-required="true" placeholder="Entrez votre prénom" class="form-control">
+            
+                        <!-- Champ pour la ville -->
+                        <label for="city" class="form-label">Ville :</label>
+                        <input type="text" id="city" name="city" formControlName="city" required aria-required="true" placeholder="Entrez votre ville" class="form-control">
+            
+                        <!-- Champ pour l'adresse -->
+                        <label for="address" class="form-label">Adresse :</label>
+                        <input type="text" id="address" name="address" formControlName="address" required aria-required="true" placeholder="Entrez votre adresse" class="form-control">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <app-button color="danger" (click)="closeModalEditProfileUser()"  class="btn-md">Annuler</app-button>
+        <app-button color="primary" class="btn-md ms-3" (click)="onSubmitEditProfileUser()" >Modifier</app-button>
     </div>
 </dialog>
