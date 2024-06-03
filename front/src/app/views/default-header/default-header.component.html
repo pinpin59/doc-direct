@@ -5,7 +5,7 @@
     <p class="text-logo text-white text-xlarge p-2">DocDirect</p>
     <ul id="navbar-content" class="navbar-content">
             <li><a [routerLink]="['/home']">Accueil</a></li>
-            <li *ngIf="isAccessTokenUserValid()"><a [routerLink]="['/list-health-professional']" >Prendre rendez-vous</a></li>
+            <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/list-health-professional']" >Prendre rendez-vous</a></li>
             <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/appointments']">Mes rendez-vous</a></li>
             <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/registration-user']">Créer un compte</a></li>
             <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/login-user']">Se connecter</a></li>
@@ -19,7 +19,7 @@
             <button class="btn bg-none" (click)="toggleNavbar()"><fa-icon [icon]="faBars" size="1x" class="text-white" aria-controls="mobile-menu" role="button" aria-label="Fermer le menu" ></fa-icon></button>
         </li>
         <li><a [routerLink]="['/home']">Accueil</a></li>
-        <li *ngIf="isAccessTokenUserValid()"><a [routerLink]="['/list-health-professional']">Prendre rendez-vous</a></li>
+        <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/list-health-professional']">Prendre rendez-vous</a></li>
         <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/appointments']">Mes rendez-vous</a></li>
         <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/registration-user']">Créer un compte</a></li>
         <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/login-user']">Se connecter</a></li>

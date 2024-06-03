@@ -45,7 +45,9 @@ export class HealthProfessionalService {
         return this.http.get(`${this.apiUrl}/health-professionals/${id}`, { headers: this.getHeaders() });
     }
 
-    
+    updateHealthProfessional(id: number, healthProfessional: HealthProfessional): Observable<any> {
+        return this.http.put(`${this.apiUrl}/health-professionals/${id}`, healthProfessional, { headers: this.getHeaders(), withCredentials: true });
+    }
 
     createHealthProfessional(healthProfessional: HealthProfessional): Observable<any> {
         return this.http.post(`${this.apiUrl}/health-professionals`, healthProfessional, { headers: this.getHeaders(), withCredentials: true });

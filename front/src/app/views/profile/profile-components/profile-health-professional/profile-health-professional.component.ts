@@ -8,11 +8,12 @@ import { CommonModule } from '@angular/common';
 import { StatusPipe } from '../../../../pipes/status.pipe';
 import { ButtonComponent } from '../../../../components/button/button.component';
 import { HealthProfessionalService } from '../../../../../../services/health-professional/health-professional.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-health-professional',
   standalone: true,
-  imports: [CommonModule, StatusPipe,ButtonComponent],
+  imports: [CommonModule, StatusPipe,ButtonComponent, ReactiveFormsModule],
   templateUrl: './profile-health-professional.component.html',
   styleUrl: '../../profile.component.scss'
 })
@@ -20,19 +21,30 @@ export class ProfileHealthProfessionalComponent {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   @ViewChild('modalDeleteProfileHealthProfessional') modalDeleteProfileHealthProfessional!: ElementRef<HTMLDialogElement>; // Référence à l'élément <dialog>
   @ViewChild('modalDeleteProfileHealthProfessionalConfirm') modalDeleteProfileHealthProfessionalConfirm!: ElementRef<HTMLDialogElement>; // Référence à l'élément <dialog>
-
+  @ViewChild('modalEditHealthProfessional') modalEditHealthProfessional!: ElementRef<HTMLDialogElement>; // Référence à l'élément <dialog>
+  
   profilePicture: string | null = null;
   currentHealthProfessional?: HealthProfessional ;
   imageUrl?: string;
+  editFormHealthProfessional!: FormGroup;
 
-  constructor(private userService : UserService,private healthProfessionalService : HealthProfessionalService, private authService: AuthService, private sessionQuery : SessionQuery) { }
+  constructor(private userService : UserService,private healthProfessionalService : HealthProfessionalService, private authService: AuthService, private sessionQuery : SessionQuery, private fb: FormBuilder) {
+    this.editFormHealthProfessional = this.fb.group({
+      id: [''],
+      firstname: ['', Validators.required],
+      lastname: ['',Validators.required],
+      city: ['',Validators.required],
+      address: ['',Validators.required],
+      email: ['',[Validators.required, Validators.email]],
+      profession: ['',Validators.required],
+      status: ['',Validators.required],
+    });
+  }
     
   ngOnInit(): void {
     this.imageUrl = `${environment.localhost}/uploads/`;
-    this.sessionQuery.select().subscribe((session) => {
     const healthProfessionalInfo = this.authService.getHealthProfessionalInfoFromToken();
     this.currentHealthProfessional = healthProfessionalInfo as HealthProfessional;
-    });
   };
 
   
@@ -77,6 +89,7 @@ openModalDeleteProfileHealthProfessional(): void {
   }
 }
 
+// Fonction pour fermer la modal de suppression de profil
 closeModalDeleteProfileHealthProfessional(): void {
     this.modalDeleteProfileHealthProfessional.nativeElement.close();
 }
@@ -91,18 +104,52 @@ openModalDeleteProfileHealthProfessionalConfirm() : void {
   }
 }
 
+// Fonction pour fermer la modal de confirmation de suppression de profil
 closeModalDeleteProfileHealthProfessionalConfirm(): void {
   this.modalDeleteProfileHealthProfessionalConfirm.nativeElement.close();
 }
 
+// Fonction pour ouvrir la modal d'édition
+openModalEditHealthProfessional(healthProfessional: HealthProfessional): void {
+  this.modalEditHealthProfessional.nativeElement.showModal();
+  this.editFormHealthProfessional.patchValue({
+    id: healthProfessional.id,
+    firstname: healthProfessional.firstname,
+    lastname: healthProfessional.lastname,
+    city: healthProfessional.city,
+    address: healthProfessional.address,
+    email: healthProfessional.email,
+    profession: healthProfessional.profession,
+    status: healthProfessional.status,
+  });
+  // Placer le focus sur le premier élément interactif de la modal
+  const focusableElements = this.modalEditHealthProfessional.nativeElement.querySelectorAll<HTMLElement>('button, [tabindex="0"], a[href], input, select, textarea');
+  if (focusableElements.length > 0) {
+      focusableElements[0].focus();
+  }
+}
+
+// Fonction pour fermer la modal d'édition
+closeModalEditHealthProfessional(): void {
+    this.modalEditHealthProfessional.nativeElement.close();
+}
+
 //Function pour supprimer le profil utilisateur
-deleteUser(): void {
+deleteHealthProfessional(): void {
   if(this.currentHealthProfessional?.id){
     this.healthProfessionalService.deleteHealthProfessionalProfile(this.currentHealthProfessional.id).subscribe((data) => {
-      console.log(data);
       this.authService.logout();
     });
   }
 }
 
+updateHealthProfessional(): void {
+  const healthProfessional = this.editFormHealthProfessional.value;
+  this.healthProfessionalService.updateHealthProfessional(healthProfessional.id,healthProfessional).subscribe((data) => {
+    console.log(data);
+    this.authService.updateTokenHealthProfessional(data.token);
+    this.currentHealthProfessional = this.authService.getHealthProfessionalInfoFromToken();
+    this.closeModalEditHealthProfessional();
+  });
+}
 }
