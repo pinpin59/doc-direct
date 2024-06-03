@@ -39,7 +39,7 @@ exports.updateHealthProfessional = async (req, res, next) => {
   try {
     const healthProfessional = await HealthProfessional.findByPk(req.params.id)
     const authentifiedHealthProfessional = req.userInfos;
-    //Verifie si l'utilisateur authentifié est bien le propriétaire du profil
+    //Verifie si le professionel de santé authentifié est bien le propriétaire du profil
     if(authentifiedHealthProfessional.id !== healthProfessional.id) {
       return res.status(403).json({ error: 'Access forbidden' });
     }
@@ -47,7 +47,22 @@ exports.updateHealthProfessional = async (req, res, next) => {
       return res.status(404).json({ error: 'Health professional not found' })
     }
     await healthProfessional.update(req.body)
-    res.json(healthProfessional)
+    // Générer un nouveau jeton JWT après la mise à jour
+    const tokenPayload = {
+      id: healthProfessional.id,
+      email: healthProfessional.email,
+      lastname: healthProfessional.lastname,
+      firstname: healthProfessional.firstname,
+      city: healthProfessional.city,
+      address: healthProfessional.address,
+      profession: healthProfessional.profession,
+      status: healthProfessional.status,
+      profilePicture: healthProfessional.profilePicture
+    };
+
+    const newToken = generateToken(tokenPayload);
+
+    res.json({token: newToken});
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
