@@ -1,30 +1,62 @@
 <nav class="nav-header" aria-label="Navigation principale">
-    <button id="hamburger-icon" class="btn bg-none" [ngClass]="{iconexpanded: isExpanded}" (click)="toggleNavbar()" [attr.aria-expanded]="isExpanded ? 'true' : 'false'" aria-controls="mobile-menu" role="button" aria-label="Ouvrir le menu">
-        <fa-icon [icon]="faBars" size="1x" class="text-white"></fa-icon>
+    <button id="hamburger-icon" class="btn bg-none" (click)="toggleNavbar()" [attr.aria-expanded]="isExpanded ? 'true' : 'false'" aria-controls="mobile-menu" role="button" [attr.aria-label]="isExpanded ? 'Fermer le menu' : 'Ouvrir le menu'" [attr.aria-hidden]="isExpanded ? 'true' : 'false'">
+        <fa-icon [icon]="faBars" size="1x" class="text-white" aria-hidden="true"></fa-icon>
     </button>
     <p class="text-logo text-white text-xlarge p-2">DocDirect</p>
-    <ul id="navbar-content" class="navbar-content">
-            <li><a [routerLink]="['/home']">Accueil</a></li>
-            <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/list-health-professional']" >Prendre rendez-vous</a></li>
-            <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/appointments']">Mes rendez-vous</a></li>
-            <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/registration-user']">Créer un compte</a></li>
-            <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/login-user']">Se connecter</a></li>
-            <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/registration-health-professional']">Vous êtes praticien ?</a></li>
-            <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()"><a (click)="logout()">Déconnexion</a></li>
-            <li *ngIf="isAccessTokenUserValid()"><a [routerLink]="['/profile']" aria-label="Profil utilisateur" ><fa-icon [icon]="faUser" size="2x" class="text-white"></fa-icon></a></li>
-            <li *ngIf="isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/profile']" aria-label="Profil professionnel de la santé"><fa-icon [icon]="faUserDoctor" size="2x" class="text-white"></fa-icon></a></li>
+    <ul id="navbar-content" class="navbar-content" aria-label="Liens de navigation">
+        <li><a [routerLink]="['/home']">Accueil</a></li>
+        <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()">
+            <a [routerLink]="['/list-health-professional']" aria-label="Prendre rendez-vous">Prendre rendez-vous</a>
+        </li>
+        <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()">
+            <a [routerLink]="['/appointments']" aria-label="Mes rendez-vous">Mes rendez-vous</a>
+        </li>
+        <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()">
+            <a [routerLink]="['/registration-user']" aria-label="Créer un compte">Créer un compte</a>
+        </li>
+        <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()">
+            <a [routerLink]="['/login-user']" aria-label="Se connecter">Se connecter</a>
+        </li>
+        <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()">
+            <a [routerLink]="['/registration-health-professional']" aria-label="Créer un compte praticien">Vous êtes praticien ?</a>
+        </li>
+        <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()">
+            <button class="btn btn-none" aria-label="Déconnexion" (click)="logout()">Déconnexion</button>
+        </li>
+        <li *ngIf="isAccessTokenUserValid()">
+            <a [routerLink]="['/profile']" aria-label="Profil utilisateur"><fa-icon [icon]="faUser" size="2x" class="text-white" aria-hidden="true"></fa-icon></a>
+        </li>
+        <li *ngIf="isAccessTokenHealthProfessionalValid()">
+            <a [routerLink]="['/profile']" aria-label="Profil praticien"><fa-icon [icon]="faUserDoctor" size="2x" class="text-white" aria-hidden="true"></fa-icon></a>
+        </li>
     </ul>
-    <ul id="mobile-menu" class="mobile-menu bg-gradient" [ngClass]="{open: isExpanded}">
-        <li class="text-right">            
-            <button class="btn bg-none" (click)="toggleNavbar()"><fa-icon [icon]="faBars" size="1x" class="text-white" aria-controls="mobile-menu" role="button" aria-label="Fermer le menu" ></fa-icon></button>
+    <ul id="mobile-menu" class="mobile-menu bg-gradient" [ngClass]="{open: isExpanded}" aria-label="Menu mobile">
+        <li class="text-right" *ngIf="isExpanded">
+            <button id="hamburger-icon-open" class="btn bg-none" (click)="toggleNavbar()" [attr.aria-expanded]="isExpanded ? 'true' : 'false'" aria-controls="mobile-menu" role="button" [attr.aria-label]="isExpanded ? 'Fermer le menu' : 'Ouvrir le menu'" [attr.aria-hidden]="isExpanded ? 'false' : 'true'">
+                <fa-icon [icon]="faBars" size="1x" class="text-white" aria-hidden="true"></fa-icon>
+            </button>
         </li>
         <li><a [routerLink]="['/home']">Accueil</a></li>
-        <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/list-health-professional']">Prendre rendez-vous</a></li>
-        <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/appointments']">Mes rendez-vous</a></li>
-        <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/registration-user']">Créer un compte</a></li>
-        <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/login-user']">Se connecter</a></li>
-        <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/registration-health-professional']">Vous êtes praticien ?</a></li>
-        <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()"><a [routerLink]="['/profile']" >Mon profil</a></li>
-        <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()"><a (click)="logout()">Déconnexion</a></li>
+        <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()">
+            <a [routerLink]="['/list-health-professional']">Prendre rendez-vous</a>
+        </li>
+        <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()">
+            <a [routerLink]="['/appointments']">Mes rendez-vous</a>
+        </li>
+        <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()">
+            <a [routerLink]="['/registration-user']">Créer un compte</a>
+        </li>
+        <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()">
+            <a [routerLink]="['/login-user']">Se connecter</a>
+        </li>
+        <li *ngIf="!isAccessTokenUserValid() && !isAccessTokenHealthProfessionalValid()">
+            <a [routerLink]="['/registration-health-professional']">Vous êtes praticien ?</a>
+        </li>
+        <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()">
+            <a [routerLink]="['/profile']">Mon profil</a>
+        </li>
+        <li *ngIf="isAccessTokenUserValid() || isAccessTokenHealthProfessionalValid()">
+            <button class="btn btn-none" aria-label="Déconnexion" (click)="logout()">Déconnexion</button>
+        </li>
     </ul>
 </nav>

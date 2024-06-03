@@ -12,3 +12,18 @@
     }
     
 }
+
+.container-button-login-health-professional{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 0.5rem;
+    span{
+        margin-top: 1rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .container-button-login-health-professional{
+    }
+}

@@ -9,6 +9,7 @@ import { HealthProfessionalStatus } from '../../enums/health-professional-status
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { AuthService } from '../../../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registation-healt-professional',
@@ -39,11 +40,11 @@ export class RegistrationHealthProfessionalComponent implements OnInit {
     // Liste des heures de 00h00 à 23h00
     hoursOfDay = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
 
-  constructor(private authService: AuthService, private fb: FormBuilder) {
+  constructor(private authService: AuthService, private fb: FormBuilder, private router : Router) {
 
     this.addHealthProfessionalForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['',[Validators.required, Validators.minLength(6)]],
+      password: ['',[Validators.required]],
       passwordConfirm: ['',Validators.required],
       lastname: ['',Validators.required],
       firstname: ['',Validators.required],
@@ -75,6 +76,12 @@ export class RegistrationHealthProfessionalComponent implements OnInit {
         return;
       }else{
         // Création de la variable d'avaibilities à partir des données du formulaire
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*_])(?=.*\d)(?=.*[a-z]).{12,}$/;
+        if (!passwordRegex.test(this.addHealthProfessionalForm?.value.password)) {
+          this.errorMsg = 'Le mot de passe doit contenir au moins 12 caractères, une lettre majuscule, une lettre minuscule et un chiffre.';
+          return;
+        }
+        this.errorMsg = '';
         const availabilities = [];
         for (const day of ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']) {
           if (this.addHealthProfessionalForm.value[day]) {
@@ -87,7 +94,6 @@ export class RegistrationHealthProfessionalComponent implements OnInit {
           }
         } 
 
-        this.errorMsg = '';
         const healthProfessionalData = {
           email: this.addHealthProfessionalForm.value.email,
           password: this.addHealthProfessionalForm.value.password,
@@ -102,29 +108,18 @@ export class RegistrationHealthProfessionalComponent implements OnInit {
       
         this.authService.registerHealthProfessional(healthProfessionalData).pipe(first()).subscribe(
           (data) => {
-            console.log(data);
+            this.router.navigate(['/login-health-professional']);
           },
           (error) => {
+            this.errorMsg = 'Une erreur est survenue lors de l\'enregistrement du professionnel de santé.';
             console.error(error);
           }
         );
       }
     }else{
-      if(this.addHealthProfessionalForm.controls['email'].errors?.['email']){
-        this.errorMsg = 'Veuillez saisir un email valide.';
-        return;
-      }
-      if(this.addHealthProfessionalForm.controls['password'].errors?.['minlength']){
-        this.errorMsg = 'Le mot de passe doit contenir au moins 6 caractères.';
-        return;
-      }
-      this.errorMsg = 'Veuillez remplir tous les champs *';
-      console.log(this.addHealthProfessionalForm.value);
-      
+      this.errorMsg = 'Veuillez remplir tous les champs *';      
       return;
-    }
-    console.log(this.addHealthProfessionalForm.value);
-    
+    }    
   }
 
  
