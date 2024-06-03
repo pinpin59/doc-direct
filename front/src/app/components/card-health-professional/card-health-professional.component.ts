@@ -11,12 +11,13 @@ import { DateFormatterPipe } from '../../pipes/date-formatter.pipe';
 import { environment } from '../../../../environments/environments';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { AlertComponent } from '../alert/alert.component';
 @Component({
     selector: 'app-card-health-professional',
     standalone: true,
     templateUrl: './card-health-professional.component.html',
     styleUrl: './card-health-professional.component.scss',
-    imports: [CommonModule, DateFormatterPipe, FontAwesomeModule]
+    imports: [CommonModule, DateFormatterPipe, FontAwesomeModule, AlertComponent]
 })
 
 export class CardHealthProfessionalComponent implements OnInit{
@@ -28,6 +29,7 @@ export class CardHealthProfessionalComponent implements OnInit{
   groupedAvailabilities: any = [];
   imageUrl?: string;
   faUser = faUser;
+  errorMsg: string = '';
 
   constructor(private availabilityService : AvailabilityService , private router : Router, private authService : AuthService) { }
   
@@ -51,6 +53,9 @@ export class CardHealthProfessionalComponent implements OnInit{
       const appointmentJson = JSON.stringify(appointment);
       sessionStorage.setItem('currentAppointment', appointmentJson);
       this.router.navigate(['/confirmation-appointment']);
+    }
+    if(!this.currentUser){
+      this.errorMsg = "Vous n'êtes pas autorisé à prendre un rendez-vous"
     }
   }
 
@@ -109,7 +114,7 @@ export class CardHealthProfessionalComponent implements OnInit{
      return this.groupedAvailabilities;
   }
 
-  navigateToConfirmationAppointment(params:any) {
+  navigateToConfirmationAppointment(params:any) {    
     this.router.navigate(['/confirmation-appointment']);
   }
 

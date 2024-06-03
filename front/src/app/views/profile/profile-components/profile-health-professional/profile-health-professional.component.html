@@ -20,16 +20,15 @@
  
 <!-- Deuxième composant : informations de l'utilisateur --> 
 <section *ngIf="currentHealthProfessional" class="profile-main bg-white">
-
     <section>
         <h3 class="text-xlarge">Informations personnelles</h3>
-
         <p class="mt-4 text-medium"><strong>Adresse :</strong> {{currentHealthProfessional.address}}</p>
         <p class="mt-4 text-medium"> <strong>Email :</strong> {{currentHealthProfessional.email}}</p>
         <p class="mt-4 text-medium"><strong>Ville :</strong> {{currentHealthProfessional.city}}</p>
-        <app-button color="danger" class="mt-4" (click)="openModalDeleteProfileHealthProfessional()">Supprimer mon profil</app-button>
+        <app-button color="danger" class="mt-4 me-2" (click)="openModalDeleteProfileHealthProfessional()">Supprimer mon profil</app-button>
+        <app-button color="primary" (click)="openModalEditHealthProfessional(currentHealthProfessional)" class="mt-4 btn-xl">Modifier mon profil</app-button>
+
     </section>
-   
 </section> 
 
 
@@ -61,6 +60,42 @@
     </div>
     <div class="modal-footer">
         <app-button color="danger" (click)="closeModalDeleteProfileHealthProfessionalConfirm()" class="btn-md">Annuler</app-button>
-        <app-button  class="btn-md ms-3" (click)="deleteUser()" >Confirmer</app-button>
+        <app-button  class="btn-md ms-3" (click)="deleteHealthProfessional()" >Confirmer</app-button>
+    </div>
+</dialog>
+
+
+<!-- Modal pour modifier un health professional -->
+<dialog #modalEditHealthProfessional aria-modal="true" aria-labelledby="modalLabel" class="custom-modal">
+    <div class="modal-header">
+        <h2 id="modalLabel">Modifier les informations</h2>
+        <button class="close-button" (click)="closeModalEditHealthProfessional()" aria-label="Fermer">&times;</button>
+    </div>
+    <div class="modal-body">
+        <form id="signupForm" [formGroup]="editFormHealthProfessional" class="registration-form bg-white mx-auto" aria-labelledby="formTitle">
+            <div class="form-group-global">
+                    <label for="email">Adresse e-mail *</label>
+                    <input type="email" autocomplete="username" formControlName="email" class="form-control" id="email" name="email" placeholder="Entrez votre e-mail" required aria-required="true">
+            
+                    <label for="lastname">Nom de famille *</label>
+                    <input type="text" formControlName="lastname" class="form-control" id="lastname" name="lastname" placeholder="Entrez votre nom de famille" required aria-required="true">
+    
+                    <label for="firstname">Prénom *</label>
+                    <input type="text" formControlName="firstname" class="form-control" id="firstname" name="firstname" placeholder="Entrez votre prénom" required aria-required="true">
+    
+                    <label for="city">Ville *</label>
+                    <input type="text" formControlName="city" class="form-control" id="city" name="city" placeholder="Entrez votre ville" required aria-required="true">
+    
+                    <label for="address">Adresse *</label>
+                    <input type="text" formControlName="address" class="form-control" id="address" name="address" placeholder="Entrez votre adresse" required aria-required="true">
+    
+                    <label for="profession">Profession *</label>
+                    <input type="text" formControlName="profession" class="form-control" id="profession" name="profession" placeholder="Entrez votre profession" required aria-required="true">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <app-button color="danger" (click)="closeModalEditHealthProfessional()"  class="btn-md">Annuler</app-button>
+        <app-button  class="btn-md ms-3" (click)="updateHealthProfessional()" >Confirmer</app-button>
     </div>
 </dialog>

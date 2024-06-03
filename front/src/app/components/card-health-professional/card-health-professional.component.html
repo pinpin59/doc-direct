@@ -18,9 +18,9 @@
           <!-- Parcoure les jours de la semaine -->
           <tr class="d-flex flex-column" *ngFor="let dayOfWeek of groupedAvailabilities">
             <!-- Afficher le jour de la semaine -->
-            <td class="mx-auto mb-1">{{ dayOfWeek.dayOfWeek }}</td>
-            <td *ngIf="dayOfWeek.availabilities.length > 0" class="mx-auto mb-3">{{ dayOfWeek.availabilities[0].dateOfWeek | dateFormatter }}</td>
-            <td *ngIf="dayOfWeek.availabilities.length < 1" class="mx-auto mb-3">Aucune</td>
+            <td class="mb-1 title-day">{{ dayOfWeek.dayOfWeek }}</td>
+            <td *ngIf="dayOfWeek.availabilities.length > 0" class="title-date">{{ dayOfWeek.availabilities[0].dateOfWeek | dateFormatter }}</td>
+            <td *ngIf="dayOfWeek.availabilities.length < 1" class="title-date">Aucune</td>
             <td>
               <!-- Parcourir les disponibilités pour ce jour de la semaine -->
               <ul>
@@ -31,8 +31,9 @@
             </td>
           </tr>
         </tbody>
+        <ng-container *ngIf="errorMsg">
+          <app-alert class="ms-2 pb-2 text-bold" message={{errorMsg}}></app-alert>
+        </ng-container>
       </table>
-    <footer class="card-footer">
-        <button class="btn btn-primary">Prendre rendez-vous</button>
-    </footer>
+   
 </article>

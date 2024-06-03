@@ -70,7 +70,18 @@
     max-height: 400px;
     overflow-y: auto;
     justify-content: space-between;
+    flex-direction: column;
     padding: 20px;
+    
+}
+
+.title-day{
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.title-date{
+    text-align: center;
 }
 
 .li-card{
@@ -101,4 +112,19 @@
 .active{
     background-color: #5a5b5b87;
     border-radius: 3px;
+}
+
+@media screen and (min-width: 768px) {
+    .body-table-card{
+        display: flex;
+        max-height: 400px;
+        overflow-y: auto;
+        justify-content: space-between;
+        flex-direction: row;
+        padding: 20px;
+    }
+    .title-day{
+        text-align: center;
+        margin-top: 0rem;
+    }
 }
