@@ -26,6 +26,11 @@ exports.loginUser = async (req, res) => {
 
 exports.registerUser = async (req, res) => {
     const { email, password, lastname, firstname, city, address, role  } = req.body
+    //Véfifie si le mot de passe est minimun de 12 caractères, possède au moins une lettre majuscule, un caractère spécial et un chiffre
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*_])(?=.*\d)(?=.*[a-z]).{12,}$/;
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({ error: 'Le mot de passe doit contenir au moins 12 caractères, une lettre majuscule, une lettre minuscule et un chiffre.' });
+    }
     // Vérifiez si l'utilisateur existe déjà
     const existingUser = await User.findOne({ where: { email: email } });
     if (existingUser) {
@@ -65,6 +70,11 @@ exports.loginHealthProfessional = async (req, res) => {
 
 exports.registerHealthProfessional = async (req, res) => {
     const { email, password, lastname, firstname, city, address,profession,profilePicture, status ,availabilities} = req.body
+    //Véfifie si le mot de passe est minimun de 12 caractères, possède au moins une lettre majuscule, un caractère spécial et un chiffre
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*_])(?=.*\d)(?=.*[a-z]).{12,}$/;
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({ error: 'Le mot de passe doit contenir au moins 12 caractères, une lettre majuscule, une lettre minuscule et un chiffre.' });
+    }
     // Vérifiez si l'utilisateur existe déjà
     const existingHealthProfessional = await HealthProfessional.findOne({ where: { email: email } });
 
