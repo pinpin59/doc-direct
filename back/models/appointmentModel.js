@@ -80,6 +80,7 @@ Appointment.belongsTo(HealthProfessional, {
 
 // Hook "afterFind" pour nettoyer les données avant qu'elles ne soient renvoyées
 Appointment.addHook('afterFind', (instanceOrInstances) => {
+  if(!instanceOrInstances) return;
   if (Array.isArray(instanceOrInstances)) {
       // Si plusieurs instances sont trouvées, nettoyez chaque instance
       instanceOrInstances.forEach(instance => {

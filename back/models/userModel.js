@@ -59,6 +59,7 @@ const User = sequelize.define(
 
 // Hook "afterFind" pour nettoyer les données avant qu'elles ne soient renvoyées
 User.addHook('afterFind', (instanceOrInstances) => {
+  if(!instanceOrInstances) return;
   if (Array.isArray(instanceOrInstances)) {
       // Si plusieurs instances sont trouvées, nettoyez chaque instance
       instanceOrInstances.forEach(instance => {
