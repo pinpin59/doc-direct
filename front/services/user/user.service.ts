@@ -33,6 +33,9 @@ export class UserService {
         return this.http.delete(`${this.apiUrl}/users/${userId}`, { headers: this.getHeaders(), withCredentials: true });
     }
 
+    updateUserProfile(userId: number, user: any): Observable<any> {
+        return this.http.put(`${this.apiUrl}/users/${userId}`, user, { headers: this.getHeaders(), withCredentials: true});
+    }
 
     uploadProfilePictureUser(userId:number, file: File): Observable<any> {
         const formData = new FormData();
