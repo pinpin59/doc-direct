@@ -3,7 +3,6 @@ const Appointment = require('../models/appointmentModel');
 const fs = require('fs');
 const path = require('path');
 const { generateToken } = require('../jwtUtils');
-const { log } = require('console');
 
 
  

@@ -11,7 +11,6 @@ const doubleCsrfOptions = {
     },
     getTokenFromRequest: (req) => {
         if (req.headers["x-csrf-token"] != null) {
-            console.log(req.headers["x-csrf-token"]);
             return req.headers["x-csrf-token"];
         } else {
             return req.body["_csrf"];
