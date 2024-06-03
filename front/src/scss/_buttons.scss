@@ -109,3 +109,10 @@
     background-color: $dark;
 }
 
+.btn-none {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}

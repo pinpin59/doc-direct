@@ -21,10 +21,12 @@ h1, h2, h3, h4, h5, h6, legend, label, summary,td, tr {
   font-family: 'Rubik-light', sans-serif;
 }
 
-p,li, a,button,span {
+p,li, a,button,span, .btn-none {
   font-family: 'Karla-light', sans-serif;
   font-size: 1rem;
 }
+
+
 fieldset{
   border-color: transparent;
 }

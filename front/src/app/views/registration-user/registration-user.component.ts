@@ -22,7 +22,7 @@ export class RegistrationUserComponent implements OnInit{
   constructor(private fb: FormBuilder, private authService : AuthService, private router : Router) {
     this.registrationForm = this.fb.group({
       email: ['',[Validators.required, Validators.email]],
-      password: ['',[Validators.required, Validators.minLength(6)]],
+      password: ['',[Validators.required]],
       passwordConfirm: ['',Validators.required],
       firstname: ['',Validators.required],
       lastname: ['',Validators.required],
@@ -35,23 +35,20 @@ export class RegistrationUserComponent implements OnInit{
   }
 
   onSubmitRegistration(){
-    console.log(this.registrationForm);
-    
+    console.log(this.registrationForm?.value);
     if(this.registrationForm?.valid){
+      
       if(this.registrationForm?.value.password !== this.registrationForm?.value.passwordConfirm){
         this.errorMsg = 'Votre mot de passe est différent de la confirmation de mot de passe.';
         return;
       }
+      const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*_])(?=.*\d)(?=.*[a-z]).{12,}$/;
+      if (!passwordRegex.test(this.registrationForm?.value.password)) {
+        this.errorMsg = 'Le mot de passe doit contenir au moins 12 caractères, une lettre majuscule, une lettre minuscule et un chiffre.';
+        return;
+      }
       // Call the registration method      
     }else{
-      if(this.registrationForm.controls['email'].errors?.['email']){
-        this.errorMsg = 'Veuillez saisir un email valide.';
-        return;
-      }
-      if(this.registrationForm.controls['password'].errors?.['minlength']){
-        this.errorMsg = 'Le mot de passe doit contenir au moins 6 caractères.';
-        return;
-      }
       this.errorMsg = 'Veuillez remplir tous les champs *';
       return;
     }
@@ -69,10 +66,16 @@ export class RegistrationUserComponent implements OnInit{
 
   registrationUser(user:User){
     // Call the registration method
-    this.authService.registerUser(user).subscribe((data) => {
-      console.log(data);
-      //Navigate to the login page
-      //this.router.navigate(['/login']);
-    });
+    this.authService.registerUser(user).subscribe(
+      (data) => {
+        console.log(data);
+        this.router.navigate(['/login-user']);
+      },
+      (error) => {
+        console.error('Erreur lors de l\'enregistrement de l\'utilisateur:', error);
+        this.errorMsg = 'Une erreur est survenue lors de l\'enregistrement.';
+        // Vous pouvez également afficher une notification à l'utilisateur ici
+      }
+    );
   }
 }
