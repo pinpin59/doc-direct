@@ -65,7 +65,6 @@ export class RegistrationUserComponent implements OnInit{
   }
 
   registrationUser(user:User){
-    // Call the registration method
     this.authService.registerUser(user).subscribe(
       (data) => {
         console.log(data);
@@ -74,7 +73,6 @@ export class RegistrationUserComponent implements OnInit{
       (error) => {
         console.error('Erreur lors de l\'enregistrement de l\'utilisateur:', error);
         this.errorMsg = 'Une erreur est survenue lors de l\'enregistrement.';
-        // Vous pouvez également afficher une notification à l'utilisateur ici
       }
     );
   }
