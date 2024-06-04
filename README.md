@@ -8,8 +8,8 @@ DocDirect est un site qui permet de mettre en relation les patients et les profe
 1. Cloner le dépot et accéder au dossier du projet :
 
 ```bash
-  git clone [git@github.com:pinpin59/doc-direct.git]
-  cd [doc-direct]
+  git clone git@github.com:pinpin59/doc-direct.git
+  cd doc-direct
 ```
 
 2. Créez une base de données MySQL nommée docdirect :
