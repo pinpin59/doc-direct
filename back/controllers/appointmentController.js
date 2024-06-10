@@ -74,7 +74,6 @@ exports.getAllAppointmentByUserId = async (req, res) => {
 
 exports.getAllAppointmentByHealthProfessionalId = async (req, res) => {
   try {
-    console.log(req.params);
     //Verifie si l'id du professionnel de santé existe
     const healthProfessional = await HealthProfessional.findByPk(req.params.healthProfessionalId)
     if (!healthProfessional) {

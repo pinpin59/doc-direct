@@ -1,5 +1,6 @@
 const HealthProfessional = require('../models/healthProfessionalModel');
 const Appointment = require('../models/appointmentModel');
+const User = require('../models/userModel');
 const { sequelize } = require('../services/connectDb');
 const _ = require('lodash');
 const fs = require('fs');
@@ -29,6 +30,18 @@ exports.getHealthProfessionalById = async (req, res, next) => {
     }
     const camelCaseHealthProfessional = _.mapKeys(healthProfessional.dataValues, (value, key) => _.camelCase(key));
     res.json(camelCaseHealthProfessional)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
+exports.getUserById = async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' })
+    }
+    res.json(user)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
