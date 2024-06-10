@@ -4,6 +4,8 @@ import { HealthProfessionalService } from '../../../../services/health-professio
 import { HealthProfessional } from '../../../../interfaces/healthProfessional.interface';
 import { CommonModule } from '@angular/common';
 import { AppointmentService } from '../../../../services/appointment/appointment.service';
+import { User } from '../../../../interfaces/user.interface';
+import { UserService } from '../../../../services/user/user.service';
 
 @Component({
   selector: 'app-card-appointment',
@@ -18,25 +20,34 @@ export class CardAppointmentComponent implements OnInit{
   @Output() appointmentAction = new EventEmitter<any>();
 
   healthProfessional ?: HealthProfessional;
+  user?:User;
 
-  constructor(private heatlhProfessionalService : HealthProfessionalService, private appointmentService : AppointmentService) { }
+  constructor(private heatlhProfessionalService : HealthProfessionalService, private userService : UserService, private appointmentService : AppointmentService) { }
 
   ngOnInit(): void {
-    console.log(this.appointment);
-    if(this.appointment)
-      this.getHealthProfessionalById(this.appointment?.healthProfessionalId);
-    
+    if(this.appointment){
+      this.getHealthProfessionalById(this.appointment.healthProfessionalId);
+      this.getUserById(this.appointment.userId);
+    }
   }
 
   getHealthProfessionalById(healthProfessionalId:number){
     this.heatlhProfessionalService.getHealthProfessionalById(healthProfessionalId).subscribe((data) => {
       this.healthProfessional = data;
+      console.log(this.healthProfessional);
+    });
+  }
+
+  getUserById(userId:number){
+    this.heatlhProfessionalService.getUserById(userId).subscribe((data) => {
+      console.log(data);
+      
+      this.user = data;
     });
   }
 
   deleteAppointmentById(appointmentId:number){
     this.appointmentService.deleteAppointmentById(appointmentId).subscribe((data) => {
-      console.log('Appointment deleted');
       this.onAction();
     });
   }

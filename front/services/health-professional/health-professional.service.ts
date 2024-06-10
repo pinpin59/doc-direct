@@ -30,9 +30,12 @@ export class HealthProfessionalService {
         if (csrfToken) {
             headers = headers.set('x-csrf-token', csrfToken); // Inclue le jeton CSRF dans les en-têtes
         }
-        console.log(csrfToken);
         
         return headers;
+    }
+
+    getUserById(userId: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/health-professionals/user/${userId}`, { headers: this.getHeaders() });
     }
 
     // Réccupère les professionnels de santé
@@ -65,7 +68,6 @@ export class HealthProfessionalService {
     uploadProfilePictureHealthProfessional(userId:number, file: File): Observable<any> {
         const formData = new FormData();
         formData.append('profilePicture', file);
-        console.log('formData:', formData);
         return this.http.post(`${this.apiUrl}/health-professionals/${userId}/upload-health-professional-profile-picture`, formData, { headers: this.getHeaders(), withCredentials: true});
     }
   

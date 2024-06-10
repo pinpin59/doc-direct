@@ -34,10 +34,6 @@ export class ProfileComponent implements OnInit{
         this.currentUser = userInfo as User;
       } else if (healthProfessionalInfo) {
         this.currentHealthProfessional = healthProfessionalInfo as HealthProfessional;
-      }
-    
-      console.log(this.authService.getUserInfoFromToken());
-      console.log(this.authService.getHealthProfessionalInfoFromToken());
-      
+      }    
   };
 }

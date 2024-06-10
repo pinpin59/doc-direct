@@ -15,11 +15,13 @@ export const routes: Routes = [
     {title:'Liste des professionnels de santé', canActivate:[authGuard] ,path: 'list-health-professional', loadComponent: () => import('./views/list-health-professional/list-health-professional.component').then(c => c.ListHealthProfessionalComponent) },
     {title:'Confirmation rendez-vous', canActivate:[authUserGuard], path: 'confirmation-appointment', loadComponent: () => import('./views/list-health-professional/list-health-professional-details/list-health-professional-details.component').then(c => c.ListHealthProfessionalDetailsComponent) },
     {title :'Mes rendez-vous', canActivate:[authGuard], path: 'appointments', loadComponent: () => import('./views/list-appointment/list-appointment.component').then(c => c.ListAppointmentComponent) },
+    {title :'Mentions légales', path: 'legal-notice', loadComponent: () => import('./views/pages/legal-notice/legal-notice.component').then(c => c.LegalNoticeComponent) },
+    {title :'Contact', path: 'contact', loadComponent: () => import('./views/pages/contact/contact.component').then(c => c.ContactComponent) },
     {title: 'Panel admin',canActivate:[isAdminGuard], path: 'panel-admin', loadComponent: () => import('./views/panel-admin/panel-admin.component').then(c => c.PanelAdminComponent),
     children: [
         { path: 'users', loadComponent: () => import('./views/panel-admin/panel-admin-user/panel-admin-user.component').then(c => c.PanelAdminUserComponent) },
         { path: 'health-professionals', loadComponent: () => import('./views/panel-admin/panel-admin-health-professional/panel-admin-health-professional.component').then(c => c.PanelAdminHealthProfessionalComponent) },
         { path: '', redirectTo: 'health-professionals', pathMatch: 'full' }
       ]}
-];
+]; 
  

@@ -5,6 +5,7 @@
     <article class="appointment-card-content">
         <ul class="appointment-details-list">
             <li *ngIf="isUser"><strong>Praticien :{{healthProfessional?.lastname}} {{healthProfessional?.firstname}}</strong></li>
+            <li *ngIf="!isUser"><strong>Patient :{{user?.lastname}} {{user?.firstname}}</strong></li>
             <li><strong>Date :{{appointment.appointmentDate}}</strong></li>
             <li><strong>Heure : {{appointment.appointmentTime}}</strong></li>
             <li><strong>Adresse :{{appointment.appointmentAddress}}, {{appointment.appointmentCity}}</strong></li>

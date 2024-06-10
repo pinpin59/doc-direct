@@ -58,11 +58,17 @@ export class ProfileUserComponent {
   }
 
    // Fonction pour gérer la sélection de fichier
-   async onFileChange(event: Event): Promise<void> {
+  async onFileChange(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
 
     if (file) {
+        // Vérifie si l'extension du fichier est .png ou .jpg
+        const fileNameLowercase = file.name.toLowerCase();
+        if (!fileNameLowercase.endsWith('.png') && !fileNameLowercase.endsWith('.jpg') && !fileNameLowercase.endsWith('.jpeg')) {
+          console.error('Seuls les fichiers .png, .jpg et .jpeg sont autorisés');
+          return;
+        }
         try {          
             const currentUserId = this.currentUser?.id;
             if(currentUserId && file){
@@ -109,7 +115,6 @@ export class ProfileUserComponent {
   deleteUser(): void {
     if(this.currentUser?.id){
       this.userService.deleteUserProfile(this.currentUser.id).subscribe((data) => {
-        console.log(data);
         this.authService.logout();
       });
     }

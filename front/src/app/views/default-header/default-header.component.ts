@@ -33,9 +33,6 @@ export class DefaultHeaderComponent implements OnInit {
     this.sessionQuery.select().subscribe((session) => {
       this.currentUser = this.authService.getUserInfoFromToken() || this.authService.getHealthProfessionalInfoFromToken();      
     });    
-    console.log(this.isAccessTokenHealthProfessionalValid());
-    console.log(this.isAccessTokenUserValid());
-    
   }
 
   isAccessTokenUserValid(): boolean { 

@@ -20,17 +20,12 @@ export class AuthService {
   constructor(private http: HttpClient, private sessionStore: SessionStore, private sessionQuery: SessionQuery, private router : Router, private csrfService : CsrfService) {}
   
   private getHeaders(): HttpHeaders {
-    const csrfToken = this.csrfService.getCsrfTokenValue(); // Récupérer le jeton CSRF depuis le stockage local
-    console.log('CsrfToken:', csrfToken);
-    
+    const csrfToken = this.csrfService.getCsrfTokenValue(); // Récupérer le jeton CSRF depuis le stockage local    
     let headers = new HttpHeaders();
 
     if (csrfToken) {
       headers = headers.set('x-csrf-token', csrfToken);
     }
-  
-   console.log('Headers:', headers);
-   
     return headers; 
   }
 
@@ -42,9 +37,6 @@ export class AuthService {
             this.sessionStore.update({
               userToken: userToken,
               healthProfessionalToken: null
-            });
-            this.sessionQuery.selectUserToken().subscribe((userToken) => {
-                console.log('Token:', userToken);
             });
         }),
         catchError((error) => {
@@ -89,9 +81,6 @@ export class AuthService {
               userToken: null,
               healthProfessionalToken: healthProfessionalToken
             });
-            this.sessionQuery.selectHealtProfessionalToken().subscribe((healthProfessionalToken) => {
-                console.log('Token:', healthProfessionalToken);
-            });
         }),
         catchError((error) => {
             console.error('Erreur lors de la connexion:', error);
@@ -125,7 +114,6 @@ export class AuthService {
     const accessToken = this.sessionQuery.getValue().userToken;
     const decodedToken = this.decodeToken(accessToken);
     if (decodedToken) {
-      console.log('Decoded token:', decodedToken);
       return decodedToken;
     }
     return null;
@@ -136,7 +124,6 @@ export class AuthService {
     const accessToken = this.sessionQuery.getValue().healthProfessionalToken;
     const decodedToken = this.decodeToken(accessToken);
     if (decodedToken) {
-      console.log('Decoded token:', decodedToken);
       return decodedToken;
     }
     return null;
