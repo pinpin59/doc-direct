@@ -85,7 +85,6 @@ export class CardHealthProfessionalComponent implements OnInit{
         acc[dayOfWeek].push(availability);        
         return acc;
     }, {});
-    console.log(groupedObj);
     
    
     // Liste des jours de la semaine
@@ -108,7 +107,7 @@ export class CardHealthProfessionalComponent implements OnInit{
      // Crée un tableau d'objets avec les jours de la semaine et les disponibilités correspondantes
      this.groupedAvailabilities = orderedDaysOfWeek.map(dayOfWeek => ({
          dayOfWeek,
-         availabilities: groupedObj[dayOfWeek] || [] // Si le jour n'a pas d'availabilities, utilise un tableau vide
+         availabilities: groupedObj[dayOfWeek] || [] // Si le jour n'a pas d'availabilities, utilise  un tableau vide
      }));
      
      return this.groupedAvailabilities;

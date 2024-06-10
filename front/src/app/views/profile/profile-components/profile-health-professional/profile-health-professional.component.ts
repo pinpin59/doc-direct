@@ -64,6 +64,12 @@ export class ProfileHealthProfessionalComponent {
     const file = input.files?.[0];
 
     if (file) {
+        // Vérifie si l'extension du fichier est .png ou .jpg
+        const fileNameLowercase = file.name.toLowerCase();
+        if (!fileNameLowercase.endsWith('.png') && !fileNameLowercase.endsWith('.jpg') && !fileNameLowercase.endsWith('.jpeg')) {
+          console.error('Seuls les fichiers .png, .jpg et .jpeg sont autorisés');
+          return;
+        }
         try {          
             const currentUserId = this.currentHealthProfessional?.id;
             if(currentUserId && file){
@@ -71,7 +77,6 @@ export class ProfileHealthProfessionalComponent {
               //update token
               this.authService.updateTokenHealthProfessional(response.token);
               this.currentHealthProfessional = this.authService.getHealthProfessionalInfoFromToken();
-              console.log(this.currentHealthProfessional);
             }
         } catch (error) {
             console.error('Erreur lors de l\'upload de la photo de profil :', error);
@@ -146,7 +151,6 @@ deleteHealthProfessional(): void {
 updateHealthProfessional(): void {
   const healthProfessional = this.editFormHealthProfessional.value;
   this.healthProfessionalService.updateHealthProfessional(healthProfessional.id,healthProfessional).subscribe((data) => {
-    console.log(data);
     this.authService.updateTokenHealthProfessional(data.token);
     this.currentHealthProfessional = this.authService.getHealthProfessionalInfoFromToken();
     this.closeModalEditHealthProfessional();

@@ -7,17 +7,20 @@ import { AuthService } from '../../../../services/auth/auth.service';
 import { ButtonComponent } from '../../components/button/button.component';
 import { SessionQuery } from '../../session/session.query';
 import { SessionStore } from '../../session/session.store';
+import { AlertComponent } from '../../components/alert/alert.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule,ButtonComponent, RouterModule],
+  imports: [ReactiveFormsModule,ButtonComponent, RouterModule,AlertComponent, CommonModule],
   templateUrl: './login-user.component.html',
   styleUrl: './login-user.component.scss'
 })
 export class LoginUserComponent implements OnInit {
 
   formLoginUser :FormGroup;
+  errorMsg : string = '';
 
   constructor(private authService : AuthService, private fb: FormBuilder, private sessionQuery :SessionQuery, private sessionStore:SessionStore, private router : Router) {
     this.formLoginUser = this.fb.group({
@@ -32,6 +35,7 @@ export class LoginUserComponent implements OnInit {
     try {
       const response = await this.authService.loginUser(email, password).pipe(first()).toPromise();
     } catch (error) {
+      this.errorMsg = 'Erreur lors de la tentative votre tentative ! Veuillez réessayer.';
       console.error('Une erreur est survenue lors de la connexion de l\'utilisateur', error);
     }
   }
@@ -50,8 +54,8 @@ export class LoginUserComponent implements OnInit {
             const userInfo = this.authService.isAccessUserTokenValid();
             
             if (userInfo) {
-              this.router.navigate(['/home']);
-                // Si les informations de l'utilisateur sont correctes, redirigez vers la nouvelle page
+              // Si les informations de l'utilisateur sont correctes, redirige vers la nouvelle page
+              this.router.navigate(['/list-health-professional']);
             } else {
                 console.error('Les informations de l\'utilisateur ne sont pas présentes dans le store.');
             }
@@ -60,7 +64,7 @@ export class LoginUserComponent implements OnInit {
             console.error('Erreur lors de l\'authentification:', error);
         }
     } else {
-        console.log('Formulaire invalide');
+        this.errorMsg = 'Veuillez remplir tous les champs';
     }
   }
 

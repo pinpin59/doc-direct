@@ -29,7 +29,6 @@ export class ListHealthProfessionalDetailsComponent implements OnInit {
       const appointmentJson = sessionStorage.getItem('currentAppointment');
       if (appointmentJson) {
           this.currentAppointment = JSON.parse(appointmentJson);
-          console.log(this.currentAppointment);
           if(this.currentAppointment?.healthProfessionalId){
             this.getHealthProfessionalById(this.currentAppointment.healthProfessionalId);
           }          
@@ -41,7 +40,6 @@ export class ListHealthProfessionalDetailsComponent implements OnInit {
   async getHealthProfessionalById(id: number){
     this.healthProfessionalService.getHealthProfessionalById(id).subscribe((data) => {
       this.currentHealthProfessional = data;
-      console.log(this.currentHealthProfessional);
     });
   }
 
@@ -51,12 +49,9 @@ export class ListHealthProfessionalDetailsComponent implements OnInit {
   }
 
   createAppointment(): void {
-    if(this.currentAppointment){
-      console.log(this.currentAppointment);
-      
+    if(this.currentAppointment){      
       this.comment ? this.currentAppointment.comment = this.comment : null;
       this.appointmentService.createAppointment(this.currentAppointment).pipe(first()).subscribe((data) => {
-        console.log(data);
         this.router.navigate(['/list-health-professional']);
       });
     }

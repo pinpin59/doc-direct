@@ -27,9 +27,7 @@ export class ListHealthProfessionalComponent implements OnInit{
   }
 
   getHealthProfessionals(){
-    this.healthProfessionalService.getHealthProfessionals().subscribe((data) => {
-      console.log(data);
-      
+    this.healthProfessionalService.getHealthProfessionals().subscribe((data) => {      
       this.healthProfessionals = data;
     });
   }

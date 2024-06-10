@@ -35,7 +35,6 @@ export class RegistrationUserComponent implements OnInit{
   }
 
   onSubmitRegistration(){
-    console.log(this.registrationForm?.value);
     if(this.registrationForm?.valid){
       
       if(this.registrationForm?.value.password !== this.registrationForm?.value.passwordConfirm){
@@ -67,7 +66,6 @@ export class RegistrationUserComponent implements OnInit{
   registrationUser(user:User){
     this.authService.registerUser(user).subscribe(
       (data) => {
-        console.log(data);
         this.router.navigate(['/login-user']);
       },
       (error) => {

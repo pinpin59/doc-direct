@@ -6,9 +6,9 @@
 
     <!-- Sinon, donne la possibilité d'ajouter une photo -->
     <button *ngIf="!currentUser.profilePicture" class="add-photo-button ms-3" (click)="openFileInput()" aria-label="Ajouter une photo">
-        <span class="icon-plus">+</span>
+        <span aria-hidden="true" class="icon-plus">+</span>
     </button>
-    <input  #fileInput type="file" style="display: none;" name="profilePicture" (change)="onFileChange($event)">
+    <input aria-hidden="true"  #fileInput type="file" style="display: none;" name="profilePicture" (change)="onFileChange($event)">
 
     <div class="ms-5">
         <h2>{{currentUser.firstname}} {{currentUser.lastname}}</h2>

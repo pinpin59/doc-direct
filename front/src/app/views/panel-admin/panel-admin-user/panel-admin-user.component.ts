@@ -84,7 +84,6 @@ export class PanelAdminUserComponent implements OnInit {
         return of([]);
       })
     ).subscribe((data) => {
-      console.log(data);
       this.users = data as User[];
     });
   }

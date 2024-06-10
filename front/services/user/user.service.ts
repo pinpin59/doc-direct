@@ -29,6 +29,10 @@ export class UserService {
         return headers;
     }
 
+    getUserById(userId: number): Observable<any> {
+        return this.http.get(`${this.apiUrl}/users/${userId}`, { headers: this.getHeaders() });
+    }
+
     deleteUserProfile(userId: number): Observable<any> {
         return this.http.delete(`${this.apiUrl}/users/${userId}`, { headers: this.getHeaders(), withCredentials: true });
     }

@@ -4,18 +4,20 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { first } from 'rxjs';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { ButtonComponent } from '../../components/button/button.component';
+import { CommonModule } from '@angular/common';
+import { AlertComponent } from '../../components/alert/alert.component';
 
 @Component({
   selector: 'app-login-healt-professional',
   standalone: true,
-  imports: [RouterModule, ButtonComponent, ReactiveFormsModule],
+  imports: [RouterModule, ButtonComponent, ReactiveFormsModule, CommonModule, AlertComponent],
   templateUrl: './login-health-professional.component.html',
   styleUrl: './login-health-professional.component.scss'
 })
 export class LoginHealthProfessionalComponent implements OnInit {
   
   formLoginHealthProfessional :FormGroup;
-
+  errorMsg : string = '';
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { 
     this.formLoginHealthProfessional = this.fb.group({
@@ -53,13 +55,16 @@ export class LoginHealthProfessionalComponent implements OnInit {
                 // Si les informations de l'utilisateur sont correctes, redirigez vers la nouvelle page
             } else {
                 console.error('Les informations de l\'utilisateur ne sont pas présentes dans le store.');
+                this.errorMsg = 'Erreur lors de la tentative votre tentative ! Veuillez réessayer.';
             }
         } catch (error) {
             // Gérez les erreurs d'authentification
             console.error('Erreur lors de l\'authentification:', error);
+            this.errorMsg = 'Erreur lors de la tentative votre tentative ! Veuillez réessayer.';
         }
     } else {
         console.log('Formulaire invalide');
+        this.errorMsg = 'Veuillez remplir tous les champs.';
     }
   }
 }

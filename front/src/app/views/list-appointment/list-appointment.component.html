@@ -17,3 +17,6 @@
         <app-card-appointment [appointment]="appointmentHealthProfessional" [isUser]="false" (appointmentAction)="handleAppointmentAction($event)"></app-card-appointment>
     </ng-container>
 </ng-container>
+<ng-container *ngIf="currentAppointment && currentAppointment.length < 1">
+    <p class="text-center mt-5">Vous n'avez pas de rendez-vous à venir</p>
+</ng-container>

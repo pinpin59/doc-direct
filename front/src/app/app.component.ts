@@ -22,7 +22,6 @@ export class AppComponent implements OnInit{
     getCsrfToken() {
       this.csrfService.getCsrfToken().subscribe(
           (data) => {
-              console.log('CsrfToken:', data);
               this.csrfService.setCsrfToken(data.csrfToken);
           },
           (error) => {

@@ -16,8 +16,6 @@ export class CsrfService {
 
     private getHeaders(): HttpHeaders {
         const healthProfessional = this.sessionQuery.getValue().healthProfessionalToken;
-        console.log('HealthProfessionalToken:', healthProfessional);
-        console.log(this.apiUrl);
         
         let headers = new HttpHeaders();
         if (healthProfessional) {

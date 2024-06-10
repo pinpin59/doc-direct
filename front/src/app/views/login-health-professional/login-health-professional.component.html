@@ -19,5 +19,8 @@
             <app-button color="primary" class="me-3">Se connecter</app-button>
             <span><a [routerLink]="['/registration-health-professional']"  class="text-gray">Demande de compte professionnel ?</a></span>
         </div>
+        <ng-container *ngIf="errorMsg">
+            <app-alert class="mt-3" message={{errorMsg}}></app-alert>
+        </ng-container>
     </fieldset>
 </form>
