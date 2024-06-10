@@ -14,7 +14,7 @@ const startServer = port => {
         .on('error', err => {
           if (err.code === 'EADDRINUSE') {
             console.error(
-              `Port ${port} is already in use.`
+              `Port ${port} is already in use.` 
             )
             process.exit(1)
           } else {

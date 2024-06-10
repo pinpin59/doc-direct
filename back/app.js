@@ -18,6 +18,7 @@ const usersRoutes = require('./routes/userRoutes')
 const appointmentRoutes = require('./routes/appointmentRoutes')
 const availabilityRoutes = require('./routes/availabilityRoutes')
 const adminRoutes = require('./routes/adminRoutes')
+const mailerRoutes = require('./routes/mailerRoutes')
 const csrfRoutes = require('./routes/csrfRoutes')
 const corsOptions = {
     origin: 'http://localhost:4200',
@@ -40,6 +41,7 @@ app.use('/api/health-professionals', healthProfessionalsRoutes)
 app.use('/api/appointments', appointmentRoutes)
 app.use('/api/availability', availabilityRoutes)
 app.use('/api/admin', adminRoutes)
+app.use('/api/send-mail', mailerRoutes)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

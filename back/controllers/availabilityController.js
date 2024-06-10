@@ -14,7 +14,6 @@ exports.getAllAvailabilities = async (req, res) => {
 exports.getAvailabilityById = async (req, res) => {
     try {
         const availability = await Availability.findByPk(req.params.id)
-        console.log(availability);
      
         if (!availability) {
             return res.status(404).json({ error: 'Availability not found' })

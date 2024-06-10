@@ -64,6 +64,16 @@ const availabilityData = [
         startTime: '11:00',
         healthProfessionalId: 1
     },
+    {
+        dayOfWeek: 'Jeudi',
+        startTime: '14:00',
+        healthProfessionalId: 1
+    },
+    {
+        dayOfWeek: 'Jeudi',
+        startTime: '15:00',
+        healthProfessionalId: 1
+    },
     // Disponibilités pour le vendredi
     {
         dayOfWeek: 'Vendredi',
