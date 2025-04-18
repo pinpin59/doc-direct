@@ -72,19 +72,29 @@ export class CardHealthProfessionalComponent implements OnInit{
   }
 
   groupAvailabilitiesByDayOfWeek(availabilities: any[]): any[] {
+    
     // Crée un objet pour regrouper les disponibilités par jour de la semaine
     const now = new Date();
     const currentHours = now.getHours();
     const currentMinutes = now.getMinutes();
-    const currentTime = `${currentHours}:${currentMinutes < 10 ? '0' : ''}${currentMinutes}`;
+    const currentSeconds = now.getSeconds();
+    
+    const currentTime = `${currentHours < 10 ? '0' + currentHours : currentHours}:${currentMinutes < 10 ? '0' + currentMinutes : currentMinutes}:${currentSeconds < 10 ? '0' + currentSeconds : currentSeconds}`;
+      
     const groupedObj = availabilities.reduce((acc, availability) => {
         const dayOfWeek = availability.dayOfWeek;
+        
         if (!acc[dayOfWeek]) {
             acc[dayOfWeek] = [];
         }
-        acc[dayOfWeek].push(availability);        
+        
+        acc[dayOfWeek].push(availability);    
+            
         return acc;
     }, {});
+    
+
+    
     
    
     // Liste des jours de la semaine
@@ -98,9 +108,11 @@ export class CardHealthProfessionalComponent implements OnInit{
          ...daysOfWeek.slice(currentDayIndex),
          ...daysOfWeek.slice(0, currentDayIndex)
      ];
+     
     // Filtre les horaires passés pour le jour actuel
     if (groupedObj[daysOfWeek[currentDayIndex]]) {
       groupedObj[daysOfWeek[currentDayIndex]] = groupedObj[daysOfWeek[currentDayIndex]].filter((availability: { startTime: string; }) => {
+        
           return availability.startTime > currentTime;
       });
     }    
@@ -117,11 +129,11 @@ export class CardHealthProfessionalComponent implements OnInit{
     this.router.navigate(['/confirmation-appointment']);
   }
 
-  formatDate(dateString:string): string {
+  formatHours(dateString:string): string {
     // Séparez les parties de la date
-    const [year, month, day] = dateString.split('-');
+    const [hours, minutes, secondes] = dateString.split(':');
     // Recomposez la date au format DD-MM
-    const formattedDate = `${day}-${month}`;
+    const formattedDate = `${hours}h${minutes}`;
     return formattedDate; 
   }
 }

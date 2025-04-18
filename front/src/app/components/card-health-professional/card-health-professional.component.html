@@ -25,7 +25,7 @@
               <!-- Parcourir les disponibilités pour ce jour de la semaine -->
               <ul>
                 <li class="li-card" *ngFor="let availability of dayOfWeek.availabilities" (click)="onSelectAvailability(availability)" [ngClass]="{'active': selectedAvailability === availability}">
-                  {{ availability.startTime }} 
+                  {{ formatHours(availability.startTime) }}
                 </li>
               </ul>
             </td>
